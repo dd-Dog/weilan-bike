@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        style="@style/StatusBarStyle"
+        android:background="@color/black_light" />
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/black_light"
+        actionBar:centerText="@string/tip_46"
+        actionBar:rightEnable="false" />
+
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </WebView>
+
+    <Button
+        android:textSize="20sp"
+        android:textColor="@color/WHITE"
+        android:background="@drawable/wallet_selector"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/tip_47"
+        android:id="@+id/btn_missing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

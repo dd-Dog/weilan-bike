@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/WHITE"
+    android:padding="10dp">
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="开锁帮助"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="在单车的车把和车锁上都印有二维码，只需用手机扫码后，在车锁输入对应密码，稍等片刻车锁会自动打开"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_hint_card3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:src="@mipmap/hint_card_3"
+                tools:ignore="ContentDescription"/>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

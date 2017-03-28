@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="36dp"
+              android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_marginLeft="31.5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.meg7.widget.CircleImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_profile"
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_marginLeft="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/user_icon_size"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="@dimen/username_size"
+            android:text="@string/tip_129"
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/username_color"/>
+
+        <LinearLayout
+            android:id="@+id/ll_identify"
+            android:gravity="center_vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/id_number_green"
+                android:id="@+id/user_identity_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:gravity="center"
+                android:layout_marginLeft="6dp"
+                android:id="@+id/identify_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_verify"
+                android:textColor="@color/green"
+                android:textSize="@dimen/user_textsize"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

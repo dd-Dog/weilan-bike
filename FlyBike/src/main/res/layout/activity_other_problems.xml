@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--这个是隐藏的布局，然后通过动态的设置状态栏高度达到效果-->
+    <include layout="@layout/layout_status_bar" />
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/black_light"
+        actionBar:centerText="@string/tip_8"
+        actionBar:rightEnable="false" />
+    <TextView
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

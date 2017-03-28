@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        android:background="@color/green"
+        style="@style/StatusBarStyle">
+    </LinearLayout>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/green"
+        actionBar:centerText="@string/tip_48"
+        actionBar:rightEnable="false"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_marginTop="32dp"
+        android:background="@color/light_gray"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/user_text_gray"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/tip_78"/>
+
+        <EditText
+            android:textCursorDrawable="@null"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:textColor="@color/text_gray2"
+            android:textColorHint="@color/user_text_gray"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:id="@+id/et_phoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/tip_hint_49"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="204dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="match_parent"
+            android:background="@color/light_gray"
+            android:orientation="horizontal">
+
+            <TextView
+                android:padding="5dp"
+                android:textColor="@color/user_text_gray"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_checkNum"/>
+
+            <EditText
+                android:textCursorDrawable="@null"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:inputType="number"
+                android:textColor="@color/text_gray2"
+                android:textColorHint="@color/user_text_gray"
+                android:textSize="16sp"
+                android:hint="@string/tip_50"
+                android:id="@+id/et_checkNumber"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+           />
+        </LinearLayout>
+        <Button
+            android:layout_marginLeft="7dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/WHITE"
+            android:layout_alignParentRight="true"
+            android:background="@color/gray"
+            android:id="@+id/get_checkNumber"
+            android:text="@string/text_get_checknum"
+            android:layout_width="117dp"
+            android:layout_height="44dp"/>
+    </RelativeLayout>
+
+    <!--<TextView-->
+        <!--android:padding="5dp"-->
+        <!--android:layout_marginLeft="@dimen/margin_left_right"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:textColor="@color/orange"-->
+        <!--android:text="收不到短信,试试语音验证码"-->
+        <!--android:textSize="12sp"-->
+        <!--android:id="@+id/voice_checkNum"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    <Button
+        android:background="@drawable/recharge_button_bg_gray"
+        android:textColor="@color/WHITE"
+        android:textSize="17sp"
+        android:layout_marginTop="30dp"
+        android:text="@string/tip_51"
+        android:layout_margin="16dp"
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"/>
+
+
+   <!-- <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="点击确定,即表示已经阅读并同意用车服务条款"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>-->
+
+</LinearLayout>

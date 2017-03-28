@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="@color/text_gray2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_left_right"
+        android:text="@string/tip_92"
+        android:textSize="@dimen/user_textsize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@null"
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/tip_93"
+            android:textColor="#3f86ff"
+            android:textSize="@dimen/username_size"
+            android:textStyle="bold"/>
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@null"
+            android:textColor="#3f86ff"
+            android:id="@+id/btn_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/tip_94"
+            android:textSize="@dimen/username_size"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.wlcxbj.bike">
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+
+    <!-- 阿里云推送相关权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!--shareSDk-->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <!--短信验证-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+
+    <!--允许程序打开网络套接字-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!--用于访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!--用于写入缓存数据到扩展存储卡-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+
+    <application
+        android:name="com.wlcxbj.bike.global.ShareBikeApplication"
+        android:allowBackup="true"
+        android:theme="@style/AppTheme"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <!-- 开发模式，debug:调试（开发）模式，test:测试模式，release:生产模式-->
+        <meta-data android:value="release" android:name="DEV_MODEL"/>
+
+        <meta-data android:name="com.alibaba.app.appkey" android:value="23699117"/> <!-- 阿里推送，请填写你自己的- appKey -->
+        <meta-data android:name="com.alibaba.app.appsecret" android:value="07dd447a5d06e4f0408fc360c4019082"/> <!-- 阿里推送，请填写你自己的appSecret -->
+
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="f2f68d8aa1e12f22c0130b6da47d62b6"/>
+
+        <activity
+            android:name="com.wlcxbj.bike.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--短信验证activity-->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name="com.wlcxbj.bike.activity.MapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TestScanActivity"/>
+        <activity android:name=".activity.ManualInputSerialActivity"/>
+        <activity android:name="com.dtr.zbar.scan.CaptureActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.TicketsGuideActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.UserGuidDetailActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.CreditPointsRuleActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RegisterActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.PersonCenterActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.SearchActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ConsumeResultActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.UserInfoActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.WalkRouteDetailActivity"/>
+
+        <service android:name="com.amap.api.location.APSService"></service>
+
+
+        <activity android:name="com.wlcxbj.bike.activity.CreditHistoryActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.CreditPointsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.AboardIdentifyActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.SchoolIdentifyActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.IdentityActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.PayRefundActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.AboutRechargeActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.MyDiscountActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.MyTicketsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.EditAddressActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.MsgDetailactivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ShareActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.MyMsgActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RouteActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.SettingsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.UserGuideActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.WalletActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ScoreActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.WalletDetailActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RechargeActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.HelpActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RouteDetailActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.AllProblemsActivity"/>
+        <activity
+            android:name="com.wlcxbj.bike.activity.AUnlockActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name="com.wlcxbj.bike.activity.ILeagleActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.NoBikeActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.DepositActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.UpdateVersionActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ContactUsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ConsumerRuleActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.AboutUsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RechargeRuleActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RefundDesActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ConsumerServiceActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.GetTranCodeMethodActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ModifyNickNameActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ModifyPhoneNumberActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ChangePhoneNumberActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.RouteProblemFeedBackActivity"/>
+        <activity
+            android:name="com.wlcxbj.bike.activity.BikeBrokenActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name="com.wlcxbj.bike.activity.OtherProblemsActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.ChargeRuleActivity"/>
+        <activity android:name="com.wlcxbj.bike.activity.FundBackActivity"/>
+
+
+        <!--微信分享回调 -->
+        <activity
+            android:name="com.wlcxbj.bike.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+
+        <!--支付宝-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+
+
+        <!-- Push SDK 相关组件，required-->
+        <!-- 消息接收服务 -->
+        <service
+            android:name="com.alibaba.sdk.android.push.MsgService"
+            android:exported="false">
+            <!--<intent-filter>-->
+            <!--<action android:name="com.taobao.accs.intent.action.RECEIVE" />-->
+            <!--</intent-filter>-->
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.NOTIFY_ACTION" />
+            </intent-filter>
+        </service>
+        <service android:name="com.alibaba.sdk.android.push.channel.CheckService"
+                 android:process=":channel">
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.CHECK_SERVICE" />
+            </intent-filter>
+        </service>
+        <service android:name="com.taobao.accs.ChannelService"
+                 android:exported="true" android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.SERVICE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.taobao.accs.ChannelService$KernelService"
+            android:exported="false"
+            android:process=":channel" >
+        </service>
+        <service android:name="com.taobao.accs.data.MsgDistributeService"
+                 android:exported="true">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+        <receiver android:name="com.taobao.accs.EventReceiver"
+                  android:process=":channel">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.taobao.accs.ServiceReceiver"
+                  android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.START_FROM_AGOO"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="org.android.agoo.accs.AgooService"
+                 android:process=":channel"
+                 android:exported="true" >
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service android:name="com.alibaba.sdk.android.push.AliyunPushIntentService"
+                 android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.taobao.agoo.AgooCommondReceiver"
+            android:process=":channel"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="${applicationId}.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.alibaba.sdk.android.push.channel.TaobaoRecvService"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

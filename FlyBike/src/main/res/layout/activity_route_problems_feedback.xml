@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置状态栏高度达到效果-->
+    <include layout="@layout/layout_status_bar" />
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/black_light"
+        actionBar:centerText="@string/tip_57"
+        actionBar:rightEnable="false" />
+
+
+    <LinearLayout
+        android:background="#262626"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_funnel"
+            tools:ignore="ContentDescription"/>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tip_58"
+                    android:textColor="@color/gray_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tv_bikeNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/WHITE"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tip_59"
+                    android:textColor="@color/gray_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tv_startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/WHITE"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tip_60"
+                    android:textColor="@color/gray_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tv_endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/WHITE"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:text="@string/tip_61"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/rl_broken"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="0.5dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+            android:text="@string/tip_62" />
+
+        <ImageView style="@style/Item_indicator_style"
+                   tools:ignore="ContentDescription"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_others"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="0.5dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+            android:text="@string/tip_63" />
+
+        <ImageView style="@style/Item_indicator_style"
+                   tools:ignore="ContentDescription"/>
+    </RelativeLayout>
+
+</LinearLayout>

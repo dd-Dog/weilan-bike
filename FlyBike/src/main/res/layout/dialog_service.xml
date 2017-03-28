@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:background="@color/WHITE"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="40dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/cannot_unlock"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/cannot_unlock"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:ignore="ContentDescription"/>
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/text_gray2"
+                    android:layout_marginTop="7dp"
+                    android:textSize="@dimen/username_size"
+                    android:text="@string/cannot_unlock_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/report_illegal_stop"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/report_illegal_stop"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:ignore="ContentDescription"/>
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/text_gray2"
+                    android:layout_marginTop="7dp"
+                    android:textSize="@dimen/username_size"
+                    android:text="@string/report_illeagel_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="34dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/recharge"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/recharge"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:ignore="ContentDescription"/>
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/text_gray2"
+                    android:layout_marginTop="7dp"
+                    android:textSize="@dimen/username_size"
+                    android:text="@string/recharge_problem_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/trouble_report"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@drawable/trouble_report"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:ignore="ContentDescription"/>
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/text_gray2"
+                    android:layout_marginTop="7dp"
+                    android:textSize="@dimen/username_size"
+                    android:text="@string/report_broken_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

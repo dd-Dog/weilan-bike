@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <include layout="@layout/layout_status_bar"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/green"
+        actionBar:centerText="@string/wallet_title"
+        actionBar:rightEnable="true"
+        actionBar:rightText="@string/walletdetail_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_walletbg">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/wallet_count"
+                    style="@style/WalletTextViewStyle"
+                    android:layout_gravity="center"
+                    android:text="0.00"/>
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/tip_79"
+                    android:textColor="@color/user_text_gray"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+        <Button
+            android:id="@+id/btn_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="@dimen/walletbg_margin"
+            android:layout_marginRight="@dimen/walletbg_margin"
+            android:background="@drawable/recharge_button_bg_green"
+            android:text="@string/tip_41"
+            android:textColor="@color/WHITE"
+            android:layout_marginBottom="40dp"
+            android:textSize="@dimen/charge_button_text_size"/>
+        <include layout="@layout/layout_divider"/>
+        <RelativeLayout
+            android:id="@+id/ll_bike_tickets"
+            android:layout_marginRight="@dimen/walletbg_margin"
+            android:layout_marginLeft="@dimen/walletbg_margin"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_80"
+                android:textColor="@color/text_gray2"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:drawablePadding="11dp"
+                android:drawableRight="@drawable/fill_5"
+                android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
+                android:id="@+id/bikeTickets_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="null"
+                android:textColor="@color/user_text_gray"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+        <include layout="@layout/layout_divider"/>
+        <RelativeLayout
+            android:id="@+id/ll_deposit"
+            android:layout_marginRight="@dimen/walletbg_margin"
+            android:layout_marginLeft="@dimen/walletbg_margin"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/deposit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_81"
+                android:textColor="@color/text_gray2"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:drawablePadding="11dp"
+                android:drawableRight="@drawable/fill_5"
+                android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
+                android:id="@+id/deposit_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_82"
+                android:textColor="@color/user_text_gray"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+        <include layout="@layout/layout_divider"/>
+    </LinearLayout>
+</LinearLayout>

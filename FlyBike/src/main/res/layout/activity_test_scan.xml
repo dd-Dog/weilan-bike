@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/MatchMatch"
+              android:orientation="vertical">
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <include layout="@layout/layout_status_bar"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/green"
+        actionBar:centerText="@string/camera_title"
+        actionBar:rightEnable="false"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <cn.bingoogolapple.qrcode.zxing.ZXingView
+            android:id="@+id/zxingview"
+            style="@style/WrapWrap"
+            app:qrcv_animTime="1000"
+            app:qrcv_barcodeRectHeight="140dp"
+            app:qrcv_borderColor="@color/green"
+            app:qrcv_borderSize="1dp"
+            app:qrcv_cornerColor="@color/green"
+            app:qrcv_cornerLength="20dp"
+            app:qrcv_cornerSize="3dp"
+            app:qrcv_isBarcode="false"
+            app:qrcv_isCenterVertical="false"
+            app:qrcv_isOnlyDecodeScanBoxArea="false"
+            app:qrcv_isScanLineReverse="true"
+            app:qrcv_isShowDefaultGridScanLineDrawable="false"
+            app:qrcv_isShowDefaultScanLineDrawable="true"
+            app:qrcv_isShowTipBackground="true"
+            app:qrcv_isShowTipTextAsSingleLine="false"
+            app:qrcv_isTipTextBelowRect="true"
+            app:qrcv_maskColor="#33FFFFFF"
+            app:qrcv_qrCodeTipText="对准车上的二维码"
+            app:qrcv_rectWidth="200dp"
+            app:qrcv_scanLineColor="@color/green"
+            app:qrcv_scanLineMargin="0dp"
+            app:qrcv_scanLineSize="0.5dp"
+            app:qrcv_tipTextColor="@color/WHITE"
+            app:qrcv_tipTextSize="12sp"
+            app:qrcv_toolbarHeight="56dp"
+            app:qrcv_topOffset="90dp"/>
+
+
+        <include layout="@layout/layout_caputre_bottom"
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="80dp"
+                 android:layout_gravity="bottom"/>
+
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ZXingCodeLibs</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+	<string name="camera_open_notice">You\'ve turned on the light！</string>
+	<string name="camera_close_notice">You have turned off the lights！！</string>
+    
+	<string name="camera_problem">Sorry, you need to add camera privileges in rights management。</string>
+	<string name="framwork_problem">Two dimensional code scanning problems. Reboot and try again.</string>
+	<string name="msg_share_subject_line">This is what I scan the bar code</string>
+	<string name="msg_default_mms_subject">Hi</string>
+	<string name="msg_intent_failed">Sorry, unable to open the required software, bar code content may be invalid.</string>
+	 <string name="button_ok">confirm</string>
+	 <string name="result_uri">URL path</string>
+	 
+	 <string name="button_1">Browser open</string>
+	 <string name="button_2">content</string>
+	 <string name="button_3">Other titles</string>
+	 <string name="result_title_default">URL path</string>
+	 
+	 <string name="qrcode_notice">The bar code can be locked in the box</string>
+	 <string name="openorclose_light">Turn on or off light</string>
+	 <string name="qrcode_empty"></string>
+	 
+	 <string name="qrcode_open">Open with browser</string>
+	 
+	 <string name="paramete_error">Parameters are correct, please scan again</string>
+	<string name="bike_no_length">10</string>
+
+	<string name="camera_title">Sweep lock</string>
+	<string name="tip_1001">Manually enter vehicle number</string>
+	<string name="tip_1002">Open flashlight</string>
+	<string name="tip_1003">Enter number lock</string>
+	<string name="tip_1004">Please verify that you have entered the correct bike code</string>
+
+</resources>

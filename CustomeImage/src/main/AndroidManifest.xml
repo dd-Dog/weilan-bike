@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.meg7.widget" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="24"
+        tools:ignore="GradleOverrides"/>
+
+    <application/>
+
+</manifest>

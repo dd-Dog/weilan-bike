@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="40dp"
+             android:layout_height="match_parent"
+             android:id="@+id/ib_back"
+             android:layout_gravity="center">
+
+    <ImageButton
+        android:clickable="false"
+        android:layout_width="18dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:src="@drawable/back"
+        tools:ignore="ContentDescription"/>
+</FrameLayout>

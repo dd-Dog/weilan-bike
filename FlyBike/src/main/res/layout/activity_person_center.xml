@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        style="@style/StatusBarStyle"
+        android:background="@color/deep_pink"></LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wlcxbj.bike.view.CompatibaleScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/fl_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@color/deep_pink">
+
+                    <ImageView
+                        android:id="@+id/usr_icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="top|center"
+                        android:layout_marginTop="60dp"
+                        android:src="@mipmap/avatar_default_login"
+                        tools:ignore="ContentDescription"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="15033262664"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/userinfo_score_shape"
+                            android:drawableRight="@mipmap/list_item_indicator"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="5dp"
+                            android:text="0"
+                            android:textColor="#fff"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:src="@mipmap/user_profile_grass"
+                        tools:ignore="ContentDescription"/>
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:paddingBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ride_distance"
+                            style="@style/TV_fill_fill_gvcenter_red_28sp_style"
+                            android:text="34.8" />
+
+                        <TextView
+                            style="@style/TV_fill_fill_gvcenter_gray_14sp_style"
+                            android:text="@string/tip_33" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_pink" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/save_carbon"
+                            style="@style/TV_fill_fill_gvcenter_red_28sp_style"
+                            android:text="10.0" />
+
+                        <TextView
+                            style="@style/TV_fill_fill_gvcenter_gray_14sp_style"
+                            android:text="@string/tip_34" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_pink" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/exercise_acheivement"
+                            style="@style/TV_fill_fill_gvcenter_red_28sp_style"
+                            android:text="50.9" />
+
+                        <TextView
+                            style="@style/TV_fill_fill_gvcenter_gray_14sp_style"
+                            android:text="@string/tip_35" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_mywallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/wallet_title" />
+
+                    <TextView
+                        android:id="@+id/remaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="40dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#878787"
+                        android:textSize="12sp" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_myroute"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0.5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/routes_title" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_mymsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0.5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/mymsg_title" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_invite_friends"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0.5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/invite_title" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_guide"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0.5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/guide_title" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0.5dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/TV_wrap_wrap_alignleft_black_14sp_style"
+                        android:text="@string/settings_title" />
+
+                    <ImageView style="@style/Item_indicator_style"
+                               tools:ignore="ContentDescription"/>
+                </RelativeLayout>
+
+                <include layout="@layout/layout_divider" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
+            </LinearLayout>
+        </com.wlcxbj.bike.view.CompatibaleScrollView>
+
+        <com.wlcxbj.bike.view.ActionBarView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            actionBar:actionBar_background="@color/deep_pink"
+            actionBar:centerText="@string/userinfo_title"
+            actionBar:rightEnable="false" />
+    </FrameLayout>
+</LinearLayout>

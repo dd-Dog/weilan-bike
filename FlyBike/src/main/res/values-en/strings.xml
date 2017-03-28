@@ -1,0 +1,560 @@
+<resources>
+    <string name="app_name">Easy Bike</string>
+    <string name="home_title">My bikes</string>
+
+    <string name="wallet_title">My wallet</string>
+    <string name="discount_title">My offer</string>
+    <string name="routes_title">my itinerary</string>
+    <string name="mymsg_title">My message</string>
+    <string name="invite_title">invite friends</string>
+    <string name="guide_title">User Guide</string>
+    <string name="aboutus_title">about us</string>
+    <string name="settings_title">Settings</string>
+    <string name="userinfo_title">Personal information</string>
+    <string name="nickname_title">nickname</string>
+    <string name="identify_title">Authentication</string>
+    <string name="mobile_title">cellphone number</string>
+    <string name="school_title">Campus certification</string>
+    <string name="aboard_title">Overseas certification</string>
+    <string name="walletdetail_title">Details</string>
+    <string name="mytickets_title">My voucher</string>
+    <string name="ticket_use_des_title">Instructions for use</string>
+    <string name="deposit_title">Charge charge</string>
+    <string name="rule_detail_title">Route details</string>
+    <string name="user_rule_title">User Agreement</string>
+    <string name="deposit_des_title">Deposit statement</string>
+    <string name="recharge_rule_title">Recharge instructions</string>
+    <string name="score_title">My letter points</string>
+    <string name="score_rule_title">Credit rules</string>
+    <string name="score_history_title">Credit history</string>
+    <string name="cannot_unlock_title">Can not unlock</string>
+    <string name="report_illeagel_title">Report a violation</string>
+    <string name="recharge_problem_title">Recharge Now</string>
+    <string name="report_broken_title">error report</string>
+
+    <string name="submmit">submit</string>
+    <string name="exchange">redeem now</string>
+    <string name="concume_rule">Billing rules</string>
+    <string name="ble_enalbe">Enable Bluetooth unlocking</string>
+    <string name="clear_cache">Clean up cache</string>
+    <string name="cache_size">Cache size</string>
+    <string name="exit">sign out</string>
+    <string name="score">Credit points</string>
+    <string name="rule">rule</string>
+    <string name="name">Name</string>
+    <string name="enter_name">please enter your real name</string>
+    <string name="identify_code">license number</string>
+    <string name="enter_identifycode">Please enter identification number</string>
+    <string name="country">Country of Citizenship</string>
+    <string name="enter_country">Please enter your nationality</string>
+    <string name="identify_pic">Hand-held documents</string>
+    <string name="identify_front">Positive evidence</string>
+    <string name="note">prompt</string>
+    <string name="our_wechat">WeChat public number</string>
+    <string name="phone_num">contact number</string>
+    <string name="our_email">E-mail</string>
+    <string name="out_web">Official website</string>
+    <string name="company">Enjoy the blue (Beijing) Technology Co. Ltd.</string>
+    <string name="all_problem">All the questions</string>
+    <string name="text_unlock">Can not unlock</string>
+    <string name="text_get_qrcode">Scan to get two-dimensional code</string>
+    <string name="text_tip1">Please take pictures of the vehicle and its surroundings</string>
+    <string name="text_hint_tip2">You can enter 300 words</string>
+    <string name="text_bike_broken">The bike is faulty</string>
+    <string name="problem1">The car is too heavy to ride</string>
+    <string name="problem2">handle broken</string>
+    <string name="problem3">The pedal is broken</string>
+    <string name="problem4">break failure</string>
+    <string name="problem5">Two-dimensional code off</string>
+    <string name="problem6">The bell was lost</string>
+    <string name="problem7">The faucet is skewed</string>
+    <string name="problem8">others</string>
+    <string name="tip_4">Please take pictures of the vehicle and its surroundings to help us improve</string>
+    <string name="tip_5">describe your prombles</string>
+    <string name="text_change_phone">change phone number</string>
+    <string name="text_unvalid">enter your credit number</string>
+    <string name="text_new_num">new phone number</string>
+    <string name="text_enter_valid_num">enter you rnew phone number</string>
+    <string name="text_enter_new_right_num">please enter correct format phone number</string>
+    <string name="text_checkNum">Verification code</string>
+    <string name="text_enter_valid_chechnum">please enter verfication code</string>
+    <string name="text_get_checknum">request verfication code</string>
+    <string name="text_change_phonenum">Authorize to change the phone number</string>
+    <string name="tip_6">Only one mobile phone number is allowed within three months</string>
+    <string name="check_version">check version</string>
+    <string name="result_title">coast</string>
+    <string name="broken">fault</string>
+    <string name="tip7">The trip consumption</string>
+    <string name="tip_8">consumer service</string>
+    <string name="tip_9">Deposit refund has more than 7 working days have not yet arrived</string>
+    <string name="tip_10">1.Select payment channels</string>
+    <string name="tip_11">Alipay</string>
+    <string name="tip_12">WeChat payment</string>
+    <string name="tip_13">2.Please upload your page screenshot of payment orders, order number clearly visible：</string>
+    <string name="tip_15">3.Fill in order No.</string>
+    <string name="tip_16">Payment order number</string>
+    <string name="tip_18">Order number inquiry</string>
+    <string name="contact_us_title">Contact us</string>
+    <string name="tip_19">Credit history</string>
+    <string name="tip_20">Route details</string>
+    <string name="tip_21">License plate number：</string>
+    <string name="tip_22">Common address</string>
+    <string name="tip_23">Please enter the address</string>
+    <string name="tip_24">The consumption</string>
+    <string name="tip_25">Apply for a refund</string>
+    <string name="tip_26">Due to the reasons for the bank may deposit will be credited to the 0-3 days</string>
+    <string name="confirm">confirm</string>
+    <string name="tip_27">Contact Customer Service</string>
+    <string name="save">save</string>
+    <string name="tip_28">Can\'t find the car</string>
+    <string name="others">else</string>
+    <string name="tip_29">Full refund of the deposit recharge</string>
+    <string name="tip_30">Wechat</string>
+    <string name="tip_31">Alipay</string>
+    <string name="tip_32">recharge now</string>
+    <string name="tip_33">Cumulative cycling (km)</string>
+    <string name="tip_34">Carbon savings (kg)</string>
+    <string name="tip_35">Sport achievement (kcal)</string>
+    <string name="tip_36">Phone number</string>
+    <string name="tip_37">The original phone number refund deposit (2-7 working days to account)</string>
+    <string name="tip_38">Change the phone number, login to pay a deposit</string>
+    <string name="tip_39">Fare balance, travel information unchanged</string>
+    <string name="tip_40">Change phone number</string>
+    <string name="tip_41">recharge</string>
+    <string name="tip_42">My balance</string>
+    <string name="tip_43">Recharge amount</string>
+    <string name="tip_44">Payment method</string>
+    <string name="tip_45">recharge now</string>
+    <string name="tip_46">Refund description</string>
+    <string name="tip_47">7 working days deposit is not credited</string>
+    <string name="tip_48">Phone verification</string>
+    <string name="tip_hint_49">Please enter your phone number</string>
+    <string name="tip_50">Please enter the verification code</string>
+    <string name="tip_51">Verify phone</string>
+    <string name="tip_52">Scan to obtain two-dimensional code</string>
+    <string name="tip_53">Please take pictures of the vehicle and its surroundings</string>
+    <string name="tip_54">Input 300 words</string>
+    <string name="tip_55">Walking route details</string>
+    <string name="tip_56">What is your itinerary?</string>
+    <string name="tip_57">customer service</string>
+    <string name="tip_58">Bicycle number</string>
+    <string name="tip_59">start time</string>
+    <string name="tip_60">end time</string>
+    <string name="tip_61">What problems？</string>
+    <string name="tip_62">Vehicle fault detection</string>
+    <string name="tip_63">Other problems</string>
+    <string name="tip_64">My trip</string>
+    <string name="tip_65">Campus ID number</string>
+    <string name="tip_66">Please enter the campus ID number</string>
+    <string name="tip_67">Please select school name</string>
+    <string name="tip_68">Authentication</string>
+    <string name="tip_69">My credit score</string>
+    <string name="tip_70">Where to find me</string>
+    <string name="cancel">cancel</string>
+    <string name="tip_71">Common address</string>
+    <string name="tip_72">Your exclusive invitation code is：</string>
+    <string name="tip_73">Click Copy</string>
+    <string name="tip_74">Invite immediately</string>
+    <string name="tip_75">Instructions</string>
+    <string name="tip_76">Head portrait</string>
+    <string name="tip_77">Real name authentication</string>
+    <string name="not_verify">not verify</string>
+    <string name="tip_78">phone number</string>
+    <string name="tip_79">Balance</string>
+    <string name="tip_80">Car coupon</string>
+    <string name="tip_81">my deposit</string>
+    <string name="tip_82">Deposit recharge</string>
+    <string name="tip_83">Enter preferences</string>
+    <string name="tip_84">Please enter your discount code</string>
+    <string name="tip_85">Unlocking Bluetooth</string>
+    <string name="tip_86">Vehicle ID：</string>
+    <string name="tip_87">Determine local cache records？</string>
+    <string name="tip_88">Photograph</string>
+    <string name="tip_89">Select a photo album</string>
+    <string name="tip_90">You only have one chance to modify the exclusive invitation code, not more than 10 words</string>
+    <string name="tip_91">Replace the phone number before you need to refund the deposit, you have not returned the deposit, whether to return the deposit？</string>
+    <string name="tip_92">You do not have to open the Bluetooth, open the Bluetooth without manual input password, you can automatically unlock</string>
+    <string name="tip_93">no</string>
+    <string name="tip_94">ok</string>
+    <string name="tip_95">Deposit refund time is 2-7 working days, during which your account will not be able to use the car. Whether or not the deposit？</string>
+    <string name="tip_96">Return the deposit money</string>
+    <string name="tip_97">WeChat friends</string>
+    <string name="tip_98">QQ friends</string>
+    <string name="start">Set out</string>
+    <string name="tip_99">Riding time:</string>
+    <string name="tip_100">Ride cost:</string>
+    <string name="tip_101">View original</string>
+    <string name="tip_102">Car coupon</string>
+    <string name="tip_103">Valid until：</string>
+    <string name="tip_104">Common address</string>
+    <string name="tip_105">Left slide edit or delete</string>
+    <string name="tip_106">edit</string>
+    <string name="tip_107">delete</string>
+    <string name="tip_108">Unknown location</string>
+    <string name="tip_109">Booking in</string>
+    <string name="tip_110">Bicycle number:</string>
+    <string name="tip_111">Retention time：</string>
+    <string name="tip_112">cancel reservation</string>
+    <string name="tip_113">Manual lock can end billing</string>
+    <string name="tip_114">In car</string>
+    <string name="tip_115">Minute</string>
+    <string name="tip_116">Riding time</string>
+    <string name="tip_117">meter</string>
+    <string name="tip_118">trip dist</string>
+    <string name="tip_119">Calorie</string>
+    <string name="tip_120">Sport combustion</string>
+    <string name="tip_121">Authentication</string>
+    <string name="tip_122">Incorrect ID number</string>
+    <string name="tip_123">No People\'s Republic of China identity card, please click here</string>
+    <string name="tip_124">Distance start position</string>
+    <string name="tip_125">Walk reachable</string>
+    <string name="tip_126">Booking car</string>
+    <string name="tip_127">Authentication</string>
+    <string name="tip_128">Your information has been submitted, under review, please be patient</string>
+    <string name="tip_129">Click login</string>
+    <string name="load_failed">Load failure reload</string>
+    <string name="tip_130">details</string>
+    <string name="tip_140">I have the bottom line</string>
+    <string name="tip_141">Now, nothing happened～</string>
+    <string name="tip_142">My position</string>
+
+    <string name="txt_not_login">You are not logged in, please log in first</string>
+    <string name="tip_131">Verification code sent</string>
+    <string name="tip_132">Address can not be empty oh～</string>
+    <string name="tip_134">Submit success</string>
+    <string name="tip_135">Wrong password, unlock failed~</string>
+    <string name="tip_136">Did not find the Bluetooth device, direct display password, manual lock</string>
+    <string name="tip_137">Please log in first</string>
+    <string name="tip_138">Sorry, no search route</string>
+    <string name="tip_139">Request password failed, please try again！</string>
+    <string name="tip_143">Origin not set</string>
+    <string name="tip_144">Destination not set</string>
+    <string name="tip_147">Login expired</string>
+    <string name="tip_148">No search related data</string>
+    <string name="tip_149">Please login first</string>
+    <string name="tip_150">While riding, please return the car and try again</string>
+    <string name="tip_151">Click back to exit</string>
+    <string name="tip_152">Reservation is successful, will be reserved for you for 15 minutes</string>
+    <string name="tip_153">Your balance is insufficient~</string>
+    <string name="tip_154">Appointment failed, please check network connection</string>
+    <string name="tip_155">Cancel appointment success</string>
+    <string name="tip_156">Cancel appointment failed, please check network connection</string>
+    <string name="tip_157">Failed to start riding, please check the network connection</string>
+    <string name="tip_158">Nickname cannot be empty</string>
+    <string name="tip_159">Failed to update user information</string>
+    <string name="tip_160">Discount codes cannot be empty！</string>
+    <string name="tip_161">Pull-down refresh</string>
+    <string name="tip_162">No WeChat or WeChat version is too low</string>
+    <string name="tip_163">Normal payment</string>
+    <string name="tip_164">Payment success</string>
+    <string name="tip_165">Payment failure</string>
+    <string name="tip_166">Return error</string>
+    <string name="tip_167">Incorrect phone number</string>
+    <string name="tip_168">Please get the verification code</string>
+    <string name="tip_169">Phone number or verification code can not be empty!</string>
+    <string name="tip_170">Verification code error!</string>
+    <string name="tip_171">No history</string>
+    <string name="tip_172">Clear history</string>
+    <string name="tip_173">Are you sure you want to empty it?</string>
+    <string name="tip_174">History Search</string>
+    <string name="tip_175">Common address</string>
+    <string name="tip_176">No detailed information of the street</string>
+    <string name="tip_177">Copy success, can be sent to friends。</string>
+    <string name="tip_178">Current version number：</string>
+    <string name="tip_179">Not set</string>
+    <string name="tip_180">Account status exception~</string>
+    <string name="tip_181">,Return the deposit money</string>
+    <string name="tip_182">Deposit refund</string>
+    <string name="tip_183">Wechat friends</string>
+    <string name="tip_184">Sina friends</string>
+    <string name="tip_185">cancel</string>
+    <string name="tip_186">share</string>
+    <string name="currency_symble">$</string>
+    <string name="tip_187">success</string>
+    <string name="tip_188">failure</string>
+    <string name="tip_189">success</string>
+    <string name="tip_190">failure</string>
+    <string name="tip_191">Failed to obtain rental record</string>
+    <string name="tip_192">Riding time</string>
+    <string name="tip_193">Bicycle number:</string>
+    <string name="tip_194">Ride cost:</string>
+
+    <string name="camera_title">Sweep lock</string>
+    <string name="tip_1001">Manually enter vehicle number</string>
+    <string name="tip_1002">Open flashlight</string>
+    <string name="tip_1003">Enter number lock</string>
+    <string name="tip_1004">Please verify that you have entered the correct bike code</string>
+
+    <string name="scan_button_text">Sweep unlock</string>
+    <string name="can_not_find_version_name">Unknown version number</string>
+    <string name="version_name">V</string>
+    <string name="charge_des">Enjoy the bike is to achieve the user lock can leave, the cost of payment to complete the smooth experience, the user needs to pay to pay the fare. Please click on the APP left corner button to enter the "personal center" page, click on "my wallet" into the recharge page, recharge support "WeChat payment" and "Alipay".</string>
+    <string name="tip_1">1.After the fares are charged, the fare balance is used to pay the order for the car, no expiration date, no transfer, transfer</string>
+    <string name="tip_2">2.Enjoy the enjoyment of any amount of bicycles recharge, a minimum of 1 yuan, up to 100 yuan, according to the actual needs of the appropriate amount of money to choose the amount.</string>
+    <string name="tip_3">3.Please contact customer service if you are concerned about the fare balance.</string>
+    <string name="aboard_identify_des">Please provide 2 photos, one for my hand-held ID card positive photo, the other for the original ID card. Please make sure that the contents of the official and document are clearly visible (except for the identity card, passport and MTP) of the People\'s Republic of China.</string>
+    <string name="under_check">under review</string>
+    <string name="check_done">verified</string>
+    <string name="not_identify">not certified</string>
+
+
+
+
+    <string name="app_tip">prompt</string>
+    <string name="pay_result_tip">This interface is used to display the results of payment by a third party app via microseconds</string>
+    <string name="pay_result_callback_msg" formatted="false">Micro letter payment results：%s</string>
+    <string name="not_login">not certified</string>
+    <string name="not_login_username">Click on landing</string>
+    <string name="wechat">Micro blue smooth enjoy</string>
+    <string name="phone">4001098234</string>
+    <string name="email">uedlily@sina.com</string>
+    <string name="web">weilangonxiang.com</string>
+    <string name="share_title">Micro blue smooth enjoy</string>
+
+    <string name="share_text">
+            Micro-blue enjoy the bike is a pile-free shared bicycle project, designed to become the preferred way for people to travel short. We use a unique patented technology, redesigned the body and smart locks, combined with Internet technology, get rid of the fixed parking piles of the yoke, so you can use anytime, anywhere around the micro-blue enjoy the bike. At the same time, all this is based on the affordable price of everyone, we hope to make people travel more green, reduce traffic congestion, so that our lives more intelligent and beautiful.
+    </string>
+    <array name="user_guide_parent">
+        <item>Registration and account</item>
+        <item>Reservation, switch lock problem</item>
+        <item>Fare and deposit</item>
+        <item>Car related</item>
+        <item>About bicycles</item>
+        <item>About Us</item>
+        <item>Micro blue smooth enjoy the credit points</item>
+    </array>
+
+    <array name="user_guide_child1">
+        <item>My real name authentication can not pass</item>
+        <item>When the real name authentication indicates that the identity card information already exists</item>
+        <item>What is the invitation code?</item>
+        <item>I need to change my phone number</item>
+    </array>
+    <array name="user_guide_child2">
+        <item>How long will the reservation be reserved for me?</item>
+        <item>How did I find my bike after booking?</item>
+        <item>Can not open the lock</item>
+        <item>How to lock</item>
+
+    </array>
+    <array name="user_guide_child3">
+        <item>Why is it necessary to pay a deposit, deposit and fare are different?</item>
+        <item>Deposit refunds have been credited for more than 7 business days.</item>
+        <item>What happens if my participation costs exceed the balance and the balance is negative?</item>
+        <item>How to use the micro-blue enjoy a bicycle how to charge?</item>
+    </array>
+    <array name="user_guide_child4">
+        <item>Where to return the bike?</item>
+        <item>Service Area</item>
+        <item>What is the place where I live without public parking?</item>
+        <item>Bicycle limit section</item>
+    </array>
+    <array name="user_guide_child5">
+        <item>I found the car is broken, how to inform the micro-blue Chang enjoy?</item>
+
+    </array>
+    <array name="user_guide_child6">
+        <item>Who is the micro-blue?</item>
+        <item>I would like to join the micro blue Chang enjoy</item>
+        <item>What is the original intention of doing micro-blue Chang enjoy?</item>
+        <item>User Agreement</item>
+    </array>
+    <array name="user_guide_child7">
+        <item>What is the negative record, how to appeal</item>
+        <item>What is the micro-blue to enjoy the credit points</item>
+        <item>How will the credit be low?</item>
+    </array>
+
+    <array name="user_guide_detail">
+        <item>
+            1.Please enter your name and ID number in Simplified Chinese. If you have not tried, please click "No Chinese ID or multiple failed authentication" at the bottom of the page to enter the manual review page.\n\n
+            2.Please fill in the name, ID number and nationality (make sure to fill in the information and document information), and upload two photos.\n\n
+            3.One for the hand-held identity documents below photo, the other for the original identity card photo. Please make sure that the contents of the documents are clearly visible (limited to the identity card of the People\'s Republic of China, passport, MTP), we will review within 24 hours\n
+        </item>
+        <item>Submit the identity card information, if the system prompts the "identity card already exists, according to the following process check"\n\n
+            1.Each phone number can only be bound to an ID number. Please confirm whether the current ID number is registered with another mobile phone number.\n\n
+            2.To determine the current identity card is the first registration, still prompted "identity card already exists" is the network reasons, re-login can be resolved. Method: Click the blue sky to enjoy the application of the upper left corner of the bike, drop down to "Settings" and click, click to log in "
+        </item>
+        <item>1.Micro blue smooth enjoy the bike every user has the only tough invitation code, in the registration of a friend\'s invitation code, both sides can get friends invited credit points.\n\n
+            2.If you like the micro-blue enjoy the bike, it is recommended to your friends have been used!\n\n
+            3.To view your exclusive invitation code, please click on the personal center and click to invite friends. You can change your invitation code.\n\n
+            4.In addition, the micro-blue enjoy the bike in the establishment of a number of micro-blue recommended parking point (MPL), each MPL has a corresponding invitation code. When you register, you can enter the MPL invitation.
+        </item>
+        <item>Please follow the steps below to change the phone number\n\n
+            The first step, use the original mobile phone number login, refund the deposit\n\n
+            The second step, click on the personal center picture, click the phone number, in the replacement phone number page, enter the original mobile phone number used to register the ID number\n\n
+            The third step, fill in the new mobile phone number, get the verification code\n\n
+            The fourth step, after the success of verification, mobile phone number replacement success\n\n
+            The fifth step, the use of new mobile phone number to re-login, the original phone number under the fare balance, historical travel and credit into the new mobile phone number. Deal with the deposit, you can use the car\n\n
+            Note: the original phone number deposit is not credited when the replacement of the new mobile phone number, do not worry. The deposit will be in the 2-7 working days in accordance with the payment channel to return the original way.
+        </item>
+        <item>Click on the map page of the bike icon, click on the reservation, the bike will keep you for 15 minutes. If you encounter any other available car on your appointment, you can also scan and unlock.</item>
+        <item>1.After the appointment is successful, your micro-blue enjoy the bike application will appear on the route in the navigation\n\n
+            2.Bicycle positioning by the impact of the environment will drift phenomenon, find the car, please observe the location around the same time
+        </item>
+
+        <item>1.If the APP prompts "the bike is faulty, try sweeping other vehicles", the car may be a faulty vehicle that you can use for other vehicles\n\n
+            2.If you try to unlock a number of times, the car may be faulty, you can select the motorcycle in the lower right corner of the shuttle button and tell us that the micro-blue enjoy the bike will be better for your care.
+        </item>
+        <item>When you use the full blue car to enjoy the bike: the bike parked in the roadside white line or parking frame, manually pulled down in the rear wheel position of the mechanical lock ring, hear the "drops" sound, confirmed that the success has been unlocked , You can leave on their own.</item>
+        <item>1.Deposit for the use of micro-blue Chang enjoy the bike deposit, there are two ways to pay the deposit, WeChat to pay or pay treasure, the deposit can be the original way back.\n\n
+            2.Micro-blue to enjoy the system of cycling In order to ensure that users can operate their own APP can automatically return the deposit of the smooth experience, the deposit and the fare is separated.\n\n
+            3.Fill the fare, please click the upper left corner of APP, followed by personal center, my wallet, click recharge\n\n
+            Tip: After the fares, the fare balance is used to pay the car order, no expiration date, can not be transferred,\n\n
+            Micro-blue enjoy the enjoyment of any amount of bicycles recharge, the minimum 1 yuan, up to 100 yuan, you can choose according to the actual needs of the appropriate amount of recharge.
+            Micro-blue enjoy the official gift of your offer amount can only be used for riding payments, this part of the amount can not be raised
+            Please contact customer service if you have any other charges related to fare
+        </item>
+        <item>1.Make sure you have made a deposit refund within APP\n\n
+            Click the "My Wallet", and finally click on the bottom of the page "deposit refund" words, waiting for 2-7 working days ranging from the original deposit back to the original\n\n
+            2.If you use a number of mobile phone number registered micro-blue Chang enjoy the bike Please confirm which phone number is registered with a small blue smooth enjoy the bike. Log in with the correct phone number, check the relevant information (deposit, balance, etc.).\n\n
+            3.Pay a normal or micro credit billing interface, the refund to the account, will delay a few days to show "full refund" prompt, you can call Alipay service hotline 95188, WeChat service hotline 95017, to confirm whether a successful refund.\n\n
+            4.If the deposit is through the WeChat binding bank card to pay the micro-blue Chang enjoy the bike prompted a refund, but the bank card balance has not changed, do not panic. Deposit from the WeChat back to the bank card also need a period of time, the specific time to check the WeChat customer service hotline 95017.\n\n
+            5.Many bank refunds without SMS notification, micro blue Chang enjoy recommend you in 7 working days still do not receive the deposit to the account information, please check the bank card balance.\n\n
+            The above steps have been checked, still not credited, please contact customer service.
+        </item>
+        <item>If you are already on the ride, the balance is right at the same time will not affect the ride, but arrears can not start the next ride, can not withdraw the deposit. Can be charged as soon as possible, click on the personal center, my wallet can recharge.</item>
+        <item>1.Micro-blue enjoy the bike is a split rental travel tool. Our pricing is based on your region\'s weather conditions, travel habits, terrain structure, infrastructure and other factors set the most reasonable。\n\n
+            2.The deposit for the use of micro-blue enjoy the bicycle is RMB 199 (refundable). Fare, the use of sub-billing method, the first 30 minutes charge 0.5 yuan, not a day cap. Cancel an appointment without charge. Use the bike to start billing from the lock, manually shut down the end of billing. Re-unlock again. It should be noted that when the micro-blue to enjoy the credit points below 80 points, the car unit price will be adjusted according to the credit score to 100 yuan / half an hour (do not worry, the initial credit when the registration is 100 points, Check my micro blue to enjoy the credit)
+        </item>
+        <item>
+            Micro-blue enjoy the bike should be parked in the "roadside white line or parking frame", when there is no white line or parking near the park, please parked in the roadside does not impede the traffic in the open area or other bicycles on the roadside parked area. It is strictly forbidden to park in residential, underground and indoor garage, alley and toll parking area. We have been very hard, very hard to do this thing, in our service area, so that you go out, just take a short section, you can quickly find a car, sweep the two-dimensional code will be able to unlock, Chuan page Lee ride to the destination, 1 second will be able to return the car. In order to achieve this goal, we continue to improve the positioning accuracy, continue to shorten the unlock time, continue to enhance cycling riding comfort. Efficient and smooth car experience is the only thing we care about
+            In order to do this, we need you to work with us, please leave the car, the bike parked in the intersection of white line or parking ring, easy to find the place. Imagine if you find your own car, where the bike is the easiest to find, will not hinder the traffic or traffic police towed away, that is, you can stop the location.
+            Correct parking position: roadside white line, parking ring, or cycling area Some small partners do not know what is called the roadside white line or parking ring, white line or parking ring is the government planning public parked non-motor vehicle area, As shown below:\n\n
+            It is strictly prohibited in the district\n
+            Do not stop at the indoor and underground garage\n
+            Do not stop at the alley\n
+            Can not affect traffic
+        </item>
+        <item>In the map home page to reduce the display level, there can be red coverage area, that is, micro blue smooth enjoy the bicycle in the area of service area. The billing rules for the service area are $ 100 / half an hour.
+            Take Beijing as an example: within six rings。
+        </item>
+        <item>
+            What is the place where I live without public parking? If you can not find a white line within 100 meters of your destination, please park your bike in a place where other bicycles gather. Do not place it alone on the roadside. Do not place it on the way to traffic. If the chaos due to chaos parking location was confiscated by the traffic police, micro blue smooth enjoy the bike need to cooperate with you to retrieve the bike.
+        </item>
+        <item>Some sections are not allowed to ride the bike, riding the following attention to the following signs and bypass the section, forced traffic will be blocked or fine traffic police. If you find more restricted sections, please also let us know.</item>
+        <item>Found a micro-blue smooth enjoy the bike\'s foot loose? Is the bell ringing? The head is crooked and does not move? You can click the lower right corner of the button button, select the "fault report", fill in the appropriate information and submit to inform us, micro blue smooth enjoy the bike will be better for your care.
+        </item>
+        <item>
+            Micro-blue enjoy the bike is a pile-free shared bicycle project, designed to become the preferred way for people to travel short. We use a unique patented technology, redesigned the body and smart locks, combined with Internet technology, get rid of the fixed parking piles of the yoke, so you can use anytime, anywhere around the micro-blue enjoy the bike. At the same time, all this is based on the affordable price of everyone, we hope to make people travel more green, reduce traffic congestion, so that our lives more intelligent and beautiful.
+        </item>
+        <item>
+            Let the bike return to the city to provide better city short trips for green travel refueling we need every good you to explore together and do both fun and cool things together! If you have the same feelings as you, have faith, fly, and want to work hard with us, please join us!\n
+            Location Beijing / Shanghai / Guangzhou / Wuxi
+            Support: \ n
+            Human resources, \ n
+            Forensic, \ n
+            Market and operations department, \ n
+            Government relations management, \ n
+            Public relations management, \ n
+            New media operations, \ n
+            Customer service, \ n
+            Graphic designer, \ n
+            Cattle Palace, \ n
+            Hardware maintenance division, \ n
+            Technical department, \ n
+            Data scientist, \ n
+            Java engineer, \ n
+            Operation and maintenance engineer, \ n
+            Bl data product manager, \ n
+            Test engineer, \ n
+            Hardware maintenance division, \ n
+            Embedded development / test engineer, \ n
+            Vehicle development engineer, \ n
+            Vehicle quality testing, \ n
+            Purchasing department, \ n
+            Supply Chain Management \ n \ n
+            we need you,
+            Love to ride, love sports;
+            Make a clever strategy and perform it beautifully, like the challenge is not possible \ n \ n
+            Resume please email: support@yaobike.cn
+        </item>
+        <item>
+            Travel is one of the most basic needs of mankind. We found that people in this demand, especially in the city short-distance travel needs, in the present has not been well satisfied. So we created yaobike, to achieve a simple desire to help every city people to pay for the price can be more convenient to complete short trips.
+             In order to make this simple desire to become a reality, we chose the bike of the most popular means of transport, and the use of innovative ideas, combined with Internet technology, redesigned the body and smart locks to make use of bicycles to complete the trip more easy.
+             We also want to make people travel more green, more environmentally friendly and help reduce traffic congestion, so that we live in the city more intelligent and better.
+        </item>
+        <item>
+            Micro Blue Enjoy Bicycle Rental Service Agreement: \n\n
+            1. Special hint \ n
+            (Hereinafter referred to as the "Company") or "We" (hereinafter referred to as "the Company") or the "Company" or "We" ) On the user to download, install, use the "micro blue smooth enjoy the bike" software (including but not limited to PC version and mobile phone, PDA version and other wireless
+            And the use of the services provided by the Company for the use of the services provided by the Company. \ n
+            1.2 "Micro-blue enjoy the bicycles" software developed by the Beijing Micro-Blue Technology Co., Ltd., and in accordance with the provisions of this agreement and its operational rules from time to time to provide Internet-based and mobile network-related services (including bicycle rental software network Service and bicycle service, the following also known as "the service" or "micro-blue enjoy the bike service"). For the purpose of obtaining this service
+            The Company shall read and fully understand the terms and conditions of this Agreement, in particular with respect to the exemption or limitation of the liability of the Company, the terms of the restrictions on the rights of users, the terms of dispute resolution, the jurisdiction and the applicable provisions of the law. Please click on the "Start" button to agree to accept this Agreement. If you do not accept part or all of the contents of this Agreement, please do not click the "Start" button. (No civil capacity to refuse to use the service, the ability to restrict civil conduct should be under the supervision of the legal guardian to read, understand and use the service). You are not entitled to use the Software and its related services unless you accept all the terms of this Agreement. Your account acquisition, logon and use of the Service will be deemed to be binding on this (the "Agreement" and the acceptance of the terms of this Agreement. \ n
+            1.3 User registration is successful, the company will give each user a user account, the account owned by the company, the user to complete the application for registration, access to the right to use the account. The right to use the account is only the initial application for registration, prohibit the donation, borrowing, renting, transfer or sale. The user assumes responsibility for the custody of the account and password and assumes full responsibility for all activities under his account and password. \ n \ n
+            2. Statement of intellectual property
+            2.1 The "micro blue smooth enjoy the bike" software is developed by the company. All intellectual property rights, such as copyright, trademark, patent rights, trade secrets, etc., and all related information, including but not limited to: textual statements and combinations, icons, diagrams, graphs, colors Such as the Copyright Law, the Trademark Law, the Patent Law, the Anti-Unfair Competition Law and the corresponding international treaties, as well as other intellectual property laws and regulations, are protected by the People\'s Republic of China on copyright law, trademark law, patent law, anti- In addition to the third party authorized software or technology, the company enjoy the above intellectual property rights. \ n
+            2.2 Without the written consent of the Company, the User shall not implement, use, transfer or license any third party to implement, use or transfer such intellectual property rights for any profit or non-profit purpose, and the Company shall retain the above-mentioned unauthorized use s right. \ n \ n
+            3. Authorization scope \ n
+            3.1 The user can install, use, display, and run the "Micro Blue Enjoy Bicycle" software for a non-commercial purpose on a single terminal device. Users can not install, use, run the "micro blue smooth enjoy the bike" software for commercial operation purposes, can not be released to the software or the software during the operation of any computer terminal memory in the data and the software running the client, and the server Copy, modify, mount, or create any derivative work in the form of, but not limited to, the use of plug-ins, plug-ins, or unauthorized third-party tool services to access the Software and related systems. \ n
+            3.2 Without the written consent of the Company, the user shall not install the "Micro Blue Equipped Bicycle" software on other terminal devices without express permission from the Company, including but not limited to set-top boxes, wireless Internet access machines, game consoles, televisions and so on. \ n
+            3.3 The right to reserve: All other rights not expressly authorized are still owned by the Company and the user shall obtain additional written consent of the Company when exercising other rights. \ n \ n
+            4. Service content \ n
+            4.1 "micro-blue enjoy the bicycles," the specific content of the service provided by the Company according to the actual situation, including the user\'s registered log, scheduled vehicles, car navigation, unlock, lock car, car, evaluation and reporting complaints, Car history and so on. \ n
+            4.2 "micro-blue enjoy the bike" to provide some of the services for the charges, the user needs to pay the service to the company to pay a fee. For fee-based services, we will try to give the user a clear indication before the user is using it. Only the user confirms that they are willing to pay the relevant fee according to the prompt, and the user can use the fee service. If the user refuses to pay the relevant fees, the Company has the right not to provide such services to the user. \ n
+            4.3 The user understands that the Company only provides the relevant services, in addition to the equipment (such as personal computers, mobile phones, other devices related to access to the Internet or mobile networks) and related charges received by third parties in connection with the relevant network services (Such as the telephone charges and Internet charges paid for access to the Internet, the mobile phone fees paid for the use of the mobile network) shall be borne by the user. \ n \ n
+            5. Service change, interrupt or termination \ n
+            5.1 In view of the particularity of the Service, the User agrees that the Company shall have the right to change, discontinue or terminate part or all of the Services (including fees and free services) at any time. The Company does not need to notify the user and does not have any legal liability to any user or any third party. If the network service is changed, discontinued or terminated, the Company is a free service. It shall notify the user in advance of the change, suspension or termination and shall provide the equivalent replacement service to the affected user if the user is unwilling to accept the alternative fee service and the service that the user has paid to the Company The Company shall refund the remaining charge to the user after deducting the corresponding service fee in accordance with the actual use of the corresponding fee service by the user. \ n
+            5.2 The user understands that the Company needs to repair or maintain the platform (such as Internet sites, mobile networks, etc.) or related equipment that provide the service on a regular or irregular basis, such as the interruption of the charging service within a reasonable time , The Company shall not be liable for this purpose, except in exceptional circumstances. \ N
+            5.3 The Company shall have the right to discontinue or terminate any of the services provided under this Agreement, including but not limited to charges and free services, in any of the following circumstances: \ n
+            (Including free services based on the advertising business model) without any legal liability to the user or any third party: \ n
+            (1) the authenticity, completeness, accuracy, legality, validity of the personal data provided by the user; \ n
+            (2) the user violates the rules of use specified in this Agreement; \ n
+            (3) The user fails to pay the corresponding service fee to the Company when using the fee service. \ n
+            5.4 If the account of the free service registered by the user is not actually used for any period of 90 consecutive days, or if the account of the fee service registered by the user is not actually used for 180 consecutive days after the expiration of the service of the subscription service, the Company reserves the right to delete The account and stop the user to provide the relevant services. The company will send a notification to the user before the account is deleted. \ N
+            5.5 User registration of free account nickname and name If there is a violation of laws and regulations or national policy requirements, or infringe the legitimate rights and interests of any third party, the company has the right to prohibit users to continue to use the account, nickname. \ N \ n
+            6. Use rules \ n
+            6.1 When applying for the use of the "Micro-Blue Car Service" service, the user must provide accurate and real personal information to the Company and need to pass the certification of the Company to start using the software. If there is any change in personal data, it must be updated in time. During the renewal process, the Company reserves the right to suspend the user\'s right to use the software, and the user can continue to use the software after re-certification of the updated information. \ N
+            6.2 users should not transfer their account number, password or borrow to others. If the user discovers that his account is illegally used by another person, he / she should notify the Company immediately. Due to the behavior of hackers or the user\'s negligence led to the account, the password was illegally used by others, the company does not bear any responsibility for the law. \ N
+            6.3 User agrees that the Company shall have the right to deliver various commercial advertisements or any other type of business information in various ways during the delivery of the Service and that the User agrees to accept the Company by e-mail or otherwise to send merchandise promotions to the User or Other related business information. \ N
+            6.4 The following principles must be followed during the use of the "Micro-Blue Car Service" service: \ n
+            (1) comply with Chinese laws and regulations;
+            (2) comply with all network agreements, regulations and procedures relating to the Service; \ n
+            (3) shall not use the Service for any unlawful purpose; \ n
+            (4) shall not in any way use the "Micro Blue Chain" service in violation of the Company\'s commercial interests, including but not limited to the publication of commercial or non-commercial advertisements without the permission of the Company;
+            (5) shall not use the "micro blue smooth enjoy the bicycle" service system for any possible adverse effects on the normal operation of the Internet or mobile network behavior; \ n
+            (6) shall not use the services provided by this product to upload, display or disseminate any false, harassing, slanderous, abusive, funny, vulgar, or any other violation of public order or illegal information ; \ n
+            (7) shall not infringe any other third party\'s patent, copyright, trademark, reputation or any other legal interest; \ n
+            (8) shall not use the "micro blue smooth enjoy the bicycle" service system for any adverse behavior of the company; \ n
+            (9) Without the consent of the Company, the user shall not transfer the Micro-Blue or any part thereof to any area except in any other way, except for normal riding, whether the Micro-Blue Changle Bicycle is locked or unlocked. The Company\'s use of certain statements, notices, warnings, etc., made by the Company in respect of the use of certain specific "micro-blue enjoyment" services through various means (including but not limited to webpage announcements, e-mails, SMS reminders, etc.) If the user does not agree to such statements, notices or warnings, the user shall cease to use the service immediately if the user agrees to the contents of such statements, notices and warnings. \ n
+            6.5 The Company reserves the right to review and supervise the use of the "Micro Blue Car Service" service, including but not limited to charges and free services, including free services based on the advertising business model (including but not limited to user storage (Including, but not limited to, altering or deleting the contents posted by the user, etc.), the Company shall have the right to request the user to correct or take all necessary measures, including, but not limited to, altering or deleting the contents posted by the user, Or terminate the user\'s right to use the service) to mitigate the impact of the user\'s misconduct.As the user\'s own behavior to be responsible to the third person, borne by the user, has nothing to do with the company.\n
+            6.6 The Company shall have the right, on its sole discretion, to determine, in its sole discretion, the circumstances in which it considers that it may be harmful to the use of the Micro-Blue or the Company, including but not limited to the user\'s breach of the provisions of Clause 6.4 of this Agreement, , The Company reserves the right to suspend, discontinue or terminate the provision of all or part of the User\'s Services under this Agreement without prior notice to the user without prior notice and without the need for legal or related rights to the User or any third party Any responsibility. When the user is suspended, discontinued or terminated due to the reasons for this article, the user shall act in accordance with the instructions of the Company, otherwise it shall be deemed to be in breach of contract and shall bear the liability for breach of contract under Article 10.2 of this Agreement and the Company shall retain the liability of the user s right. \ n \ n
+            7. "Micro Blue Chang enjoy cycling" service use and management requirements \ n
+            7.1 The User shall ensure that all registration information provided to the Company is true, complete, accurate, lawful and effective. \ n
+            7.2 Users should be healthy people who meet the age of 12 (over 12 years) and physical condition. Users who are suffering from, but are not limited to, various diseases such as epilepsy, heart disease, high blood pressure, temporary dizziness, visual impairment, hearing impairment, disability, etc., which are affected by safe riding, are not allowed to use the service. All responsibilities and consequences are borne by the user. \ n
+            7.3 The company has the right to use the right to use the "micro blue smooth enjoyment bike" bike, and to permit the user to use the bike, and is responsible for the daily delivery, maintenance and repair of the bicycle. At the same time, the "micro blue smooth enjoy the bicycle" service system ownership and all intellectual property owned by the company.
+            7.4 The provisions of this Agreement 7.3 do not imply that the Company has the obligation to ensure that all available bicycles are in trouble-free status, and that the user should be fully aware of the inspection and inspection obligations before actually withdrawing the bike. Complete and effective, familiar with the performance of bicycles and safety devices. For the discovery of the failure of the bike (whether it is unlocked before or in the use of vehicles found in the process), should give up the scheduled or immediately stop using, such as the user found a bicycle failure but the user continues to use, the user should otherwise the company for the fault The use of any adverse consequences caused by their own bear all the corresponding responsibility and consequences. \ n
+        </item>
+        <item>
+            Negative records generated from the relevant government departments, regulators and micro-blue users enjoy the user\'s report, including illegal parking, forget the lock, the traffic police to stop abandoning vehicles and other violations of the rules of the use of cycling blue. Negative records will affect the negative recorders in the micro-blue enjoy the bike to enjoy the assessment of the bike, and then affect the normal use, such as credit points below 80 points, the fare will be raised to 100 yuan / half an hour. Continuing to use the car in the correct way, negative recording effects will gradually be eliminated.\n
+             If you have objections to negative records, please click on the top left corner of the home page, click on the credit below the avatar, click on the negative record, enter the negative record page. Click on the Negative Record page and click on the bottom of the appeal button to state the reasons for the complaint and provide valid evidence. Micro blue smooth enjoy customer service team will do arbitration as soon as possible
+        </item>
+        <item>
+            Micro-blue Chang enjoy cycling since its inception, always adhere to the idea is to use technical means to provide users with convenient, economical and environmentally friendly city travel solutions. To achieve this goal, we do not have a fixed pile, so that bicycles scattered in the street for everyone to find a car, we will continue to encourage the correct, to stop the wrong use of behavior. The following credit points rule will help you better understand how to use micro blue to enjoy the bike. Each user default 100 points credit is divided into the starting score, the lowest score of 0, the higher the score, meaning the more in line with the principle of car. And the lower the credit score, meaning the user has had improper use of behavior. When the credit is too low, the unit price of the car will be affected. When the micro-blue to enjoy the credit points below 80 points, the car unit price will be adjusted according to the credit score to 100 yuan / half an hour. (Do not worry, the initial credit when the registration is 100, deduct the rules please check my micro blue to enjoy the credit)
+            All your score records can be found in the personal center of my own, but if you find that the credit points are wrongly deducted, or there are special circumstances need to explain, please record the negative pages in the negative , Select the corresponding violation of the record, click the "I want to appeal" button, fill in the appropriate information and submit a complaint.
+            Plus bonus points
+            1. Normal ride once 1 \ n
+            2. Report the failure, verified by the effective, 1 1 \ n
+            3. Report a violation and verify that it is valid
+            4. Invite friends to register 2 \ n
+            5. Fill in the invitation code 2 \ n
+            6. First tour itinerary 2 \ n \ n
+            Subtract sub - item
+            1. Install a private lock to 0 points \ n
+            2. Illegal shift to 0 points \ n
+            3. Install a private lock to 0 points \ n
+            2. Illegal shift to 0 points \ n
+
+        </item>
+        <item>When the micro-blue to enjoy the credit points below 80 points, may cause a single car prices floating.</item>
+    </array>
+
+    <array name="tickets_guide_title">
+        <item>1, what is a ride ticket?</item>
+        <item>2, how to get riders?</item>
+    </array>
+    <array name="tickets_guide_content">
+        <item>The voucher is a micro-blue enjoy the bike to the user deducted travel expenses of electronic coupons</item>
+        <item>Micro-blue enjoy the enjoyment in a variety of forms to the user issued a voucher, will automatically choose the best for you a ride on the cost of robbers deduction, does not support the manual selection of vouchers.</item>
+    </array>
+</resources>

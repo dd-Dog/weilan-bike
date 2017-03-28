@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--这个是隐藏的布局，然后通过动态的设置状态栏高度达到效果-->
+        <include layout="@layout/layout_status_bar"/>
+
+        <com.wlcxbj.bike.view.ActionBarView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            actionBar:actionBar_background="@color/green"
+            actionBar:centerText="@string/report_broken_title"
+            actionBar:rightEnable="false"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="10dp"
+            android:text="@string/text_bike_broken"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:id="@+id/ll_scan"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginLeft="@dimen/margin_left_right"
+            android:layout_marginRight="@dimen/margin_left_right"
+            android:background="@color/green"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/homescan"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:id="@+id/tv_bikeNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="@string/text_get_qrcode"
+                android:textColor="@color/WHITE"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/p1"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem1"/>
+
+                <CheckBox
+                    android:id="@+id/p2"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem2"/>
+
+                <CheckBox
+                    android:id="@+id/p3"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem3"/>
+
+                <CheckBox
+                    android:id="@+id/p4"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem4"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/p5"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem5"/>
+
+                <CheckBox
+                    android:id="@+id/p6"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem6"/>
+
+                <CheckBox
+                    android:id="@+id/p7"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem7"/>
+
+                <CheckBox
+                    android:id="@+id/p8"
+                    style="@style/CheckBoxStyle"
+                    android:text="@string/problem8"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_right"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:id="@+id/iv_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/report_violation_default"
+                    tools:ignore="ContentDescription"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/iv_clear"
+                    android:src="@drawable/clear"
+                    android:layout_gravity="right|top"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    tools:ignore="ContentDescription"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/tip_4"
+                android:textColor="@color/user_text_gray"
+                android:textSize="@dimen/user_textsize"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/margin_left_right"
+            android:textSize="@dimen/user_textsize"
+            android:text="@string/tip_5"
+            android:textColor="@color/user_text_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_content"
+            android:textCursorDrawable="@null"
+            android:background="@drawable/textarea_shape"
+            android:scrollbars="vertical"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:minLines="5"
+            android:maxLength="300"
+            android:maxLines="8"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:text="@string/text_hint_tip2"
+            android:layout_marginRight="@dimen/margin_left_right"
+            android:textSize="12sp"
+            android:textColor="@color/user_text_gray"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_submmit"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="@dimen/walletbg_margin"
+            android:layout_marginRight="@dimen/walletbg_margin"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/recharge_button_bg_gray"
+            android:clickable="false"
+            android:text="@string/submmit"
+            android:textColor="@color/WHITE"
+            android:textSize="@dimen/charge_button_text_size"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <include layout="@layout/layout_status_bar"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/green"
+        actionBar:centerText="@string/invite_title"
+        actionBar:rightEnable="false"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/invite_friendsbg"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--<ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:src="@drawable/invite_friendsbg"
+            tools:ignore="ContentDescription"/>-->
+
+        <LinearLayout
+            android:layout_marginBottom="56dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/tip_72"
+                android:textColor="@color/WHITE"
+                android:textSize="14sp"/>
+
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="26dp"
+                android:layout_marginLeft="26dp"
+                android:background="@color/WHITE"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/tv_inviteCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="null"
+                    android:textColor="@color/inviteCode_color_black"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_marginRight="12dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/copy_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/tip_73"
+                    android:textColor="@color/inviteCode_color_black"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+
+            <Button
+                android:layout_marginTop="40dp"
+                android:id="@+id/invite_now"
+                android:background="@drawable/invite_button_rectangle_yellow"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="@string/tip_74"
+                android:textSize="17sp"
+                android:layout_marginRight="26dp"
+                android:layout_marginLeft="26dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

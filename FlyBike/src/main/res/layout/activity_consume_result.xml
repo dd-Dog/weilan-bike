@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        style="@style/StatusBarStyle"
+        android:background="@color/green"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/green"
+        actionBar:centerText="@string/result_title"
+        actionBar:rightEnable="true"
+        actionBar:rightText="@string/broken"/>
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_left_right"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@drawable/paymentbg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            android:text="@string/tip7"
+            android:textColor="@color/WHITE"
+            android:textSize="@dimen/user_textsize"/>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_left_right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="¥"
+                android:textColor="@color/WHITE"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="0.00"
+                android:textColor="@color/WHITE"
+                android:textSize="34sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="starttime"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="endtime"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/simnum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="simnum"
+        android:textSize="18sp"/>
+
+
+    <TextView
+        android:id="@+id/consume_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="time"
+        android:textSize="18sp"/>
+
+</LinearLayout>

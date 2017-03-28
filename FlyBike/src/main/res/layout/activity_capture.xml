@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        android:id="@+id/ll_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/green"
+        android:orientation="vertical"
+        android:visibility="gone">
+    </LinearLayout>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/green"
+        actionBar:centerText="@string/camera_title"
+        actionBar:rightEnable="false"/>
+
+    <RelativeLayout
+        android:id="@+id/capture_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/capture_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/capture_mask_top"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/shadow"/>
+
+        <RelativeLayout
+            android:id="@+id/capture_crop_view"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/qr_code_bg">
+
+            <ImageView
+                android:id="@+id/capture_scan_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/line"/>
+        </RelativeLayout>
+
+        <!--       <ImageView
+                   android:id="@+id/capture_mask_bottom"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:layout_below="@id/capture_crop_view"
+                   android:background="@drawable/shadow"/>-->
+        <LinearLayout
+            android:id="@+id/capture_mask_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/capture_crop_view"
+            android:background="@drawable/shadow"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/tip_195"
+                android:textColor="@color/WHITE"
+                android:textSize="12sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btn_manual"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/transparent"
+                        android:src="@drawable/manual"
+                        tools:ignore="ContentDescription"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tip_1001"
+                        android:textColor="@color/WHITE"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/button_openorcloseClick"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/flashlight"
+                        tools:ignore="ContentDescription"/>
+
+                    <TextView
+                        android:id="@+id/tv_flash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tip_1002"
+                        android:textColor="@color/WHITE"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/capture_mask_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/capture_mask_bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_toLeftOf="@id/capture_crop_view"
+            android:background="@drawable/shadow"/>
+
+        <ImageView
+            android:id="@+id/capture_mask_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/capture_mask_bottom"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/capture_mask_top"
+            android:layout_toRightOf="@id/capture_crop_view"
+            android:background="@drawable/shadow"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/capture_restart_scan"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#66ffcc00"
+        android:gravity="center"
+        android:text="点击出声音"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/capture_scan_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/capture_restart_scan"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Scanning..."
+        android:textColor="@android:color/white"
+        android:textSize="14sp"/>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="mytrip_vector_size">9dp</dimen>
+    <dimen name="action_bar_height">39dp</dimen>
+    <dimen name="home_title_size">17sp</dimen>
+    <dimen name="home_scan_button_margin_bottom">16dp</dimen>
+    <dimen name="home_scan_tv_margin">11dp</dimen>
+    <dimen name="home_location_margin_left">16dp</dimen>
+    <dimen name="home_location_margin_bottom">15dp</dimen>
+    <dimen name="homeuser_margin_left">16dp</dimen>
+    <dimen name="user_textsize">14sp</dimen>
+    <dimen name="user_drawer_width">282dp</dimen>
+    <dimen name="username_size">16sp</dimen>
+    <dimen name="user_icon_size">64dp</dimen>
+    <dimen name="walletbg_margin">16dp</dimen>
+    <dimen name="charge_button_text_size">17sp</dimen>
+    <dimen name="margin_left_right">16dp</dimen>
+    <dimen name="button_text_size">17sp</dimen>
+    <dimen name="button_height">44sp</dimen>
+    <dimen name="usual_item_height">48dp</dimen>
+    <dimen name="head_icon_size">44dp</dimen>
+
+    <dimen name="wave_width">160dp</dimen>
+    <dimen name="wave_center_width">120dp</dimen>
+    <dimen name="wave_circle_width">30dp</dimen>
+</resources>

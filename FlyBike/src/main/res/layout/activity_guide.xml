@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        style="@style/StatusBarStyle"
+        android:background="@color/green"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/green"
+        actionBar:centerText="@string/guide_title"
+        actionBar:rightEnable="false"/>
+
+    <ExpandableListView
+        android:id="@+id/elv_problems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ExpandableListView>
+    <include layout="@layout/layout_divider"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="@dimen/walletbg_margin"
+        android:layout_marginRight="@dimen/walletbg_margin"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/recharge_button_bg_green"
+        android:text="@string/tip_27"
+        android:textColor="@color/WHITE"
+        android:textSize="@dimen/charge_button_text_size"/>
+</LinearLayout>

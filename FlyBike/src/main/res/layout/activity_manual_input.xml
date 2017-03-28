@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置状态栏高度达到效果-->
+    <include layout="@layout/layout_status_bar" />
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/green"
+        actionBar:centerText="@string/tip_1003"
+        actionBar:rightEnable="false"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/iv_flash"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/flashlightmanual"
+            tools:ignore="ContentDescription"/>
+    </FrameLayout>
+
+    <com.jungly.gridpasswordview.GridPasswordView
+        android:id="@+id/pswView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        app:gpvGridColor="#8999"
+        app:gpvLineColor="@color/green"
+        app:gpvLineWidth="1dp"
+        app:gpvPasswordLength="10"
+        app:gpvPasswordType="numberPassword"
+        app:gpvTextColor="@color/green"
+        app:gpvTextSize="22sp"/>
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="@string/tip_1004"
+        android:textColor="#999909"
+        android:textSize="12sp"/>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/recharge_button_bg_gray"
+        android:clickable="false"
+        android:text="@string/confirm"
+        android:textColor="@color/WHITE"
+        android:textSize="17sp"/>
+</LinearLayout>

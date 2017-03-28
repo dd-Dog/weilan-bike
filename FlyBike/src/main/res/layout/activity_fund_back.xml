@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <LinearLayout
+        style="@style/StatusBarStyle"
+        android:background="@color/green"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/green"
+        actionBar:centerText="@string/tip_24"
+        actionBar:rightEnable="false"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="55dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/complete"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="¥"
+                android:textColor="@color/green"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="299"
+                android:textColor="@color/green"
+                android:textSize="34sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:gravity="center"
+            android:text="@string/tip_25"
+            android:textStyle="bold"
+            android:textColor="@color/text_gray2"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/margin_left_right"
+        android:gravity="center"
+        android:textColor="@color/text_gray2"
+        android:textSize="@dimen/user_textsize"
+        android:text="@string/tip_26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="@dimen/walletbg_margin"
+        android:layout_marginRight="@dimen/walletbg_margin"
+        android:background="@drawable/recharge_button_bg_green"
+        android:text="@string/confirm"
+        android:textColor="@color/WHITE"
+        android:layout_marginBottom="40dp"
+        android:textSize="@dimen/charge_button_text_size"/>
+</LinearLayout>

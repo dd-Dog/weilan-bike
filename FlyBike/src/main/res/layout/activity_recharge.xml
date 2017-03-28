@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:actionBar="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+    <include layout="@layout/layout_status_bar"/>
+
+    <com.wlcxbj.bike.view.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        actionBar:actionBar_background="@color/green"
+        actionBar:centerText="@string/tip_41"
+        actionBar:rightEnable="false"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="174dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/currency_symble"
+                    android:textColor="@color/green"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/wallet_count"
+                    style="@style/WalletTextViewStyle"
+                    android:layout_gravity="center"
+                    android:text="0.00"
+                    android:textSize="28sp"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/tip_42"
+                android:textColor="@color/user_text_gray"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:text="@string/tip_43"
+        android:textColor="@color/user_text"
+        android:textSize="@dimen/user_textsize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_marginTop="@dimen/margin_left_right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_100"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/tv_rec_border"
+            android:gravity="center"
+            android:text="100元"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/tv_rec_border"
+            android:gravity="center"
+            android:text="50元"
+            android:textColor="@color/text_gray2"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_10"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/tv_rec_border"
+            android:gravity="center"
+            android:text="10元"
+            android:textColor="@color/text_gray2"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_marginTop="40dp"
+        android:text="@string/tip_44"
+        android:textColor="@color/user_text"
+        android:textSize="@dimen/user_textsize"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_wechat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_marginTop="15dp">
+
+        <include layout="@layout/layout_divider"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/wechat_c"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="@string/tip_30"
+                android:textColor="@color/text_gray2"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_wechat"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/selecteddeposit"
+            tools:ignore="ContentDescription"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_alipay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right">
+
+        <include layout="@layout/layout_divider"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/alipay_c"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="@string/tip_31"
+                android:textColor="@color/text_gray2"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_alipay"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/noselecteddeposit"
+            tools:ignore="ContentDescription"/>
+    </RelativeLayout>
+
+    <include layout="@layout/layout_divider"/>
+
+    <Button
+        android:id="@+id/btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="@dimen/walletbg_margin"
+        android:layout_marginRight="@dimen/walletbg_margin"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/recharge_button_bg_green"
+        android:text="@string/tip_45"
+        android:textColor="@color/WHITE"
+        android:textSize="@dimen/charge_button_text_size"/>
+</LinearLayout>
