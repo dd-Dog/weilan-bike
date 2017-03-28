@@ -53,8 +53,9 @@
 			Plurk          http://www.plurk.com/API
     -->
     
-    <ShareSDK 
-        AppKey = "1971d1e4eb0db"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+
+	<ShareSDK
+	   AppKey = "1c7afc7827ec8"/>
     
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <SinaWeibo
@@ -96,16 +97,16 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wx5abf010f3a6deb84"
+        AppSecret="2e4c07e6d278a9b3267999ce0429b92a"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wx5abf010f3a6deb84"
+        AppSecret="2e4c07e6d278a9b3267999ce0429b92a"
         BypassApproval="false"
         Enable="true" />
         
@@ -120,7 +121,7 @@
 	<QQ
         Id="7"
         SortId="7"
-        AppId="100371282"
+        AppId="1105944117"
         AppKey="aed9b0303e3ed1e27bae87c33761161d"
         ShareByAppClient="true"
         Enable="true" />
@@ -131,7 +132,8 @@
         ConsumerKey="107704292745179"
         ConsumerSecret="38053202e1a5fe26c80c753071f0b573"
         RedirectUrl="http://mob.com"
-        Enable="true" />
+		ShareByAppClient="true"
+		Enable="true" />
 
     <Twitter
         Id="9"
@@ -308,6 +310,8 @@
 	<Line
 	    Id="32"
         SortId="32"
+        ChannelID = "1477692153"
+        ChannelSecret ="f30c036370f2e04ade71c52eef73a9af"
         Enable="true" />
 	
 	<KakaoTalk
@@ -363,4 +367,29 @@
         AppId="2015072400185895"
         Enable="true"/>
 
+     
+     <Dingding
+        Id="52"
+        SortId="52"
+        AppId="dingoanxyrpiscaovl4qlw"
+        BypassApproval="false"
+        Enable="true"/>
+
+    <Youtube
+        Id="53"
+        SortId="53"
+        ClientID="370141748022-bicrnsjfiije93bvdt63dh3728m4shas.apps.googleusercontent.com"
+        AppSecret="AIzaSyAO06g-0TDpHcsXXO918a7QE3Zdct2bB5E"
+        RedirectUrl="http://localhost"
+        ShareByAppClient = "true"
+        Enable="true" />
+	
+	<Meipai
+		Id="54"
+		SortId="54"
+		ClientID="1089867596"
+		AppSecret="y9ym6rrjjijtkt23qtsc"
+		ShareByAppClient = "true"
+		Enable="true"/>
+	
 </DevInfor>

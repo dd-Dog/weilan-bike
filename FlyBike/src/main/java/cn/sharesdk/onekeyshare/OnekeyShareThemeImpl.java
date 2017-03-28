@@ -146,7 +146,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 		if (formateShareData(platform)) {
 			ShareParams sp = shareDataToShareParams(platform);
 			if (sp != null) {
-				toast("ssdk_oks_sharing");
+//				toast("ssdk_oks_sharing");
 				if (customizeCallback != null) {
 					customizeCallback.onShare(platform, sp);
 				}
@@ -294,7 +294,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 
 	final ShareParams shareDataToShareParams(Platform plat) {
 		if (plat == null || shareParamsMap == null) {
-			toast("ssdk_oks_share_failed");
+			toast("分享失败");
 			return null;
 		}
 
@@ -312,7 +312,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 			}
 		} catch (Throwable t) {
 			t.printStackTrace();
-			toast("ssdk_oks_share_failed");
+			toast("分享失败");
 			return null;
 		}
 
@@ -374,7 +374,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 		switch (msg.arg1) {
 			case 1: {
 				// 成功
-				int resId = R.getStringRes(context, "ssdk_oks_share_completed");
+				int resId = R.getStringRes(context, "分享成功");
 				if (resId > 0) {
 					toast(context.getString(resId));
 				}
@@ -402,12 +402,12 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 				} else if("FacebookMessengerClientNotExistException".equals(expName)){
 					toast("ssdk_facebookmessenger_client_inavailable");
 				} else {
-					toast("ssdk_oks_share_failed");
+					toast("分享失败");
 				}
 			} break;
 			case 3: {
 				// 取消
-				toast("ssdk_oks_share_canceled");
+				toast("取消分享");
 			} break;
 		}
 		return false;

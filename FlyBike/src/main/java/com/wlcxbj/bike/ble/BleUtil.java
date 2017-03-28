@@ -39,7 +39,7 @@ import java.util.UUID;
 public class BleUtil {
 
     private static final String TAG = "BleUtil";
-    private static final long SCAN_PERIOD = 1000 * 5;
+    private static final long SCAN_PERIOD = 1000 * 6;
     private static final String SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb";
     //0000fff1-0000-1000-8000-00805f9b34fb
     public static final String characterUUID1 = "0000fff1-0000-1000-8000-00805f9b34fb";
@@ -135,8 +135,7 @@ public class BleUtil {
                                 //不重复添加
                                 listDevice.add(bleDeviceBean);
                                 btUtilCallBackAdapter.onLeScanDevices(listDevice);
-//                                Log.e(TAG, "device:" + bleDeviceBean.getDevice().getAddress()
-// .toString());
+                                Log.e(TAG, "device:" + bleDeviceBean.getDevice().getAddress().toString());
                             }
                         }
                     });

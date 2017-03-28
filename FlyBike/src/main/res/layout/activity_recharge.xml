@@ -147,13 +147,14 @@
             android:layout_marginRight="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="7dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/wechat_c"
+                android:layout_marginLeft="28dp"
                 tools:ignore="ContentDescription"/>
 
             <TextView
@@ -171,6 +172,7 @@
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
             android:src="@drawable/selecteddeposit"
             tools:ignore="ContentDescription"/>
     </RelativeLayout>
@@ -192,13 +194,14 @@
             android:layout_marginRight="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="7dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/alipay_c"
+                android:layout_marginLeft="28dp"
                 tools:ignore="ContentDescription"/>
 
             <TextView
@@ -218,6 +221,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/noselecteddeposit"
+            android:layout_marginRight="28dp"
             tools:ignore="ContentDescription"/>
     </RelativeLayout>
 

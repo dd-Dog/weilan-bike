@@ -53,7 +53,7 @@ public class CaptureActivity extends BaseActivity implements OnClickListener {
     private boolean barcodeScanned = false;
     private boolean previewing = true;
     private SoundPool soundPool;
-    private int success;
+    private int success; // 测试提交
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,7 +3,9 @@
               xmlns:actionBar="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+               android:background="@color/bg_activity"
+               >
     <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
     <LinearLayout
         style="@style/StatusBarStyle"
@@ -17,10 +19,10 @@
         actionBar:rightEnable="true"
         actionBar:rightText="@string/broken"/>
 
-    <LinearLayout
-        android:layout_margin="@dimen/margin_left_right"
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="170dp"
+        android:layout_margin="@dimen/margin_left_right"
         android:background="@drawable/paymentbg"
         android:orientation="vertical">
 
@@ -35,10 +37,14 @@
 
         <LinearLayout
             android:gravity="center_horizontal"
+            android:textSize="@dimen/user_textsize" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_left_right"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
@@ -49,6 +55,7 @@
                 android:textColor="@color/WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/payed"
@@ -59,6 +66,7 @@
                 android:textColor="@color/WHITE"
                 android:textSize="34sp"
                 android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,5 +109,140 @@
         android:padding="10dp"
         android:text="time"
         android:textSize="18sp"/>
+        android:textSize="18sp"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_60"
+        android:paddingBottom="@dimen/dp_60"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/complete"
+            android:layout_gravity="center_horizontal"
+           />
+        <TextView
+            android:id="@+id/tv_payResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payed_result"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_19"
+            android:textColor="@color/text_gray2"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@color/WHITE">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_gray2"
+            android:text="@string/tip_99"
+            />
+        <TextView
+            android:id="@+id/tv_rideTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="28分钟"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/user_text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@color/WHITE">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_gray2"
+            android:text="@string/tip_118"
+            />
+        <TextView
+            android:id="@+id/tv_rideDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2千米"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/user_text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@color/WHITE">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_gray2"
+            android:text="@string/tip_120"
+            />
+        <TextView
+            android:id="@+id/tv_rideCalory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000卡路里"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/user_text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@color/WHITE">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_gray2"
+            android:text="@string/wallet_title"
+            />
+        <TextView
+            android:id="@+id/tv_walletBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.00元"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/user_text"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -201,7 +201,7 @@
     <string name="tip_87">确定清理本地缓存记录？</string>
     <string name="tip_88">拍照</string>
     <string name="tip_89">从相册选一张</string>
-    <string name="tip_90">您只有一次机会修改专属邀请码，不能超过10个字</string>
+    <string name="tip_90">您只有一次机会修改专属邀请码，不能超过21个数字</string>
     <string name="tip_91">更换手机号前需要退还押金，您还未退还押金，是否前去退还押金？</string>
     <string name="tip_92">您还没有打开蓝牙，打开蓝牙无需手动输入密码，可以自动解锁</string>
     <string name="tip_93">不想打开</string>
@@ -316,6 +316,14 @@
     <string name="tip_1005">手动输入车辆编号</string>
     <string name="bike_no_length">10</string>
     <string name="tip_195">对准车上的二维码</string>
+
+    <!-- add by qiaodong-->
+    <string name="credit_max_value">100</string>
+    <string name="positive_record">加分记录</string>
+    <string name="negative_record">负面记录</string>
+    <string name="payed_result">成功支付 %1$s 元</string>
+    <string name="loading">正在加载中...</string>
+
     <array name="user_guide_parent">
         <item>注册与账户</item>
         <item>预约，开关锁问题</item>
@@ -592,12 +600,20 @@
     </array>
 
     <array name="tickets_guide_title">
-        <item>1、什么是骑行券？</item>
-        <item>2、如何获得骑行券？</item>
+        <item>1、什么是骑行券 </item>
+        <item>2、如何获得骑行券 </item>
+        <item>3、如何使用骑行券 </item>
+        <item>4、一次行程能用几张骑行券 </item>
+        <item>5、骑行券是否可以找零和兑换 </item>
+        <item>6、每天使用骑行券次数 </item>
     </array>
     <array name="tickets_guide_content">
         <item>骑行券是微蓝畅享单车发放给用户抵扣行程消费的电子券</item>
         <item>微蓝畅享会以各种形式向用户发放骑行券，会自动为您选择优惠力度最大的一张骑行券进行劫匪抵扣，不支持手动选择骑行券。</item>
+        <item>如果您的账户有可用的骑行券，微蓝畅享会自动为您选择优惠力度最大的一张骑行券进行结费抵扣，不支持手动选择骑行券。</item>
+        <item>一次行程最多只能使用一张骑行券。</item>
+        <item>骑行券不支持找零和兑换，券金额高于行程订单金额的，差额部分不找零不兑换；券金额低于行程订单金额的，差额部分由用户支付。</item>
+        <item>同一用户每天使用骑行券次数不设上限。</item>
     </array>
 
 

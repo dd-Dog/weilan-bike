@@ -116,6 +116,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
             }
         }
     }
+    ;
 
     /**
      * 获取验证码

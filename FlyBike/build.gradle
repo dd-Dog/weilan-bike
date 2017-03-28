@@ -5,7 +5,7 @@ android {
         debug {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('E:\\keystore\\ReleaseAtayunFGLife_temp.keystore')
+            storeFile file('ReleaseAtayunFGLife_temp.keystore')
             storePassword 'android'
         }
     }
@@ -67,17 +67,14 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:design:24.2.0'
-    compile files('libs/MobCommons-2016.1107.1809.jar')
-    compile files('libs/MobTools-2016.1107.1809.jar')
-    compile files('libs/ShareSDK-Core-2.7.10.jar')
-    compile files('libs/ShareSDK-QQ-2.7.10.jar')
-    compile files('libs/ShareSDK-QZone-2.7.10.jar')
-    compile files('libs/ShareSDK-SinaWeibo-2.7.10.jar')
-    compile files('libs/ShareSDK-Wechat-2.7.10.jar')
-    compile files('libs/ShareSDK-Wechat-Core-2.7.10.jar')
-    compile files('libs/ShareSDK-Wechat-Favorite-2.7.10.jar')
-    compile files('libs/ShareSDK-Wechat-Moments-2.7.10.jar')
-    compile files('libs/ShareSDK-WhatsApp-2.7.10.jar')
+    compile files('libs/MobCommons-2017.0322.0931.jar')
+    compile files('libs/MobTools-2017.0322.0931.jar')
+    compile files('libs/ShareSDK-Core-2.8.2.jar')
+    compile files('libs/ShareSDK-QQ-2.8.2.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.8.2.jar')
+    compile files('libs/ShareSDK-Wechat-2.8.2.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.8.2.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.8.2.jar')
     compile 'com.android.support:cardview-v7:24.2.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
     compile project(path: ':CustomeImage')
@@ -91,7 +88,6 @@ dependencies {
     compile files('libs/alisdk-ut-5.jar')
     compile files('libs/alicloud-android-push-sdk-3.0.2.jar')
     compile 'com.jungly:gridPasswordView:0.3'
-
     compile 'com.google.zxing:core:3.2.1'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.7@aar'

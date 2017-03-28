@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +25,29 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.OnekeyShareTheme;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.OnekeyShareTheme;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
+
+import com.amap.api.maps.model.Text;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.other.InviteCodeToken;
 import com.wlcxbj.bike.net.beanutil.HttpAccountOtherBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.view.CustomDialog;
+
+import com.wlcxbj.bike.util.ShareUtil;
+import com.wlcxbj.bike.util.ToastUtil;
+import com.wlcxbj.bike.util.image.ImageHelper;
+import com.wlcxbj.bike.view.CustomDialog;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by bain on 16-11-28.
@@ -52,7 +71,9 @@ public class ShareActivity extends BaseActivity {
             "WechatMoments",//微信朋友圈
             "SinaWeibo",//新浪微博
     };
+
     private HttpAccountOtherBeanUtil httpAccountOtherBeanUtil;
+    private boolean isInviteCodeModified = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,24 +81,10 @@ public class ShareActivity extends BaseActivity {
         ButterKnife.bind(this);
         getSupportActionBar().hide();
         httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
-//        setInviceCode();
+        Log.e("Share", getResources().getDisplayMetrics().density + "");
+        setInviceCode();
         Log.e("Share", getResources().getDisplayMetrics().density + "");
 
-        //测试
-        httpAccountOtherBeanUtil.modifyInviceCode(mAuthNativeToken.getAuthToken().getAccess_token
-                (), "xxxx", new HttpCallbackHandler() {
-
-
-            @Override
-            public void onSuccess(Object o) {
-
-            }
-
-            @Override
-            public void onFailure(Exception error, String msg) {
-
-            }
-        });
     }
 
     //设置邀请码
@@ -90,6 +97,13 @@ public class ShareActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 tvInviteCode.setText(inviteCodeToken.getInviteCode());
+                                if(inviteCodeToken.getInviteNote() == null){
+                                    tvInviteCode.setText(inviteCodeToken.getInviteCode());
+                                }else{
+                                    tvInviteCode.setText(inviteCodeToken.getInviteNote());
+                                }
+                                isInviteCodeModified = !(inviteCodeToken.getInviteNote() == null);
+                                LogUtil.d(TAG,"inviteToken ="+inviteCodeToken.toString());
                             }
                         });
                     }
@@ -101,7 +115,33 @@ public class ShareActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ib_back, R.id.copy_code, R.id.invite_now})
+    public void modifyInviteCode(final String newInviteCode){
+        //测试
+        httpAccountOtherBeanUtil.modifyInviceCode(mAuthNativeToken.getAuthToken().getAccess_token
+                (), newInviteCode, new HttpCallbackHandler() {
+
+
+            @Override
+            public void onSuccess(Object o) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvInviteCode.setText(newInviteCode);
+                        ToastUtil.show(ShareActivity.this,"邀请码修改成功");
+                        isInviteCodeModified = true;
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception error, String msg) {
+
+            }
+        });
+    }
+
+
+    @OnClick({R.id.ib_back, R.id.copy_code, R.id.invite_now,R.id.rl_inviteCode})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_back:
@@ -113,6 +153,13 @@ public class ShareActivity extends BaseActivity {
             case R.id.invite_now:
 //                showShare(this, null, true);
                 showShareDialog();
+                break;
+            case R.id.rl_inviteCode:
+                if(!isInviteCodeModified){
+                    showModifyDialog();
+                }else{
+                    ToastUtil.show(ShareActivity.this,"您的邀请码已修改过");
+                }
                 break;
         }
     }
@@ -126,17 +173,17 @@ public class ShareActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.ll_wechat:
-                        showShare(getApplicationContext(), plateforms[0], true);
+                    case R.id.wechat:
+                        ShareUtil.showShare(ShareActivity.this, plateforms[0], true);
                         break;
                     case R.id.ll_qq:
-                        showShare(getApplicationContext(), plateforms[1], true);
+                        ShareUtil.showShare(ShareActivity.this,plateforms[1], true);
                         break;
                     case R.id.ll_wechat_circle:
-                        showShare(getApplicationContext(), plateforms[2], true);
+                        ShareUtil.showShare(ShareActivity.this, plateforms[2], true);
                         break;
                     case R.id.ll_sina:
-                        showShare(getApplicationContext(), plateforms[3], true);
+                        ShareUtil. showShare(ShareActivity.this, plateforms[3], true);
                         break;
                     case R.id.tv_cancel:
                         dialog.dismiss();
@@ -244,6 +291,7 @@ public class ShareActivity extends BaseActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_modify_invitecode);
+        final EditText newInviteCode_et = (EditText) dialog.findViewById(R.id.et_newInviteCode);
         dialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,6 +303,12 @@ public class ShareActivity extends BaseActivity {
             public void onClick(View v) {
                 Log.e(TAG, "点击了确定，修改邀请码");
                 dialog.dismiss();
+                if(TextUtils.isEmpty(newInviteCode_et.getText().toString())){
+                    ToastUtil.show(ShareActivity.this,"新的邀请码不能为空");
+                }else{
+                    modifyInviteCode(newInviteCode_et.getText().toString());
+                    dialog.dismiss();
+                }
             }
         });
         dialog.show();

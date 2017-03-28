@@ -47,7 +47,6 @@ public class ILeagleActivity extends BaseActivity implements View.OnClickListene
     private EditText etContent;
     private String localPath;
     private String fileName;
-    private HttpAccountOtherBeanUtil httpAccountOtherBeanUtil;
 
     @Override
     public void setContentViewID() {
@@ -101,7 +100,7 @@ public class ILeagleActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void report() {
-        httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
+        HttpAccountOtherBeanUtil httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
         ReportProblemBean reportProblemBean = new ReportProblemBean();
         reportProblemBean.setTid(tvBikeNum.getText().toString());
         reportProblemBean.setIssueTypeSpid(Constants.ISSUE_TYPE_III);

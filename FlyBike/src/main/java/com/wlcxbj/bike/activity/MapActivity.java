@@ -20,7 +20,6 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +48,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
+import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
@@ -209,6 +209,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private CircleImageView userIcon;
     private TextView tvIdentityState;
     private ImageView ivIdentityPic;
+    private TextView creditPoints;
     private BTManager btManager;
     private boolean unlockByBlueTooth = false;
     private BlueToothClient blueToothClient;
@@ -402,6 +403,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         removeMessages(COUNTING_RESERVE_LEFT_TIME);
                     }
                     break;
+
                 case RECEIVE_COMPLELTE:
                     Command cmd = CmdFactory.parseByteToCmd(mapActivity.receiveByteArr);
                     mapActivity.receiveByteArr.clear();
@@ -426,6 +428,11 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                             break;
                     }
                     Log.e(TAG, "解码后的开锁指令：" + AES.byte2hex(cmd.getBytes()));
+                    break;
+
+                case COUNT_BIKING_DISTANCE:
+                    sendEmptyMessageDelayed(COUNT_BIKING_DISTANCE, COUNT_BIKING_DISTANCE_DELAYED);
+                    mapActivity.countRideDistance();
                     break;
 
             }
@@ -460,9 +467,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private static final int RECEIVE_COMPLELTE = 12;
 
     private void initBle() {
-        LogUtil.e(TAG, "调用initBle");
-        if (bleUtil != null) return;
-
         bleUtil = BleUtil.getInstance();
         bleUtil.setContext(this);
         bleUtil.setBTUtilListener(new BTUtilCallBackAdapter() {
@@ -470,22 +474,19 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onLeScanDevices(List<BleDeviceBean> listDevice) {
                 mDeviceList = listDevice;
-//                connectScannedDevice(mBikePswToken.getMac(), decoceArr);
+                connectScannedDevice(mBikePswToken.getMac(), decoceArr);
             }
 
             @Override
             public void onConnected(BluetoothDevice mCurDevice) {
                 Log.e(TAG, "连接到设备：" + mCurDevice.getAddress());
-//                connectToBle = true;
+                connectToBle = true;
             }
 
             @Override
             public void onDisConnected(BluetoothDevice mCurDevice) {
                 Log.e(TAG, "断开设备连接：" + mCurDevice.getAddress());
-//                connectToBle = false;
-                //再重新连接一次
-//                if (mBikePswToken == null) return;
-//                connectScannedDeviceDirectly(mBikePswToken.getMac(), decoceArr);
+                connectToBle = false;
             }
 
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -510,7 +511,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         ToastUtil.showUIThread(MapActivity.this, "开锁" + (state == BLEError
                                 .STATE_UNLOCK ? "成功" :
                                 "失败"));
-                        connectToBle = true;
                         dismissBTUnlockDialog();
                         if (state == BLEError.STATE_UNLOCK) {
                             startTrip();
@@ -579,8 +579,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             }
         });
 //        bleUtil.scanLeDevice(true);
-        scanLeDeviceThread = new ScanLeDeviceThread();
-        startScanLe();
     }
 
     private void readLockState() {
@@ -679,7 +677,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      * 连接指定的BLE设备，并发送发送指令
      */
     private void connectScannedDevice(String mac, byte[] decoceArr) {
-        connectToBle = false;
         //测试，指令暂时固定
         Command cmd = CmdFactory.createUnlockCmd(decoceArr);
         unlockCmdArr = Util.splitToByteArr(cmd.encrypt());
@@ -737,53 +734,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         }
     }
 
-    /**
-     * 扫描蓝牙线程
-     */
-    private boolean scanLe = true;
-    private static final int SCAN_FREQUENCY = 1000 * 20;
-    private ScanLeDeviceThread scanLeDeviceThread;
-
-    private class ScanLeDeviceThread extends Thread {
-        @Override
-        public void run() {
-            super.run();
-            Looper.prepare();
-            while (scanLe) {
-                if (bleUtil != null) {
-                    bleUtil.scanLeDevice(true);
-                }
-                try {
-                    Thread.sleep(SCAN_FREQUENCY);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
-
-    /**
-     * 停止扫描LE
-     */
-    public void stopScanLe() {
-        scanLe = false;
-        scanLeDeviceThread.interrupt();
-    }
-
-    /**
-     * 开始扫描LE
-     */
-    public void startScanLe() {
-        scanLe = true;
-        if (scanLeDeviceThread == null) {
-            scanLeDeviceThread = new ScanLeDeviceThread();
-        }
-        scanLeDeviceThread.start();
-    }
 
     private void dismissBTUnlockDialog() {
-//        stopScanLe();
         if (btProgress == null) return;
         btProgress.dismiss();
         handler.removeMessages(MSG_UNLOCK_BLUETOOTH);
@@ -809,7 +761,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      * 初始化蓝牙观察者
      */
     private void initBlueToothObserver() {
-        if (bluetoothObserver != null) return;
         bluetoothObserver = new BlueToothObserver(this, mBluetoothObserverHandler);
         Uri flashlightUri = Settings.System.getUriFor(Settings.System.BLUETOOTH_ON);
         getContentResolver().registerContentObserver(flashlightUri, false, bluetoothObserver);
@@ -1016,7 +967,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         //请求网络数据
         initMap(savedInstanceState);
         registerAliMessageReceiver();
-        initBle();
     }
 
     @Override
@@ -1056,6 +1006,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         super.onStart();
         initLoc();
         initBlueToothObserver();
+        initBle();
         getPersimmions();
         initCloudSearch();
         //register receiver
@@ -1065,24 +1016,22 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         mBusinessParamsToken = CacheUtil.getSerialToken(getApplicationContext(),
                 Constants.BUSINESS_PARAMS_FILE);
         if (mBusinessParamsToken == null)
-            if (mAuthNativeToken != null)
-                httpAccountBeanUtil.getBusinessParams(mAuthNativeToken.getAuthToken()
-                                .getAccess_token(),
-                        new HttpCallbackHandler<BusinessParamsToken>() {
+            httpAccountBeanUtil.getBusinessParams(mAuthNativeToken.getAuthToken().getAccess_token(),
+                    new HttpCallbackHandler<BusinessParamsToken>() {
 
-                            @Override
-                            public void onSuccess(BusinessParamsToken businessParamsToken) {
-                                mBusinessParamsToken = businessParamsToken;
-                                boolean b = CacheUtil.cacheSerialToken(getApplicationContext(),
-                                        Constants.BUSINESS_PARAMS_FILE, businessParamsToken);
-                                LogUtil.e(TAG, "缓存" + (b ? "成功" : "失败"));
-                            }
+                        @Override
+                        public void onSuccess(BusinessParamsToken businessParamsToken) {
+                            mBusinessParamsToken = businessParamsToken;
+                            boolean b = CacheUtil.cacheSerialToken(getApplicationContext(),
+                                    Constants.BUSINESS_PARAMS_FILE, businessParamsToken);
+                            LogUtil.e(TAG, "缓存" + (b ? "成功" : "失败"));
+                        }
 
-                            @Override
-                            public void onFailure(Exception error, String msg) {
+                        @Override
+                        public void onFailure(Exception error, String msg) {
 
-                            }
-                        });
+                        }
+                    });
     }
 
     AliMessageCallbackHandlerAdapter aliMessageCallbackHandlerAdapter = new
@@ -1108,6 +1057,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         Intent endtripIntent = new Intent(this, ConsumeResultActivity.class);
         endtripIntent.putExtra("tid", scanResultToken.bikeno);
         endtripIntent.putExtra("coast", 0.5);
+        endtripIntent.putExtra("rideDistance",rideDistance);
         Bundle bundle = new Bundle();
         bundle.putSerializable("endtriptoken", endTripToken);
         endtripIntent.putExtras(bundle);
@@ -1133,7 +1083,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
 
     private void initCloudSearch() {
-        if (mCloudSearch != null) return;
         mTableID = PropertiesUtil.getProperties(this, PropertiesUtil.TABLEID);
         LogUtil.e(TAG, "mTableID=" + mTableID);
 //        LogUtil.e(TAG, "开始云图检索");
@@ -1261,7 +1210,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         userIcon = (CircleImageView) findViewById(R.id.user_icon);
         tvIdentityState = (TextView) findViewById(R.id.identify_state);
         ivIdentityPic = (ImageView) findViewById(R.id.user_identity_pic);
-        TextView creditPoints = (TextView) findViewById(R.id.points_number);
+         creditPoints = (TextView) findViewById(R.id.points_number);
         TextView title = (TextView) findViewById(R.id.tv_title);
         tvUseTime = (TextView) findViewById(R.id.use_time);
         tvDistance = (TextView) findViewById(R.id.ride_distance);
@@ -1326,13 +1275,19 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 //车锁有蓝牙
                                 if (unlockByBlueTooth) {
                                     if (bleUtil != null && bleUtil.isBlueToothEanbled()) {
-                                        connectScannedDevice(mac, decoceArr);
                                         //设置启用蓝牙开锁，并且蓝牙打开的状态
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 showBTUnlockDialog();
                                                 Log.e(TAG, "获取密码成功，使用BLE开锁");
+//                                        connectScannedDevice(mac, decoceArr);
+                                                if (bleUtil != null) {
+                                                    bleUtil.scanLeDevice(true);
+                                                } else {
+                                                    initBle();
+                                                    bleUtil.scanLeDevice(true);
+                                                }
                                             }
                                         });
                                     } else {
@@ -1353,9 +1308,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                         }
                                     });
                                 }
-                            } else
-
-                            {
+                            } else {
                                 ToastUtil.showUIThread(MapActivity.this, bikePswToken.getErrmsg());
                             }
                         }
@@ -1367,7 +1320,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         }
                     });
         }
-
     }
 
     /**
@@ -1396,7 +1348,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      * 初始化定位
      */
     private void initLoc() {
-        if (mSensorHelper != null) return;
         mSensorHelper = new SensorEventHelper(this);
         if (mSensorHelper != null) {
             mSensorHelper.registerSensorListener();
@@ -1539,6 +1490,12 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     Log.e(TAG, "scanResult=" + scanResult);
                     scanResultToken = new ScanResultToken(scanResult);
                     getBikePassword(scanResultToken.bikeno);
+//                    if (bleUtil != null) {
+//                        bleUtil.scanLeDevice(true);
+//                    }else {
+//                        initBle();
+//                        bleUtil.scanLeDevice(true);
+//                    }
                 }
                 break;
             case REQUEST_SEARCH_KEYWORD:
@@ -1611,6 +1568,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         tvUserName.setText(TextUtils.isEmpty(nickName) ? mAuthNativeToken.getAuthToken()
                 .getMobile() : nickName);
         setIdentifyShow();
+        updateCreditPoint(mAccountToken.getAccount().getPoint());
 
 //        userIcon.setImageBitmap(Cach);
         //图片参数应该从后台获取
@@ -1659,6 +1617,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         }
     }
 
+
+    public void updateCreditPoint(String value){
+        creditPoints.setText(value);
+    }
 
     /**
      * 开始进行poi搜索
@@ -1733,15 +1695,45 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
     @Override
     public void onClick(View v) {
+
+        if (v.getId() == R.id.iv_icon) {
+            drawerLayout.openDrawer(Gravity.LEFT);
+            return;
+        }
+
+        if (v.getId() == R.id.iv_search) {
+            Intent search = new Intent(this, SearchActivity.class);
+            search.putExtra("myaddress", myAddress);
+            search.putExtras(getAuthBundle());
+            startActivityForResult(search, REQUEST_SEARCH_KEYWORD);
+            return;
+        }
+
+        if (v.getId() == R.id.service) {
+            showServiceDialog();
+            return;
+        }
+
+        if (v.getId() == R.id.btn_order) {
+            reserveBike();
+            return;
+        }
+
+        if (v.getId() == R.id.btn_cancelOrder) {
+            cancelReservation();
+            return;
+        }
+        if (v.getId() == R.id.locate) {
+            //  unlockByBlueTooth();
+            //重新定位
+            Log.d(TAG, "重新定位");
+            moveToMyLoc();
+            return;
+        }
+
         if (!AccountUtil.isLogin(this)) {
-            LogUtil.e(TAG, "没有登录");
-            if (!(v.getId() == R.id.username)) {
-                ToastUtil.showUIThread(this, getResources().getString(R.string.tip_149));
-                return;
-            } else {
-                login();
-                return;
-            }
+            login();
+            return;
         }
         switch (v.getId()) {
             case R.id.service:
@@ -1750,8 +1742,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 //                showBTUnlockDialog();
 //                startActivity(new Intent(this, CreditPointsActivity.class));
                 break;
-            case R.id.scanBar:
 
+            case R.id.scanBar:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager
                             .PERMISSION_GRANTED) {
@@ -1800,10 +1792,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 }
                 //检测是否打开蓝牙
                 if (unlockByBlueTooth) {
-                    if (bleUtil != null) {
-                        scanLe = false;
-                        bleUtil.scanLeDevice(false);
-                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                         BluetoothManager mBm = (BluetoothManager) getSystemService(Context
                                 .BLUETOOTH_SERVICE);
@@ -1819,23 +1807,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
                             REQUEST_SCAN_RESULT);
                 }
+                break;
 
-                break;
-            case R.id.locate:
-//                unlockByBlueTooth();
-                //重新定位
-                Log.d(TAG, "重新定位");
-                moveToMyLoc();
-                break;
-            case R.id.iv_icon:
-                drawerLayout.openDrawer(Gravity.LEFT);
-                break;
-            case R.id.iv_search:
-                Intent search = new Intent(this, SearchActivity.class);
-                search.putExtra("myaddress", myAddress);
-                search.putExtras(getAuthBundle());
-                startActivityForResult(search, REQUEST_SEARCH_KEYWORD);
-                break;
             case R.id.user_wallet:
                 Intent wallet = new Intent(this, WalletActivity.class);
                 wallet.putExtras(getAuthAccountBundle());
@@ -1868,16 +1841,14 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             case R.id.user_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
-            case R.id.username:
-                //如果登录过期就重新登录
-                if (!AccountUtil.isLogin(this)) {
-                    login();
-                }
-                break;
+//            case R.id.username:
+//                //如果登录过期就重新登录
+//                if (!AccountUtil.isLogin(this)) {
+//                    login();
+//                }
+//                break;
             case R.id.ll_identify:
-                if (AccountUtil.isLogin(this)) {
-                    startActivity(new Intent(this, IdentityActivity.class));
-                }
+                startActivity(new Intent(this, IdentityActivity.class));
                 break;
             case R.id.user_icon:
                 Intent userInfoIntent = new Intent(this, UserInfoActivity.class);
@@ -1887,13 +1858,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 bundle.putSerializable(USER_ICON_BEAN, mOssParams);
                 userInfoIntent.putExtras(bundle);
                 startActivity(userInfoIntent);
-                break;
-
-            case R.id.btn_order:
-                reserveBike();
-                break;
-            case R.id.btn_cancelOrder:
-                cancelReservation();
                 break;
             case R.id.ll_creditPoints:
                 Intent creditPoints = new Intent(this, CreditPointsActivity.class);
@@ -1982,6 +1946,12 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
             @Override
             public void onClick(View v) {
+
+                if(!AccountUtil.isLogin(MapActivity.this)){
+                    login();
+                    return;
+                }
+
                 AMapLocation lastKnownLocation = mLocationClient.getLastKnownLocation();
                 switch (v.getId()) {
                     case R.id.cannot_unlock:
@@ -2456,7 +2426,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                     showInUserWindow();
                                 }
                             });
-                        } else {
+                        }else {
                             ToastUtil.showUIThread(MapActivity.this, tripToken.getErrmsg());
                         }
                     }
@@ -2561,6 +2531,22 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         handler.sendEmptyMessageDelayed(COUNT_BIKING_TIME, COUNT_BIKING_TIME_DELAYED);
         usingTimeSeconds = 0;
     }
+
+    private long rideDistance = 0;
+    private static final int COUNT_BIKING_DISTANCE = 22;
+    private static final int COUNT_BIKING_DISTANCE_DELAYED = 60 * 1000;
+    private LatLng tripStartPoint = null;
+
+    public void startCountingRideDistance(){
+        handler.sendEmptyMessageDelayed(COUNT_BIKING_DISTANCE,COUNT_BIKING_DISTANCE_DELAYED);
+        tripStartPoint = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
+    }
+
+     public void countRideDistance(){
+         LatLng currentPoint = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
+         rideDistance += AMapUtils.calculateLineDistance(tripStartPoint, currentPoint);
+         tripStartPoint = currentPoint;
+     }
 
     public void hideAllWindows() {
         runOnUiThread(new Runnable() {

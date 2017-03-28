@@ -4,7 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/green"
+              android:background="@color/bg_activity"
               android:orientation="vertical">
     <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
     <LinearLayout
@@ -19,7 +19,9 @@
         actionBar:rightEnable="true"
         actionBar:rightText="@string/rule"/>
 
-    <FrameLayout
+=======
+    <!--<FrameLayout
+>>>>>>> init by qiao dong
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="345dp">
@@ -43,5 +45,55 @@
             android:text="@string/tip_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+<<<<<<< HEAD
     </LinearLayout>
+=======
+    </LinearLayout>-->
+    <!--  add by qiaodong-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_creditscore">
+
+        <TextView
+            android:id="@+id/tv_scoreValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credit_max_value"
+            android:textColor="@color/WHITE"
+           android:layout_gravity="center"
+             android:layout_marginBottom="@dimen/dp_10"
+            android:textSize="@dimen/score_text_size" />
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_positiveRecore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/positive_record"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:background="@drawable/selector_credit"
+        android:layout_marginTop="@dimen/dp_10"
+        android:drawableRight="@drawable/fill_5"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/tv_negativeRecore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/negative_record"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_1"
+        android:drawableRight="@drawable/fill_5"
+        android:background="@drawable/selector_credit"
+        android:clickable="true"
+        />
 </LinearLayout>
