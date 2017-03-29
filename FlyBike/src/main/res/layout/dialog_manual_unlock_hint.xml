@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/shape_dialog">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_30"
         android:gravity="center"
-        android:textSize="17sp"
-        android:textColor="#000"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
         android:text="@string/manual_unlock"
+        android:layout_marginTop="@dimen/dp_26"
         />
 
     <TextView
         android:id="@+id/tv_unlockPsd"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="17sp"
-        android:textColor="#000"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
         android:text="@string/unlock_psd"
+        android:layout_marginTop="@dimen/dp_10"
         />
 
     <TextView
         android:id="@+id/tv_orderActiveHint"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_30"
         android:gravity="center"
-        android:textSize="17sp"
-        android:textColor="#000"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
         android:text="@string/order_hint"
+        android:layout_marginTop="@dimen/dp_14"
         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#d3d7d4"
+        android:layout_marginTop="@dimen/dp_29"
         />
 
     <LinearLayout
@@ -48,12 +52,12 @@
         <Button
             android:id="@+id/btn_cancel_order"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/cancel_order"
             android:background="@drawable/selector_left_button"
-            android:textColor="@color/red"
-            android:textSize="20sp"
+            android:textColor="@color/usual_address_red"
+            android:textSize="@dimen/sp_16"
             />
         <View
             android:layout_width="1dp"
@@ -63,12 +67,12 @@
         <Button
             android:id="@+id/btn_continueUse"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:text="@string/continue_use"
             android:background="@drawable/selector_right_button"
-            android:textColor="@color/green"
-            android:textSize="20sp"
+            android:textColor="@color/green_7b"
+            android:textSize="@dimen/sp_16"
             />
 
     </LinearLayout>

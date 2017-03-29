@@ -2601,7 +2601,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
            TextView orderActiveHint_tv = (TextView) hintDialog.findViewById(R.id.tv_orderActiveHint);
            Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
            Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
-           unlockPsd_tv.setText(StringUtil.getRiceText(this,getString(R.string.unlock_psd,"3242"),5,9,R.color.green_68));
+           unlockPsd_tv.setText(StringUtil.getRiceText(this,getString(R.string.unlock_psd,"3242"),5,9,R.color.green_7b,DpPxUtil.sp2px(this,20)));
            startCountDown(orderActiveHint_tv);
            cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -2625,7 +2625,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onTick(long millisUntilFinished) {
                 String hint = MapActivity.this.getString(R.string.order_hint,millisUntilFinished/1000+"");
-               SpannableString hintInfo = StringUtil.getRiceText(MapActivity.this,hint,4,hint.length()-5,R.color.red);
+               SpannableString hintInfo = StringUtil.getRiceText(MapActivity.this,hint,4,hint.length()-5,R.color.red_24,DpPxUtil.sp2px(MapActivity.this,18));
                   tv.setText(hintInfo);
             }
 
