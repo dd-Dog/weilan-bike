@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.wlcxbj.bike.R;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
+import cn.bingoogolapple.qrcode.zbar.ZBarView;
 
 public class TestScanActivity extends BaseActivity implements QRCodeView.Delegate, View
         .OnClickListener {
@@ -20,7 +20,7 @@ public class TestScanActivity extends BaseActivity implements QRCodeView.Delegat
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQRCodeView = (ZXingView) findViewById(R.id.zxingview);
+        mQRCodeView = (ZBarView) findViewById(R.id.zxingview);
         findViewById(R.id.ib_back).setOnClickListener(this);
         findViewById(R.id.btn_manual).setOnClickListener(this);
         findViewById(R.id.button_openorcloseClick).setOnClickListener(this);

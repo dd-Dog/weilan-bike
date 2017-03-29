@@ -19,7 +19,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <cn.bingoogolapple.qrcode.zxing.ZXingView
+        <cn.bingoogolapple.qrcode.zbar.ZBarView
             android:id="@+id/zxingview"
             style="@style/WrapWrap"
             app:qrcv_animTime="1000"
