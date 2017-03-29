@@ -82,6 +82,10 @@ public abstract class Command {
      */
     public static final byte CMD_ID_UNLOCK = 0X02;
     /**
+     * 设置车锁TCP服务器地址
+     */
+    public static final byte CMD_ID_SET_SERVER = 0X04;
+    /**
      * 查询车锁状态命令ID
      */
     protected static final byte CMD_ID_CHECK_STATE = 0X03;

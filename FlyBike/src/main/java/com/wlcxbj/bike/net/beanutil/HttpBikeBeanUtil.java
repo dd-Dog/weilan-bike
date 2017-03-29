@@ -51,7 +51,7 @@ public class HttpBikeBeanUtil {
             httpCallbackHandler) {
         JSONObject postBody = new JSONObject();
         try {
-            postBody.put("tno", bikePswBean.getTid());
+            postBody.put("tno", bikePswBean.getTno());
             postBody.put("userlng", bikePswBean.getUserlng());
             postBody.put("userlat", bikePswBean.getUserlat());
         } catch (JSONException e) {

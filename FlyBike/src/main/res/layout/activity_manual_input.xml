@@ -38,7 +38,7 @@
         app:gpvGridColor="#8999"
         app:gpvLineColor="@color/green"
         app:gpvLineWidth="1dp"
-        app:gpvPasswordLength="10"
+        app:gpvPasswordLength="9"
         app:gpvPasswordType="numberPassword"
         app:gpvTextColor="@color/green"
         app:gpvTextSize="22sp"/>

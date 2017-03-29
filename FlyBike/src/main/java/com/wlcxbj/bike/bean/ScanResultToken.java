@@ -13,7 +13,7 @@ public class ScanResultToken {
             String codeStr = str.substring(str.indexOf("?") + 1);
             url = str.substring(0, str.indexOf("?"));
             if (codeStr.contains("=")) {
-                bikeno = codeStr.substring(codeStr.indexOf("=") + 1);
+                bikeno = codeStr.substring(codeStr.indexOf("=") + 1).trim();
             }
         }
     }
