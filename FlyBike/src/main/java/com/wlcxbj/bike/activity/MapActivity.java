@@ -1770,14 +1770,18 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 }
                 LogUtil.e(TAG, "deposit=" + deposit);
                 if (!TextUtils.isEmpty(deposit)) {
-                    if (!TextUtils.equals(mAccountToken.getAccount().getGuaranteeDeposit(),
-                            deposit)) {
-                        LogUtil.e(TAG, "mAccountToken.getAccount().getGuaranteeDeposit()=" +
-                                mAccountToken.getAccount().getGuaranteeDeposit());
-                        Intent rechargeIntent = new Intent(this, PayRefundActivity.class);
-                        rechargeIntent.putExtras(getAuthAccountBundle());
-                        startActivity(rechargeIntent);
-                        return;
+                    double v1 = Double.parseDouble(deposit);
+                    String guaranteeDeposit = mAccountToken.getAccount().getGuaranteeDeposit();
+                    if (!TextUtils.isEmpty(guaranteeDeposit)) {
+                        double v2 = Double.parseDouble(deposit);
+                        if (v1 > v2) {
+                            LogUtil.e(TAG, "mAccountToken.getAccount().getGuaranteeDeposit()=" +
+                                    mAccountToken.getAccount().getGuaranteeDeposit());
+                            Intent rechargeIntent = new Intent(this, PayRefundActivity.class);
+                            rechargeIntent.putExtras(getAuthAccountBundle());
+                            startActivity(rechargeIntent);
+                            return;
+                        }
                     }
                 }
                 if (Double.parseDouble(mAccountToken.getAccount().getBalance()) <= 0) {
