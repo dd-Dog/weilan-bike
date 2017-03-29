@@ -4,6 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+    android:background="@color/bg_activity"
               android:orientation="vertical">
 
     <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->

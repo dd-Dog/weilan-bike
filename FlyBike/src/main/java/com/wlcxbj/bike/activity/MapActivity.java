@@ -19,12 +19,14 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -34,6 +36,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -127,6 +130,7 @@ import com.wlcxbj.bike.net.beanutil.HttpTripBeanUtil;
 import com.wlcxbj.bike.observer.BlueToothObserver;
 import com.wlcxbj.bike.receiver.AliMessageCallbackHandlerAdapter;
 import com.wlcxbj.bike.receiver.AliMessageReveiver;
+import com.wlcxbj.bike.util.StringUtil;
 import com.wlcxbj.bike.util.map.AmapUtil;
 import com.wlcxbj.bike.bluetooth.BTManager;
 import com.wlcxbj.bike.util.DpPxUtil;
@@ -259,6 +263,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         cloudSearch(amapLocation);
                         aMapLocationFlag = false;
                     }
+                    // 实时位置，计算骑行距离用
+                    realTimeLocation = new LatLng(amapLocation.getLatitude(),amapLocation.getLongitude());
 
                 } else {
                     //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
@@ -447,8 +453,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         usingTimeSeconds++;
         LogUtil.e(TAG, "刷新时间 ：" + usingTimeSeconds);
         tvUseTime.setText(TimeUtil.getMiniteSecondsStr(usingTimeSeconds));
-        tvDistance.setText(usingTimeSeconds * 3 + "");
-        tvCalory.setText(usingTimeSeconds * 2 + "");
+//        tvDistance.setText(usingTimeSeconds * 3 + "");
+        tvDistance.setText(rideDistance+"");
+        tvCalory.setText(rideDistance/20+"");
+        LogUtil.d(TAG,"骑行距离"+rideDistance);
     }
 
     /**
@@ -2124,6 +2132,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         bleUtil = null;
         ShareBikeApplication.getInstance().pop(this);
         unregisterReceiver(aliMessageReveiver);
+        //取消定时器
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
     }
 
 
@@ -2527,6 +2539,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             }
         });
         startCountingTime();
+        startCountingRideDistance();
     }
 
     private int usingTimeSeconds = 0;
@@ -2538,18 +2551,18 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
     private long rideDistance = 0;
     private static final int COUNT_BIKING_DISTANCE = 22;
-    private static final int COUNT_BIKING_DISTANCE_DELAYED = 60 * 1000;
+    private static final int COUNT_BIKING_DISTANCE_DELAYED = 10 * 1000;
     private LatLng tripStartPoint = null;
+    private LatLng realTimeLocation = null;
 
     public void startCountingRideDistance(){
         handler.sendEmptyMessageDelayed(COUNT_BIKING_DISTANCE,COUNT_BIKING_DISTANCE_DELAYED);
-        tripStartPoint = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
+        tripStartPoint = realTimeLocation;
     }
 
      public void countRideDistance(){
-         LatLng currentPoint = new LatLng(mLocationClient.getLastKnownLocation().getLatitude(),mLocationClient.getLastKnownLocation().getLongitude());
-         rideDistance += AMapUtils.calculateLineDistance(tripStartPoint, currentPoint);
-         tripStartPoint = currentPoint;
+         rideDistance += AMapUtils.calculateLineDistance(tripStartPoint,realTimeLocation);
+         tripStartPoint = realTimeLocation;
      }
 
     public void hideAllWindows() {
@@ -2575,4 +2588,57 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     public void setCurrentState(int state) {
         this.currentState = state;
     }
+
+    private Dialog hintDialog;
+    public void showManualUnlockHintDialog(){
+       if(hintDialog == null){
+           hintDialog = new Dialog(this,R.style.CustomDialogStyle);
+           hintDialog.setContentView(R.layout.dialog_manual_unlock_hint);
+           hintDialog.setCanceledOnTouchOutside(false);
+           hintDialog.setCancelable(false);
+//           Window  dialogWindow = hintDialog.getWindow();
+//           WindowManager.LayoutParams p =  dialogWindow.getAttributes();
+//           p.width = 600;
+//           p.height = 700;
+           TextView unlockPsd_tv = (TextView) hintDialog.findViewById(R.id.tv_unlockPsd);
+           TextView orderActiveHint_tv = (TextView) hintDialog.findViewById(R.id.tv_orderActiveHint);
+           Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
+           Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
+           unlockPsd_tv.setText(StringUtil.getRiceText(this,getString(R.string.unlock_psd,"3242"),5,9,R.color.green_7b,DpPxUtil.sp2px(this,20)));
+           startCountDown(orderActiveHint_tv);
+           cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   if(hintDialog.isShowing()){
+                       hintDialog.dismiss();
+                       if(countDownTimer != null){
+                           countDownTimer.cancel();
+                       }
+                   }
+               }
+           });
+
+           hintDialog.show();
+       }
+    }
+
+    private CountDownTimer countDownTimer;
+    public void startCountDown(final TextView tv){
+        countDownTimer = new CountDownTimer(120*1000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String hint = MapActivity.this.getString(R.string.order_hint,millisUntilFinished/1000+"");
+               SpannableString hintInfo = StringUtil.getRiceText(MapActivity.this,hint,4,hint.length()-5,R.color.red_24,DpPxUtil.sp2px(MapActivity.this,18));
+                  tv.setText(hintInfo);
+            }
+
+            @Override
+            public void onFinish() {
+                countDownTimer.cancel();
+            }
+        };
+        countDownTimer.start();
+    }
+
+
 }
