@@ -10,8 +10,8 @@ public class BikePswBean {
     private String userlng; //	用户所在位置经度
     private String userlat; //	用户所在位置维度
 
-    public BikePswBean(String tid, String plateno, String userlng, String userlat) {
-        this.tid = tid;
+    public BikePswBean(String tno, String plateno, String userlng, String userlat) {
+        this.tno = tno;
         this.plateno = plateno;
         this.userlng = userlng;
         this.userlat = userlat;

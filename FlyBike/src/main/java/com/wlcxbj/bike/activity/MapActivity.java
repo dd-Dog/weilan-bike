@@ -4,10 +4,6 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +13,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -83,6 +77,7 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.google.gson.Gson;
+import com.inuker.bluetooth.library.search.SearchResult;
 import com.meg7.widget.CircleImageView;
 
 import java.text.DecimalFormat;
@@ -110,29 +105,22 @@ import com.wlcxbj.bike.bean.oss.AvatarURL2OSSParamsUtil;
 import com.wlcxbj.bike.bean.oss.OSSFileParams;
 import com.wlcxbj.bike.bean.trip.TripPointBean;
 import com.wlcxbj.bike.bean.trip.TripToken;
-import com.wlcxbj.bike.ble.BTUtilCallBackAdapter;
 import com.wlcxbj.bike.ble.BleDeviceBean;
-import com.wlcxbj.bike.ble.BleUtil;
 import com.wlcxbj.bike.ble.encrypt.AES;
-import com.wlcxbj.bike.ble.packet.cmd.CmdFactory;
+import com.wlcxbj.bike.ble.lock.LockCallbackHandler;
+import com.wlcxbj.bike.ble.lock.LockManager;
 import com.wlcxbj.bike.ble.packet.cmd.Command;
-import com.wlcxbj.bike.ble.packet.part.CmdBody;
-import com.wlcxbj.bike.ble.packet.part.CmdData;
-import com.wlcxbj.bike.ble.packet.util.Util;
-import com.wlcxbj.bike.global.BLEError;
 import com.wlcxbj.bike.global.Error;
 import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpBikeBeanUtil;
-import com.wlcxbj.bike.bluetooth.BlueToothClient;
 import com.wlcxbj.bike.global.ShareBikeApplication;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.net.beanutil.HttpTripBeanUtil;
 import com.wlcxbj.bike.observer.BlueToothObserver;
 import com.wlcxbj.bike.receiver.AliMessageCallbackHandlerAdapter;
-import com.wlcxbj.bike.receiver.AliMessageReveiver;
 import com.wlcxbj.bike.util.StringUtil;
+import com.wlcxbj.bike.receiver.AliMessageReceiver;
 import com.wlcxbj.bike.util.map.AmapUtil;
-import com.wlcxbj.bike.bluetooth.BTManager;
 import com.wlcxbj.bike.util.DpPxUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.PreferenceUtil;
@@ -171,8 +159,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private static final int REFRESH_BIKES = 9;
     private static final int REFRESH_BIKES_DELAYED = 30 * 1000;
     private static final int CHECK_DEVICE_STATE = 13;
-    private static final int SCAN_RESULT_TYPE_WITH_MAC = 1;
-    private static final int SCAN_RESULT_TYPE_ONLY_NUM = 2;
     private LatLonPoint mStartPoint = null;//起点，116.335891,39
     // .942295
     private LatLonPoint mEndPoint = null;//终点，116.481288,39.995576
@@ -214,9 +200,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private TextView tvIdentityState;
     private ImageView ivIdentityPic;
     private TextView creditPoints;
-    private BTManager btManager;
     private boolean unlockByBlueTooth = false;
-    private BlueToothClient blueToothClient;
     private Dialog btProgress;
     private ProgressBar pbUnlock;
     private static int msg_unlock_ble = 3;
@@ -234,7 +218,35 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     public static final int UNDER_RESERVE = 62;
     public static final int UNDER_BICYCLING = 62;
     public int currentState = UNDER_FREE;
+    private OnLocationChangedListener mOnLocationChangedListener;
+    private TextView tvUseTime;
+    private TextView tvDistance;
+    private TextView tvCalory;
+    private TextView tvOrderedNum;
+    private TextView tvEndPoint2;
+    private TextView tvEndPoint1;
+    private TextView tvRemainTime;
+    private TextView emulateDistance;
+    private TextView emulateTime;
+    private OSSFileParams mOssParams;
+    private BusinessParamsToken mBusinessParamsToken;
+    private BikePswToken mBikePswToken;
 
+    private HttpAccountBeanUtil httpAccountBeanUtil;
+    private ImageHelper imageHelper;
+    private ArrayList<CloudItem> oldBikeList = new ArrayList<>();
+    private int codeValue;
+    private byte[] decoceArr;
+    private List<BleDeviceBean> mDeviceList;
+    private BlueToothObserver bluetoothObserver;
+    private CloudSearch mCloudSearch;
+    private CloudSearch.Query mQuery;
+    private String mTableID;
+    private boolean scanComplete;
+    private boolean connectToBle;
+    private TextView tvBikeId;
+    private AliMessageReceiver aliMessageReceiver;
+    private SensorEventHelper mSensorHelper;
     //声明定位回调监听器
     //可以通过类implement方式实现AMapLocationListener接口，也可以通过创造接口类对象的方法实现
     AMapLocationListener mAMapLocationListener = new AMapLocationListener() {
@@ -277,19 +289,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
 
     };
-    private OnLocationChangedListener mOnLocationChangedListener;
-    private TextView tvUseTime;
-    private TextView tvDistance;
-    private TextView tvCalory;
-    private TextView tvOrderedNum;
-    private TextView tvEndPoint2;
-    private TextView tvEndPoint1;
-    private TextView tvRemainTime;
-    private TextView emulateDistance;
-    private TextView emulateTime;
-    private OSSFileParams mOssParams;
-    private BusinessParamsToken mBusinessParamsToken;
-    private BikePswToken mBikePswToken;
+    private LockManager mLockManager;
 
     /**
      * 添加定位图标
@@ -315,22 +315,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         markerNow.setToTop();
         return false;
     }
-
-    private HttpAccountBeanUtil httpAccountBeanUtil;
-    private ImageHelper imageHelper;
-    private ArrayList<CloudItem> oldBikeList = new ArrayList<>();
-    private int codeValue;
-    private byte[] decoceArr;
-    private List<BleDeviceBean> mDeviceList;
-    private BlueToothObserver bluetoothObserver;
-    private CloudSearch mCloudSearch;
-    private CloudSearch.Query mQuery;
-    private String mTableID;
-    private boolean scanComplete;
-    private boolean connectToBle;
-    private TextView tvBikeId;
-    private AliMessageReveiver aliMessageReveiver;
-    private SensorEventHelper mSensorHelper;
 
 
     DecimalFormat df = new DecimalFormat("######0.00");
@@ -386,13 +370,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     }
                     sendEmptyMessageDelayed(REFRESH_BIKES, REFRESH_BIKES_DELAYED);
                     break;
-                case CHECK_DEVICE_STATE:
-                    mapActivity.readLockState();
-                    break;
-                case REOPEN_BLUETOOTH_SCAN_CODE:
-                    //重新打开蓝牙要初始化一次
-                    mapActivity.initBle();
-                    break;
                 case COUNT_BIKING_TIME:
                     sendEmptyMessageDelayed(COUNT_BIKING_TIME, COUNT_BIKING_TIME_DELAYED);
                     mapActivity.refreshInUseWindow();
@@ -409,38 +386,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         removeMessages(COUNTING_RESERVE_LEFT_TIME);
                     }
                     break;
-
-                case RECEIVE_COMPLELTE:
-                    Command cmd = CmdFactory.parseByteToCmd(mapActivity.receiveByteArr);
-                    mapActivity.receiveByteArr.clear();
-                    CmdData cmdData = cmd.getCmdData();
-                    CmdBody cmdBody = cmd.getCmdBody();
-                    final byte code = cmdData.getData()[0];
-                    Log.e(TAG, "CMDDATA=" + code + ",cmd_id=" + cmdBody.getCmd_id());
-                    switch (cmdBody.getCmd_id()) {
-                        case Command.CMD_ID_LOCATE:
-                            break;
-                        case Command.CMD_ID_UNLOCK:
-                            if (code != 0) {
-                                mapActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtil.show(mapActivity, "开锁失败，errcode=" + code);
-                                    }
-                                });
-                            } else {
-                                mapActivity.readLockState();
-                            }
-                            break;
-                    }
-                    Log.e(TAG, "解码后的开锁指令：" + AES.byte2hex(cmd.getBytes()));
-                    break;
-
-                case COUNT_BIKING_DISTANCE:
-                    sendEmptyMessageDelayed(COUNT_BIKING_DISTANCE, COUNT_BIKING_DISTANCE_DELAYED);
-                    mapActivity.countRideDistance();
-                    break;
-
             }
             super.handleMessage(msg);
         }
@@ -459,358 +404,16 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         LogUtil.d(TAG,"骑行距离"+rideDistance);
     }
 
-    /**
-     * 通过蓝牙开锁
-     */
-    BleUtil bleUtil;
-    private static final int BLE_DEVICE_STATE_UNLOCK = 1;
-    private static final int BLE_DEVICE_STATE_LOCKED = 2;
-    private ArrayList<byte[]> unlockCmdArr;
-    /**
-     * 读取车锁状态
-     */
-    private static boolean readFlag = true;//是否继续读
-    private static boolean readComplete = false;//是否读取完成
-    private ArrayList<byte[]> receiveByteArr = new ArrayList<>();
-    private static final int RECEIVE_COMPLELTE = 12;
-
-    private void initBle() {
-        bleUtil = BleUtil.getInstance();
-        bleUtil.setContext(this);
-        bleUtil.setBTUtilListener(new BTUtilCallBackAdapter() {
-
-            @Override
-            public void onLeScanDevices(List<BleDeviceBean> listDevice) {
-                mDeviceList = listDevice;
-                connectScannedDevice(mBikePswToken.getMac(), decoceArr);
-            }
-
-            @Override
-            public void onConnected(BluetoothDevice mCurDevice) {
-                Log.e(TAG, "连接到设备：" + mCurDevice.getAddress());
-                connectToBle = true;
-            }
-
-            @Override
-            public void onDisConnected(BluetoothDevice mCurDevice) {
-                Log.e(TAG, "断开设备连接：" + mCurDevice.getAddress());
-                connectToBle = false;
-            }
-
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-            @Override
-            public void onServiceDiscover(BluetoothGatt gatt) {
-                Log.e(TAG, "发现服务：" + gatt.getDevice().getAddress() + ",uuid=" +
-                        gatt.getDevice().getUuids());
-
-                sendCount = 0;
-                sendCmd(sendCount);
-            }
-
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-            @Override
-            public void onCharRead(BluetoothGatt gatt, BluetoothGattCharacteristic
-                    characteristic, int status) {
-                byte[] value = characteristic.getValue();
-                int state = value[0];
-                switch (characteristic.getUuid().toString()) {
-                    case BleUtil.characterUUID9:
-                        Log.e(TAG, "车锁状态：" + state);
-                        ToastUtil.showUIThread(MapActivity.this, "开锁" + (state == BLEError
-                                .STATE_UNLOCK ? "成功" :
-                                "失败"));
-                        dismissBTUnlockDialog();
-                        if (state == BLEError.STATE_UNLOCK) {
-                            startTrip();
-                        }
-                        //TO-DO
-                        break;
-                    case BleUtil.characterUUID5:
-                        byte[] times = characteristic.getValue();
-                        Log.e(TAG, "times=" + AES.byte2hex(times));
-                        final long numberFromBytes = Util.getNumberFromBytes(times);
-                        Log.e(TAG, "读取开锁次数＝" + numberFromBytes);
-                        ToastUtil.showUIThread(MapActivity.this, "读取开锁次数" + (state == 0 ? "成功" :
-                                "失败"));
-                        break;
-                }
-            }
-
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-            @Override
-            public void onCharWrite(BluetoothGatt gatt, BluetoothGattCharacteristic
-                    characteristic, int status) {
-                Log.e(TAG, "终端有数据写入status=" + status + ",char=" + characteristic.getUuid());
-                sendFlag = true;
-                sendCmd(sendCount);
-                Log.e(TAG, "onCharWrite 在线程：threadname=" + Thread.currentThread().getName());
-            }
-
-            @Override
-            public void onCharateristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic
-                    characteristic) {
-                synchronized (MapActivity.this) {
-                    Log.e(TAG, "onCharateristicChanged");
-                    byte[] value = characteristic.getValue();
-                    if (receiveByteArr.size() >= value[0]) return;
-                    Log.e(TAG, "终端有数据改变,CHANGED_VALUE=" + AES.byte2hex(value));
-                    //避免收到重复数据包,保证多次回调同步进行
-                    if (receiveByteArr.size() > 0) {
-                        if (!(value[1] == receiveByteArr.get(receiveByteArr.size() - 1)[1])) {
-                            receiveByteArr.add(value);
-                            Log.e(TAG, "接收数据,receiveByteArr.size=" + receiveByteArr.size());
-                            if (value[0] == receiveByteArr.size()) {
-                                readComplete = true;
-                                readFlag = false;
-                                Log.e(TAG, "读取完成");
-                                handler.sendEmptyMessageDelayed(RECEIVE_COMPLELTE, 1000);
-                            } else {
-                                readFlag = true;
-                                readComplete = false;
-                            }
-                        }
-                    } else {
-                        receiveByteArr.add(value);
-                        Log.e(TAG, "接收数据,receiveByteArr.size=" + receiveByteArr.size());
-                        if (value[0] == receiveByteArr.size()) {
-                            readComplete = true;
-                            readFlag = false;
-                            Log.e(TAG, "读取完成");
-                            handler.sendEmptyMessage(RECEIVE_COMPLELTE);
-                        } else {
-                            readFlag = true;
-                            readComplete = false;
-                        }
-                    }
-                }
-
-            }
-        });
-//        bleUtil.scanLeDevice(true);
-    }
-
-    private void readLockState() {
-        if (bleUtil != null) {
-            boolean b1 = bleUtil.readLockState();
-            if (!b1) {
-                Log.e(TAG, "重新读一次");
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                boolean b2 = bleUtil.readLockState();
-                if (!b2) {
-                    Log.e(TAG, "再重新读一次");
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    bleUtil.readLockState();
-                }
-            }
-        }
-    }
-
-    private static boolean sendFlag = true;//标志数据包是否被读取
-    private static int sendCount = 0;
-    private static boolean sendComplete = true;//是否发完一条命令
-
-
-    private void sendCmd(final int index) {
-        Log.e(TAG, "index=" + index);
-        if (index >= unlockCmdArr.size()) {
-            Log.e(TAG, "发送命令完成,index=" + index);
-            sendCount = 0;
-            return;
-        }
-        boolean b = bleUtil.writeChar(unlockCmdArr.get(index));
-        if (!b && index == 0) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    sendCount = 0;
-//                    unlock();
-                    Log.e(TAG, "重新发送一次");
-                    boolean b1 = bleUtil.writeChar(unlockCmdArr.get(index));
-                    if (!b1) {
-                        Log.e(TAG, "再重新发送一次");
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        boolean b2 = bleUtil.writeChar(unlockCmdArr.get(index));
-                        if (!b2) {
-                            dismissBTUnlockDialog();
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    showConfirmDialog(scanResultToken.bikeno, getPswStr());
-                                }
-                            });
-                        }
-                    } else {
-                        sendCount++;
-                    }
-                }
-            });
-        } else {
-            sendCount++;
-        }
-    }
-
-    /**
-     * 直接连接指定的mac地址的设备
-     *
-     * @param mac
-     * @param decoceArr
-     */
-    private void connectScannedDeviceDirectly(String mac, byte[] decoceArr) {
-        if (bleUtil == null) return;
-        //测试，指令暂时固定
-        Command cmd = CmdFactory.createUnlockCmd(decoceArr);
-        unlockCmdArr = Util.splitToByteArr(cmd.encrypt());
-        bleUtil.connectByMac(mac);
-        LogUtil.e(TAG, "开始连接设备：" + mac);
-    }
-
-    /**
-     * 连接指定的BLE设备，并发送发送指令
-     */
-    private void connectScannedDevice(String mac, byte[] decoceArr) {
-        //测试，指令暂时固定
-        Command cmd = CmdFactory.createUnlockCmd(decoceArr);
-        unlockCmdArr = Util.splitToByteArr(cmd.encrypt());
-
-
-        Log.e(TAG, "开始连接指定设备");
-        //连接指定设备
-//        if (mDeviceList == null || mDeviceList.size() == 0) {
-//            Log.e(TAG, "扫描到的设备列表为空");
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    bleUtil.scanLeDevice(true);
-//                }
-//            });
-//            return;
-//        }
-        if (mDeviceList == null) {
-            ToastUtil.showUIThread(this, getResources().getString(R.string.tip_136));
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dismissBTUnlockDialog();
-                    if (scanResultToken != null)
-                        showConfirmDialog(scanResultToken.bikeno, getPswStr());
-                }
-            });
-        }
-        boolean find = false;
-        for (int i = 0; i < mDeviceList.size(); i++) {
-            BluetoothDevice device = mDeviceList.get(i).getDevice();
-//            String deviceName = device.getName();
-            String address = device.getAddress();
-            Log.e(TAG, "devicename=" + address);
-            if (TextUtils.isEmpty(address)) continue;
-            if (TextUtils.equals(address, mac)) {
-                Log.e(TAG, "扫描到目标设备，开始连接");
-                bleUtil.scanLeDevice(false);//停止扫描
-                bleUtil.connectLeDevice(device);
-                find = true;
-                break;
-            }
-        }
-        if (!find) {
-            ToastUtil.showUIThread(this, getResources().getString(R.string.tip_136));
-            handler.removeMessages(MSG_UNLOCK_BLUETOOTH);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dismissBTUnlockDialog();
-                    if (scanResultToken != null)
-                        showConfirmDialog(scanResultToken.bikeno, getPswStr());
-                }
-            });
-        }
-    }
-
-
     private void dismissBTUnlockDialog() {
         if (btProgress == null) return;
         btProgress.dismiss();
         handler.removeMessages(MSG_UNLOCK_BLUETOOTH);
-        if (bleUtil != null) {
-            bleUtil.disConnGatt();
-        }
-    }
-
-    /**
-     * 通过蓝牙开锁成功
-     * 1.取消显示进度条
-     * 2.断开连接
-     * 3.设置通过蓝牙开锁成功标志位
-     */
-    private void deviceUnlockedByBle() {
-        dismissBTUnlockDialog();
-        if (bleUtil != null) {
-            bleUtil.disConnGatt();
-        }
-    }
-
-    /**
-     * 初始化蓝牙观察者
-     */
-    private void initBlueToothObserver() {
-        bluetoothObserver = new BlueToothObserver(this, mBluetoothObserverHandler);
-        Uri flashlightUri = Settings.System.getUriFor(Settings.System.BLUETOOTH_ON);
-        getContentResolver().registerContentObserver(flashlightUri, false, bluetoothObserver);
     }
 
     /**
      * static inner class to avoid mem leaks
      */
     private static final int REOPEN_BLUETOOTH_SCAN_CODE = 17;
-
-    private static class BlueotoothHandler extends Handler {
-        private MapActivity thisActivity;
-
-        public BlueotoothHandler(MapActivity activity) {
-            thisActivity = activity;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Log.e("TAG", "handleMessage" + msg.what);
-            switch (msg.what) {
-                case BlueToothObserver.MSG_BLUETOOTH_ON:
-                    int isFlashlightOpen = (int) msg.obj;
-                    if (isFlashlightOpen == 0) {
-                        Log.e(TAG, "蓝牙关闭");
-                        if (thisActivity.bleUtil != null) {
-                            thisActivity.bleUtil.disConnGatt();
-                            thisActivity.bleUtil = null;
-                        }
-                    } else {
-                        Log.e(TAG, "蓝牙打开");
-                        thisActivity.handler.sendEmptyMessageDelayed(REOPEN_BLUETOOTH_SCAN_CODE,
-                                3000);
-                    }
-
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    }
-
-    private Handler mBluetoothObserverHandler = new BlueotoothHandler(this);
 
     public String getPswStr() {
         if (!Constants.ON_LINE_MODE) {
@@ -963,7 +566,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        btManager = new BTManager();
         unlockByBlueTooth = PreferenceUtil.getBoolean(this, Constants.UNBLOCK_BLE_ENABLED, false);
         okhttpHelper = OkhttpHelper.getInstance();
         httpBikeBeanUtil = new HttpBikeBeanUtil(this);
@@ -975,6 +577,68 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         //请求网络数据
         initMap(savedInstanceState);
         registerAliMessageReceiver();
+    }
+
+    private void initBle() {
+        mLockManager = new LockManager(this);
+        mLockManager.setLockCallbackHandler(new LockCallbackHandler() {
+            @Override
+            public void onSuccess(SearchResult device, final byte cmdId) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (cmdId) {
+                            case Command.CMD_ID_SET_SERVER:
+                                Toast.makeText(getApplicationContext(), "设置服务器成功", Toast
+                                        .LENGTH_SHORT).show();
+                                break;
+                            case Command.CMD_ID_UNLOCK:
+                                Toast.makeText(getApplicationContext(), "开锁成功", Toast
+                                        .LENGTH_SHORT).show();
+                                startTrip();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dismissBTUnlockDialog();
+                                    }
+                                });
+                                break;
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onLocated() {
+
+            }
+
+            @Override
+            public void onFail(SearchResult device, int code, final String msg, final byte cmdId) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (cmdId) {
+                            case Command.CMD_ID_SET_SERVER:
+                                Toast.makeText(getApplicationContext(), "设置服务器失败", Toast
+                                        .LENGTH_SHORT).show();
+                                break;
+                            case Command.CMD_ID_UNLOCK:
+                                Toast.makeText(getApplicationContext(), "开锁失败", Toast
+                                        .LENGTH_SHORT).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dismissBTUnlockDialog();
+                                        showConfirmDialog(scanResultToken.bikeno, getPswStr());
+                                    }
+                                });
+                                break;
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -1013,14 +677,14 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     protected void onStart() {
         super.onStart();
         initLoc();
-        initBlueToothObserver();
-        initBle();
         getPersimmions();
         initCloudSearch();
         //register receiver
         unlockByBlueTooth = PreferenceUtil.getBoolean(this, Constants.UNBLOCK_BLE_ENABLED, false);
         Log.e(TAG, "unlockByBlueTooth=" + unlockByBlueTooth);
-
+        if (mLockManager != null && !mLockManager.isBluetoothOpened()) {
+            mLockManager.openBluetooth();
+        }
         mBusinessParamsToken = CacheUtil.getSerialToken(getApplicationContext(),
                 Constants.BUSINESS_PARAMS_FILE);
         if (mBusinessParamsToken == null)
@@ -1063,20 +727,21 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         handler.removeMessages(COUNT_BIKING_TIME);
         usingTimeSeconds = 0;
         Intent endtripIntent = new Intent(this, ConsumeResultActivity.class);
-        endtripIntent.putExtra("tid", scanResultToken.bikeno);
-        endtripIntent.putExtra("coast", 0.5);
-        endtripIntent.putExtra("rideDistance",rideDistance);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("endtriptoken", endTripToken);
-        endtripIntent.putExtras(bundle);
-        startActivity(endtripIntent);
-        setCurrentState(UNDER_FREE);
+        if (scanResultToken != null) {
+            endtripIntent.putExtra("tid", scanResultToken.bikeno);
+            endtripIntent.putExtra("coast", 0.5);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("endtriptoken", endTripToken);
+            endtripIntent.putExtras(bundle);
+            startActivity(endtripIntent);
+            setCurrentState(UNDER_FREE);
+        }
     }
 
     private void registerAliMessageReceiver() {
-        aliMessageReveiver = new AliMessageReveiver(this);
+        aliMessageReceiver = new AliMessageReceiver(this);
         IntentFilter intentFilter = new IntentFilter();
-        aliMessageReveiver.setAliCallbackHandler(aliMessageCallbackHandlerAdapter);
+        aliMessageReceiver.setAliCallbackHandler(aliMessageCallbackHandlerAdapter);
         intentFilter.addAction("com.alibaba.push2.action.NOTIFICATION_OPENED");
         intentFilter.addAction("com.alibaba.push2.action.NOTIFICATION_REMOVED");
         intentFilter.addAction("com.taobao.taobao.intent.action.COMMAND");
@@ -1086,7 +751,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         intentFilter.addAction("android.intent.action.USER_PRESENT");
         intentFilter.addAction("android.intent.action.BOOT_COMPLETED");
         intentFilter.addAction("android.intent.action.PACKAGE_REMOVED");
-        registerReceiver(aliMessageReveiver, intentFilter);
+        registerReceiver(aliMessageReceiver, intentFilter);
     }
 
 
@@ -1111,7 +776,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             }
         });
         // 设置中心点及检索范围
-
     }
 
     /**
@@ -1280,42 +944,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 decoceArr = BikePwdUtil.decoce(codeValue);
                                 String mac = bikePswToken.getMac();
                                 LogUtil.e(TAG, "decoceArr=" + AES.byte2hex(decoceArr));
-                                //车锁有蓝牙
-                                if (unlockByBlueTooth) {
-                                    if (bleUtil != null && bleUtil.isBlueToothEanbled()) {
-                                        //设置启用蓝牙开锁，并且蓝牙打开的状态
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showBTUnlockDialog();
-                                                Log.e(TAG, "获取密码成功，使用BLE开锁");
-//                                        connectScannedDevice(mac, decoceArr);
-                                                if (bleUtil != null) {
-                                                    bleUtil.scanLeDevice(true);
-                                                } else {
-                                                    initBle();
-                                                    bleUtil.scanLeDevice(true);
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        //设置启用蓝牙开锁，并且蓝牙关闭的状态
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showConfirmDialog(tno, getPswStr());
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    //设置不使用蓝牙开锁
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showConfirmDialog(tno, getPswStr());
-                                        }
-                                    });
-                                }
+                                unlockBike(mac, tno);
                             } else {
                                 ToastUtil.showUIThread(MapActivity.this, bikePswToken.getErrmsg());
                             }
@@ -1327,6 +956,46 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                             ToastUtil.showUIThread(MapActivity.this, msg);
                         }
                     });
+        }
+    }
+
+    /**
+     * 获取密码后，处理开锁流程
+     *
+     * @param mac
+     * @param tno
+     */
+    private void unlockBike(String mac, final String tno) {
+        //车锁有蓝牙
+        if (unlockByBlueTooth) {
+            if (mLockManager != null && mLockManager.isBleSupported() && mLockManager
+                    .isBluetoothOpened()) {
+                mLockManager.unlock(mac, decoceArr);
+                //设置启用蓝牙开锁，并且蓝牙打开的状态
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showBTUnlockDialog();
+                        Log.e(TAG, "获取密码成功，使用BLE开锁");
+                    }
+                });
+            } else {
+                //设置启用蓝牙开锁，并且蓝牙关闭的状态
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showConfirmDialog(tno, getPswStr());
+                    }
+                });
+            }
+        } else {
+            //设置不使用蓝牙开锁
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showConfirmDialog(tno, getPswStr());
+                }
+            });
         }
     }
 
@@ -1803,22 +1472,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     return;
                 }
                 //检测是否打开蓝牙
-                if (unlockByBlueTooth) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                        BluetoothManager mBm = (BluetoothManager) getSystemService(Context
-                                .BLUETOOTH_SERVICE);
-                    }
-                    if (!btManager.isBluetoothEnabled()) {
-                        showOpenBluetoothDialog();
-                    } else {
-                        btManager.startDiscovery();
-                        startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
-                                REQUEST_SCAN_RESULT);
-                    }
-                } else {
-                    startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
-                            REQUEST_SCAN_RESULT);
-                }
+                startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
+                        REQUEST_SCAN_RESULT);
+
+                break;
+            case R.id.locate:
+//                unlockByBlueTooth();
+                //重新定位
+                Log.d(TAG, "重新定位");
+                moveToMyLoc();
+                break;
+            case R.id.iv_icon:
+                drawerLayout.openDrawer(Gravity.LEFT);
+                break;
+            case R.id.iv_search:
+                Intent search = new Intent(this, SearchActivity.class);
+                search.putExtra("myaddress", myAddress);
+                search.putExtras(getAuthBundle());
+                startActivityForResult(search, REQUEST_SEARCH_KEYWORD);
                 break;
 
             case R.id.user_wallet:
@@ -1921,8 +1592,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 REQUEST_SCAN_RESULT);
                         break;
                     case R.id.btn_open:
-                        BTManager.turnOnBluetooth();
-                        btManager.startDiscovery();
                         startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
                                 REQUEST_SCAN_RESULT);
                         break;
@@ -2126,16 +1795,18 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         mapView.onDestroy();
         deactivate();
         //取消注册,否则会有内存泄露
-        getContentResolver().unregisterContentObserver(bluetoothObserver);
 //        mSensorManager.unregisterListener(mAmapSersorEventListener);
 //        mAmapSersorEventListener = null;
-        bleUtil = null;
         ShareBikeApplication.getInstance().pop(this);
-        unregisterReceiver(aliMessageReveiver);
+        unregisterReceiver(aliMessageReceiver);
         //取消定时器
         if(countDownTimer != null){
             countDownTimer.cancel();
         }
+	if (mLockManager != null) {
+            mLockManager.destroy();
+	}
+
     }
 
 

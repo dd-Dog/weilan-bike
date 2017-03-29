@@ -15,12 +15,12 @@ import com.wlcxbj.bike.util.LogUtil;
 /**
  * Created by Administrator on 2017/2/22.
  */
-public class AliMessageReveiver extends MessageReceiver {
+public class AliMessageReceiver extends MessageReceiver {
 
-    private static final String TAG = "AliMessageReveiver";
+    private static final String TAG = "AliMessageReceiver";
     private MapActivity mapActivity;
     private AliMessageCallbackHandler aliMessageCallbackHandler;
-    public AliMessageReveiver(MapActivity mapActivity) {
+    public AliMessageReceiver(MapActivity mapActivity) {
         this.mapActivity = mapActivity;
     }
 
