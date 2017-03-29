@@ -975,7 +975,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         //请求网络数据
         initMap(savedInstanceState);
         registerAliMessageReceiver();
-        showManualUnlockHintDialog();
     }
 
     @Override
