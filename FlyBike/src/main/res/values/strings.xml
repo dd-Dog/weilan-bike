@@ -324,7 +324,7 @@
     <string name="payed_result">成功支付 %1$s 元</string>
     <string name="loading">正在加载中...</string>
     <string name="manual_unlock">请手动开锁</string>
-    <string name="unlock_psd">开锁密码： %1$s</string>
+    <string name="unlock_psd">开锁密码：%1$s</string>
     <string name="order_hint">订单将在%1$s秒后自动生效</string>
     <string name="cancel_order">取消订单</string>
     <string name="continue_use">继续使用</string>

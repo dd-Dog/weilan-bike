@@ -49,7 +49,7 @@
                     android:id="@+id/wallet_count"
                     style="@style/WalletTextViewStyle"
                     android:layout_gravity="center"
-                    android:text="100.00"
+                    android:text="99.00"
                     android:textSize="28sp"/>
             </LinearLayout>
 

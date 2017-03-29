@@ -71,6 +71,7 @@ public class ModifyNickNameActivity extends BaseActivity {
         LogUtil.e(TAG, "mAccountToken=" + mAccountToken);
         String nickName = getIntent().getStringExtra("nickname");
         etNewName.setText(nickName + "");
+        etNewName.setSelection(etNewName.getText().toString().length());
     }
 
 

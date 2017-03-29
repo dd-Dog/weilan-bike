@@ -1779,7 +1779,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 }
                 LogUtil.e(TAG, "deposit=" + deposit);
                 if (!TextUtils.isEmpty(deposit)) {
-                    if (TextUtils.equals(mAccountToken.getAccount().getGuaranteeDeposit(),
+                    if (!TextUtils.equals(mAccountToken.getAccount().getGuaranteeDeposit(),
                             deposit)) {
                         LogUtil.e(TAG, "mAccountToken.getAccount().getGuaranteeDeposit()=" +
                                 mAccountToken.getAccount().getGuaranteeDeposit());
@@ -2592,6 +2592,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
            hintDialog = new Dialog(this,R.style.CustomDialogStyle);
            hintDialog.setContentView(R.layout.dialog_manual_unlock_hint);
            hintDialog.setCanceledOnTouchOutside(false);
+           hintDialog.setCancelable(false);
 //           Window  dialogWindow = hintDialog.getWindow();
 //           WindowManager.LayoutParams p =  dialogWindow.getAttributes();
 //           p.width = 600;
@@ -2600,8 +2601,19 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
            TextView orderActiveHint_tv = (TextView) hintDialog.findViewById(R.id.tv_orderActiveHint);
            Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
            Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
-           unlockPsd_tv.setText(StringUtil.getRiceText(this,"开锁密码: 3421",5,10,R.color.green_68));
+           unlockPsd_tv.setText(StringUtil.getRiceText(this,getString(R.string.unlock_psd,"3242"),5,9,R.color.green_68));
            startCountDown(orderActiveHint_tv);
+           cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   if(hintDialog.isShowing()){
+                       hintDialog.dismiss();
+                       if(countDownTimer != null){
+                           countDownTimer.cancel();
+                       }
+                   }
+               }
+           });
 
            hintDialog.show();
        }
