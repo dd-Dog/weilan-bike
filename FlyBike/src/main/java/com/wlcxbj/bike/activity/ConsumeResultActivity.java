@@ -91,7 +91,7 @@ public class ConsumeResultActivity extends BaseActivity {
 //        tvPayed.setText(endtriptoken.getAmount());
 //        tvTime.setText("使用时间: " + TimeUtil.getTimeShort(usingtime));
         // 成功支付钱数
-        String payedAmount = getString(R.string.payed_result,df.format(endtriptoken.getAmount()));
+        String payedAmount = getString(R.string.payed_result,df.format(Double.parseDouble(endtriptoken.getAmount())));
         payedResult_tv.setText(getRichText(payedAmount));
         // 骑行时间
          rideTime_tv.setText(TimeUtil.getTimeShort(Long.parseLong(endtriptoken.getDurationTime())));
@@ -106,7 +106,7 @@ public class ConsumeResultActivity extends BaseActivity {
 
     public SpannableString getRichText(String str){
         SpannableString spanStr = new SpannableString(str);
-        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),3,str.indexOf(".")+2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),4,str.indexOf(".")+2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spanStr;
     }
 

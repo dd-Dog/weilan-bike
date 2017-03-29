@@ -33,4 +33,5 @@
     <color name="bg_activity">#f8f8f8</color>
     <color name="bg_pressed">#e0e0e0</color>
     <color name="green_68">#24b768</color>
+    <color name="red">#ff0000</color>
 </resources>
