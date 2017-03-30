@@ -69,6 +69,13 @@ public class ConsumeResultActivity extends BaseActivity {
                 finish();
             }
         });
+        findViewById(R.id.tv_right).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ConsumeResultActivity.this,BikeBrokenActivity.class);
+                 startActivity(intent);
+            }
+        });
         setData();
     }
 
@@ -106,7 +113,7 @@ public class ConsumeResultActivity extends BaseActivity {
 
     public SpannableString getRichText(String str){
         SpannableString spanStr = new SpannableString(str);
-        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),4,str.indexOf(".")+2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),4,str.indexOf(".")+3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spanStr;
     }
 

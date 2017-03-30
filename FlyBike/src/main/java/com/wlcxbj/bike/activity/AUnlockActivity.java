@@ -23,6 +23,7 @@ import com.wlcxbj.bike.bean.bike.ReportProblemBean;
 import com.wlcxbj.bike.global.Constants;
 import com.wlcxbj.bike.net.beanutil.HttpAccountOtherBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
+import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.TimeUtil;
 import com.wlcxbj.bike.util.image.ImageHelper;
 import com.wlcxbj.bike.util.properties.PropertiesUtil;
@@ -166,7 +167,8 @@ public class AUnlockActivity extends BaseActivity implements View.OnClickListene
             switch (requestCode) {
                 case REQUEST_BIKE_NUMBER:
                     String result = data.getStringExtra("result");
-                    tvBikeNum.setText(result);
+                    LogUtil.d(TAG,"车编号"+result);
+                    tvBikeNum.setText(result.substring(result.indexOf("=")+1));
                     hasBikeNum = true;
                     toggleButton();
                     break;
