@@ -22,6 +22,7 @@ import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.adapter.TicketsAdapter;
 import com.wlcxbj.bike.bean.account.AccountInfo;
 import com.wlcxbj.bike.bean.account.AccountToken;
+import com.wlcxbj.bike.bean.account.AuthToken;
 import com.wlcxbj.bike.bean.account.BalanceInfoToken;
 import com.wlcxbj.bike.bean.other.CouponsToken;
 import com.wlcxbj.bike.global.Constants;
@@ -29,6 +30,7 @@ import com.wlcxbj.bike.global.Error;
 import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpAccountOtherBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
+import com.wlcxbj.bike.net.beanutil.HttpPayBeanUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.ToastUtil;
 import com.wlcxbj.bike.util.cache.CacheUtil;
@@ -66,6 +68,7 @@ public class WalletActivity extends BaseActivity {
     private HttpAccountBeanUtil httpAccountBeanUtil;
     private AccountInfo account;
     private boolean hasDeposit;
+    private HttpPayBeanUtil httpPayBeanUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class WalletActivity extends BaseActivity {
         ButterKnife.bind(this);
         getSupportActionBar().hide();
         httpAccountBeanUtil = new HttpAccountBeanUtil(this);
+        httpPayBeanUtil = new HttpPayBeanUtil(this);
         //获取帐户余额和押金等信息
         getBalanceInfo();
     }
@@ -210,9 +214,27 @@ public class WalletActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "退还押金");
-                startActivityForResult(new Intent(WalletActivity.this, FundBackActivity.class),
-                        REQUEST_FUND_BACK);
-                dialog.dismiss();
+                if (mAuthNativeToken != null) {
+                    AuthToken authToken = mAuthNativeToken.getAuthToken();
+                    if (authToken != null) {
+                        String access_token = authToken.getAccess_token();
+                        httpPayBeanUtil.requestRefundBack(access_token, new HttpCallbackHandler() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                startActivityForResult(new Intent(WalletActivity.this, FundBackActivity.class),
+                                        REQUEST_FUND_BACK);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Exception error, String msg) {
+                                ToastUtil.showUIThread(WalletActivity.this, "退押金失败");
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                }
+
             }
         });
         dialog.show();
@@ -235,7 +257,7 @@ public class WalletActivity extends BaseActivity {
     }
 
     private void refreshBalance() {
-         AccountToken accountToken = CacheUtil.getSerialToken(getApplicationContext(), Constants
+        AccountToken accountToken = CacheUtil.getSerialToken(getApplicationContext(), Constants
                 .ACCOUNT_TOKEN_CACHE_FILE_NAME);
         if (accountToken == null) return;
         AccountInfo account = accountToken.getAccount();

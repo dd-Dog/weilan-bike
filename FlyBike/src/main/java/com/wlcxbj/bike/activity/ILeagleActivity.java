@@ -25,7 +25,6 @@ import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.util.TimeUtil;
 import com.wlcxbj.bike.util.image.ImageHelper;
 import com.wlcxbj.bike.util.properties.PropertiesUtil;
-import com.dtr.zbar.scan.CaptureActivity;
 
 /**
  * Created by bain on 16-11-30.
@@ -148,7 +147,8 @@ public class ILeagleActivity extends BaseActivity implements View.OnClickListene
             if (mAccountToken != null) {
                 String objectName = Constants.OSS_FEEDBACK_FILE_PATH +
                         mAccountToken.getAccount().getEnduserId()
-                        + Constants.USER_ICON_PREFIX + TimeUtil.getTimeStr(System.currentTimeMillis());
+                        + Constants.USER_ICON_PREFIX + TimeUtil.getTimeStr(System
+                        .currentTimeMillis());
                 imageHelper.uploadImageToOss(getCacheDir() + localPath, objectName);
 
             }

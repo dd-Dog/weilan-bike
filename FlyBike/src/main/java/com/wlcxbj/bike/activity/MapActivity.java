@@ -123,7 +123,6 @@ import com.wlcxbj.bike.receiver.AliMessageReceiver;
 import com.wlcxbj.bike.util.map.AmapUtil;
 import com.wlcxbj.bike.util.DpPxUtil;
 import com.wlcxbj.bike.util.LogUtil;
-import com.wlcxbj.bike.util.PreferenceUtil;
 import com.wlcxbj.bike.util.TimeUtil;
 import com.wlcxbj.bike.util.ToastUtil;
 import com.wlcxbj.bike.bean.DdeviceStateResult;
@@ -686,22 +685,25 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         mBusinessParamsToken = CacheUtil.getSerialToken(getApplicationContext(),
                 Constants.BUSINESS_PARAMS_FILE);
         if (mBusinessParamsToken == null)
-            httpAccountBeanUtil.getBusinessParams(mAuthNativeToken.getAuthToken().getAccess_token(),
-                    new HttpCallbackHandler<BusinessParamsToken>() {
+            if (mAuthNativeToken != null)
+                if (mAuthNativeToken.getAuthToken() != null)
+                    httpAccountBeanUtil.getBusinessParams(mAuthNativeToken.getAuthToken()
+                                    .getAccess_token(),
+                            new HttpCallbackHandler<BusinessParamsToken>() {
 
-                        @Override
-                        public void onSuccess(BusinessParamsToken businessParamsToken) {
-                            mBusinessParamsToken = businessParamsToken;
-                            boolean b = CacheUtil.cacheSerialToken(getApplicationContext(),
-                                    Constants.BUSINESS_PARAMS_FILE, businessParamsToken);
-                            LogUtil.e(TAG, "缓存" + (b ? "成功" : "失败"));
-                        }
+                                @Override
+                                public void onSuccess(BusinessParamsToken businessParamsToken) {
+                                    mBusinessParamsToken = businessParamsToken;
+                                    boolean b = CacheUtil.cacheSerialToken(getApplicationContext(),
+                                            Constants.BUSINESS_PARAMS_FILE, businessParamsToken);
+                                    LogUtil.e(TAG, "缓存" + (b ? "成功" : "失败"));
+                                }
 
-                        @Override
-                        public void onFailure(Exception error, String msg) {
+                                @Override
+                                public void onFailure(Exception error, String msg) {
 
-                        }
-                    });
+                                }
+                            });
     }
 
     AliMessageCallbackHandlerAdapter aliMessageCallbackHandlerAdapter = new
@@ -977,7 +979,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 }
             });
         } else {
-            //设置启用蓝牙开锁，并且蓝牙关闭的状态
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1363,6 +1364,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         if (v.getId() == R.id.iv_search) {
             Intent search = new Intent(this, SearchActivity.class);
             search.putExtra("myaddress", myAddress);
+            if (mLocationClient != null && mLocationClient.getLastKnownLocation() != null)
+                search.putExtra("mycity", mLocationClient.getLastKnownLocation().getCity());
             search.putExtras(getAuthBundle());
             startActivityForResult(search, REQUEST_SEARCH_KEYWORD);
             return;
@@ -1454,7 +1457,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     return;
                 }
                 //检测是否打开蓝牙
-                startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
+                startActivityForResult(new Intent(MapActivity.this, CaptureActivity.class),
                         REQUEST_SCAN_RESULT);
 
                 break;
@@ -1570,11 +1573,11 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
                 switch (v.getId()) {
                     case R.id.btn_cancel:
-                        startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
+                        startActivityForResult(new Intent(MapActivity.this, CaptureActivity.class),
                                 REQUEST_SCAN_RESULT);
                         break;
                     case R.id.btn_open:
-                        startActivityForResult(new Intent(MapActivity.this, TestScanActivity.class),
+                        startActivityForResult(new Intent(MapActivity.this, CaptureActivity.class),
                                 REQUEST_SCAN_RESULT);
                         break;
                 }

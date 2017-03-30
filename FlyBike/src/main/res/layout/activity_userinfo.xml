@@ -196,17 +196,17 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-5dp"
         android:background="@color/light_gray"/>
 
     <RelativeLayout
         android:id="@+id/rl_school"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:paddingTop="0dp">
 
         <TextView
             style="@style/TV_wrap_wrap_alignleft_black_14sp_style"

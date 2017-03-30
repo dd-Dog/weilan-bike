@@ -30,4 +30,13 @@
         android:textSize="@dimen/username_size"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
+
+    <ListView
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_width="match_parent"
+        android:id="@+id/lv_tips"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>

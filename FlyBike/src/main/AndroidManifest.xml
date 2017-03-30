@@ -143,7 +143,7 @@
         <activity
             android:name="com.wlcxbj.bike.activity.MapActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.TestScanActivity"/>
+        <activity android:name=".activity.CaptureActivity"/>
         <activity android:name=".activity.ManualInputSerialActivity"/>
         <activity android:name="com.dtr.zbar.scan.CaptureActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.TicketsGuideActivity"/>

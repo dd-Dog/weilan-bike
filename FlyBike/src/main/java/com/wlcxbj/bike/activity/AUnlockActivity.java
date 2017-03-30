@@ -26,7 +26,6 @@ import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.util.TimeUtil;
 import com.wlcxbj.bike.util.image.ImageHelper;
 import com.wlcxbj.bike.util.properties.PropertiesUtil;
-import com.dtr.zbar.scan.CaptureActivity;
 
 /**
  * Created by bain on 16-11-30.

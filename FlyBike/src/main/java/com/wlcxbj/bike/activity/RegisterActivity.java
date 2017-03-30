@@ -377,7 +377,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
                         //缓存帐户信息
                         cacheAccountToken(accountToken);
                         //进入MapActivity
-                        startMapActivity(accountToken);
+                        startThatActivity(accountToken);
                     }
 
                     @Override
@@ -392,7 +392,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
      *
      * @param accountToken
      */
-    private void startMapActivity(AccountToken accountToken) {
+    private void startThatActivity(AccountToken accountToken) {
         LogUtil.e(TAG, "WHERE_FROM=" + startfrom);
         if (TextUtils.equals(startfrom, SPLASH_START)) {
             Intent intent = new Intent(RegisterActivity.this, MapActivity.class);
@@ -403,6 +403,14 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
             startActivity(intent);
             finish();
         } else if (TextUtils.equals(startfrom, MAP_START)) {
+            Intent intent = new Intent(RegisterActivity.this, MapActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(MapActivity.ACCOUNT_TOKEN, accountToken);
+            bundle.putSerializable(MapActivity.AUTH_NATIVE_TOKEN, authNativeToken);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+            finish();
+        }else {
             Intent intent = new Intent(RegisterActivity.this, MapActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(MapActivity.ACCOUNT_TOKEN, accountToken);

@@ -49,6 +49,7 @@ import com.wlcxbj.bike.adapter.ViewHolder;
 import com.wlcxbj.bike.bean.SearchBean;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.ToastUtil;
+import com.wlcxbj.bike.util.account.AccountUtil;
 import com.wlcxbj.bike.util.cache.CacheUtil;
 
 /**
@@ -78,6 +79,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
     private ArrayList<CommonAddressBean> commonAddressList;
     private ArrayList<String> localHistory;
     private HttpAccountOtherBeanUtil httpAccountOtherBeanUtil;
+    private String mycity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,37 +94,41 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
     private void initData() {
         httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
-        httpAccountOtherBeanUtil.getCommonAddressList(mAuthNativeToken.getAuthToken()
-                .getAccess_token(), new HttpCallbackHandler<CommonAddressListToken>() {
-            @Override
-            public void onSuccess(CommonAddressListToken commonAddressListToken) {
-                commonAddressBeanArrayList = commonAddressListToken.getData();
-                hasCommonAddress = true;
-                if (commonAddressBeanArrayList == null || commonAddressBeanArrayList.size() == 0) {
-                    hasCommonAddress = false;
-                    for (int i = 0; i < 2; i++) {
+        if (mAuthNativeToken != null && mAuthNativeToken.getAuthToken() != null)
+            httpAccountOtherBeanUtil.getCommonAddressList(mAuthNativeToken.getAuthToken()
+                    .getAccess_token(), new HttpCallbackHandler<CommonAddressListToken>() {
+                @Override
+                public void onSuccess(CommonAddressListToken commonAddressListToken) {
+                    commonAddressBeanArrayList = commonAddressListToken.getData();
+                    hasCommonAddress = true;
+                    if (commonAddressBeanArrayList == null || commonAddressBeanArrayList.size()
+                            == 0) {
+                        hasCommonAddress = false;
+                        for (int i = 0; i < 2; i++) {
+                            commonAddressBeanArrayList.add(new CommonAddressBean(-1, "", "",
+                                    "常用地址" +
+                                    (i + 1)));
+                        }
+                        hasCommonAddress = false;
+                    } else if (commonAddressBeanArrayList.size() == 1) {
                         commonAddressBeanArrayList.add(new CommonAddressBean(-1, "", "", "常用地址" +
-                                (i + 1)));
+                                2));
                     }
-                    hasCommonAddress = false;
-                } else if (commonAddressBeanArrayList.size() == 1) {
-                    commonAddressBeanArrayList.add(new CommonAddressBean(-1, "", "", "常用地址" + 2));
+                    showAddress = commonAddressBeanArrayList;
+                    hasCommonAddress = true;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            headerAndFootWrapper.notifyDataSetChanged();
+                        }
+                    });
                 }
-                showAddress = commonAddressBeanArrayList;
-                hasCommonAddress = true;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        headerAndFootWrapper.notifyDataSetChanged();
-                    }
-                });
-            }
 
-            @Override
-            public void onFailure(Exception error, String msg) {
+                @Override
+                public void onFailure(Exception error, String msg) {
 
-            }
-        });
+                }
+            });
         localHistory = new ArrayList<>();
         searchData = new ArrayList<>();
         addresses = new ArrayList<>();
@@ -155,6 +161,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
         }
         showData = historyData;
         showAddress = addresses;
+        mycity = getIntent().getStringExtra("mycity");
     }
 
 
@@ -479,11 +486,16 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
     }
 
     private void editAddress(long addressID) {
+        if (!AccountUtil.isLogin(this)) {
+            startActivity(new Intent(this, RegisterActivity.class));
+            return;
+        }
         Intent editAddress = new Intent(this, EditAddressActivity.class);
         LogUtil.e(TAG, "传递参数addressID＝" + addressID);
         editAddress.putExtras(getAuthBundle());
         editAddress.putExtra("requestcode", REQUEST_EDIT_ADDRESS);
         editAddress.putExtra("addressid", addressID);
+        editAddress.putExtra("mycity", mycity);
         startActivityForResult(editAddress, REQUEST_EDIT_ADDRESS);
     }
 
@@ -701,8 +713,13 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
                 finish();
                 break;
             case R.id.add_address:
+                if (!AccountUtil.isLogin(this)) {
+                    startActivity(new Intent(this, RegisterActivity.class));
+                    return;
+                }
                 Intent intent = new Intent(this, EditAddressActivity.class);
                 intent.putExtras(getAuthBundle());
+                intent.putExtra("mycity", mycity);
                 intent.putExtra("requestcode", REQUEST_ADD_ADDRESS);
                 startActivityForResult(intent, REQUEST_ADD_ADDRESS);
                 break;
@@ -721,7 +738,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
             etSearch.setCompoundDrawables(drawableLeft, null, null, null);
             showData = historyData;
 //            showAddress = hasCommonAddress ? commonAddressBeanArrayList : addresses;
-            showAddress = addresses;
+            showAddress = commonAddressBeanArrayList;
             headerAndFootWrapper.notifyDataSetChanged();
             rvHistory.scrollToPosition(0);
             footer.setVisibility(View.VISIBLE);

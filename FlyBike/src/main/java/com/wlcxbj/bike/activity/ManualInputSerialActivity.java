@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dtr.zbar.scan.CaptureActivity;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.wlcxbj.bike.R;
 

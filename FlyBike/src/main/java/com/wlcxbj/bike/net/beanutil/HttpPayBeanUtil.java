@@ -13,10 +13,12 @@ import com.wlcxbj.bike.bean.pay.ALiPayToken;
 import com.wlcxbj.bike.bean.pay.OrderBean;
 import com.wlcxbj.bike.bean.pay.WechatPayToken;
 import com.wlcxbj.bike.global.Constants;
+import com.wlcxbj.bike.global.Error;
 import com.wlcxbj.bike.net.OkhttpCallBack;
 import com.wlcxbj.bike.net.OkhttpEngine;
 import com.wlcxbj.bike.net.OkhttpHelper;
 import com.wlcxbj.bike.util.LogUtil;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -35,13 +37,64 @@ public class HttpPayBeanUtil {
         this.mContext = context;
     }
 
+    /**
+     * 退押金
+     *
+     * @param accessToken
+     * @param httpCallbackHandler
+     */
+    public void requestRefundBack(String accessToken, final HttpCallbackHandler
+            httpCallbackHandler) {
+        JSONObject postBody = new JSONObject();
+        OkhttpEngine.addPublicParamsToJsonObject(postBody, mContext);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
+                postBody.toString());
+        okhttpHelper.postReqWithToken(Constants.REFUND_YJ_BACK, requestBody, Constants
+                .API_SERVER_TOKEN_TYPE, accessToken, new OkhttpCallBack() {
+            @Override
+            public void success(Response response) {
+                try {
+                    String result = response.body().string();
+                    if (response.isSuccessful()) {
+                        JSONObject jsonObject = new JSONObject(result);
+                        Integer errcode = (Integer) jsonObject.get("errcode");
+                        if (errcode == Error.OK) {
+                            if (httpCallbackHandler != null)
+                                httpCallbackHandler.onSuccess(jsonObject);
+
+                        }else {
+                            if (httpCallbackHandler != null)
+                                httpCallbackHandler.onFailure(null, result);
+                        }
+                    } else {
+                        LogUtil.e(TAG, "获取退押金信息失败:" + result);
+                        if (httpCallbackHandler != null)
+                            httpCallbackHandler.onFailure(null, result);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failure(Exception error, String msg) {
+                LogUtil.e(TAG, "连接服务器失败");
+                if (httpCallbackHandler != null)
+                    httpCallbackHandler.onFailure(error, msg);
+            }
+        });
+    }
 
     /**
      * 获取微信支付token
+     *
      * @param accessToken
      * @param orderBean
      */
-    public void getWechatPayToken(String accessToken, OrderBean orderBean, final HttpCallbackHandler httpCallbackHandler) {
+    public void getWechatPayToken(String accessToken, OrderBean orderBean, final
+    HttpCallbackHandler httpCallbackHandler) {
         if (orderBean == null) return;
         JSONObject postBody = new JSONObject();
         try {
@@ -63,7 +116,8 @@ public class HttpPayBeanUtil {
                     String result = response.body().string();
                     LogUtil.e(TAG, "wechatPay result =" + result);
                     if (response.isSuccessful()) {
-                        WechatPayToken wechatPayToken = new Gson().fromJson(result, WechatPayToken.class);
+                        WechatPayToken wechatPayToken = new Gson().fromJson(result,
+                                WechatPayToken.class);
                         if (httpCallbackHandler != null)
                             httpCallbackHandler.onSuccess(wechatPayToken);
                     } else {
@@ -87,9 +141,11 @@ public class HttpPayBeanUtil {
 
     /**
      * 支付宝支付接口
+     *
      * @param accessToken
      */
-    public void getAlipayToken(String accessToken, OrderBean orderBean, final HttpCallbackHandler httpCallbackHandler) {
+    public void getAlipayToken(String accessToken, OrderBean orderBean, final HttpCallbackHandler
+            httpCallbackHandler) {
         if (orderBean == null) return;
         JSONObject postBody = new JSONObject();
         try {

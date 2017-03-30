@@ -62,6 +62,7 @@ public class Constants {
     public static final String TRANSACTION_LIST = API_SERVER + "/biz/transaction/list";
     public static final String ACCOUNT_BUSINESS_PARAMS_URL = API_SERVER + "/biz/bizparam";
     public static final String DELETE_COMMON_ADDRESS = API_SERVER + "/user/delete/freq/addr";
+    public static final String REFUND_YJ_BACK = API_SERVER + "/pay/refund/yj";
     public static final String BIKE_PSW2 = API_SERVER + "/biz/unlock/query";
 
     /**

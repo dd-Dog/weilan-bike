@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mAuthNativeToken = CacheUtil.getSerialToken(this, Constants.AUTH_CACHE_FILE_NAME);
             if (mAuthNativeToken == null) {
                 LogUtil.e(getClass().getSimpleName(), "mAuthNativeToken从文件缓存获取失败");
-                ToastUtil.showUIThread(this, getResources().getString(R.string.txt_not_login));
+//                ToastUtil.showUIThread(this, getResources().getString(R.string.txt_not_login));
             }else {
                 LogUtil.e(getClass().getSimpleName(), "mAuthNativeToken从文件缓存获取成功");
             }

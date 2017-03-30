@@ -3,19 +3,17 @@ package com.wlcxbj.bike.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.wlcxbj.bike.R;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zbar.ZBarView;
 
-public class TestScanActivity extends BaseActivity implements QRCodeView.Delegate, View
+public class CaptureActivity extends BaseActivity implements QRCodeView.Delegate, View
         .OnClickListener {
-    private static final String TAG = TestScanActivity.class.getSimpleName();
+    private static final String TAG = CaptureActivity.class.getSimpleName();
     private QRCodeView mQRCodeView;
 
     public void onCreate(Bundle savedInstanceState) {

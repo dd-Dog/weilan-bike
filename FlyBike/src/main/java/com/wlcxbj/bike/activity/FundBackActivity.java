@@ -16,6 +16,7 @@ public class FundBackActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         findViewById(R.id.ib_back).setOnClickListener(this);
+        findViewById(R.id.btn_confirm).setOnClickListener(this);
     }
 
     @Override
@@ -29,6 +30,9 @@ public class FundBackActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.ib_back:
                 finish();
+                break;
+            case R.id.btn_confirm:
+
                 break;
         }
     }
