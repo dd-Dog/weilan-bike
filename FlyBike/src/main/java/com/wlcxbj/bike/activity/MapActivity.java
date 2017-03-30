@@ -350,8 +350,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     if (mapActivity.pbUnlock.getProgress() == MAX_BLUETOOTH_PB) {
                         mapActivity.dismissBTUnlockDialog();
                         if (!mapActivity.connectToBle) {
-                            mapActivity.showConfirmDialog(mapActivity.scanResultToken.bikeno,
-                                    mapActivity.getPswStr());
+//                            mapActivity.showConfirmDialog(mapActivity.scanResultToken.bikeno,
+//                                    mapActivity.getPswStr());
+                            mapActivity.showManualUnlockHintDialog(mapActivity.getPswStr());
                         }
                     }
                     break;
@@ -629,7 +630,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                     @Override
                                     public void run() {
                                         dismissBTUnlockDialog();
-                                        showConfirmDialog(scanResultToken.bikeno, getPswStr());
+//                                        showConfirmDialog(scanResultToken.bikeno, getPswStr());
+                                        showManualUnlockHintDialog(getPswStr());
                                     }
                                 });
                                 break;
@@ -982,7 +984,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    showConfirmDialog(tno, getPswStr());
+//                    showConfirmDialog(tno, getPswStr());
+                    showManualUnlockHintDialog(getPswStr());
                 }
             });
         }
@@ -1623,8 +1626,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     case R.id.cannot_unlock:
                         Intent aunlock = new Intent(MapActivity.this, AUnlockActivity.class);
                         aunlock.putExtras(getAuthAccountBundle());
-                        aunlock.putExtra("lat", lastKnownLocation.getLatitude());
-                        aunlock.putExtra("lng", lastKnownLocation.getLongitude());
+                        aunlock.putExtra("lat", String.valueOf(lastKnownLocation.getLatitude()));
+                        aunlock.putExtra("lng", String.valueOf(lastKnownLocation.getLongitude()));
                         startActivity(aunlock);
                         break;
                     case R.id.report_illegal_stop:
@@ -2247,7 +2250,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
     private Dialog hintDialog;
 
-    public void showManualUnlockHintDialog() {
+    public void showManualUnlockHintDialog(String unlockPsd) {
         if (hintDialog == null) {
             hintDialog = new Dialog(this, R.style.CustomDialogStyle);
             hintDialog.setContentView(R.layout.dialog_manual_unlock_hint);
@@ -2263,22 +2266,37 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
             Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
             unlockPsd_tv.setText(StringUtil.getRiceText(this, getString(R.string.unlock_psd,
-                    "3242"), 5, 9, R.color.green_7b, DpPxUtil.sp2px(this, 20)));
+                    unlockPsd), 5, 9, R.color.green_7b, DpPxUtil.sp2px(this, 20)));
             startCountDown(orderActiveHint_tv);
             cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (hintDialog.isShowing()) {
                         hintDialog.dismiss();
-                        if (countDownTimer != null) {
-                            countDownTimer.cancel();
-                        }
+                    }
+                    if (countDownTimer != null) {
+                        countDownTimer.cancel();
+                    }
+                    //TODO  这里需要告诉锁修改开锁密码
+                }
+            });
+            continueUse_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startTrip();
+                    if(hintDialog.isShowing()){
+                        hintDialog.dismiss();
+                    }
+                    if(countDownTimer != null){
+                        countDownTimer.cancel();
                     }
                 }
             });
-
+        }
+        if(!hintDialog.isShowing()){
             hintDialog.show();
         }
+
     }
 
     private CountDownTimer countDownTimer;
@@ -2297,6 +2315,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onFinish() {
                 countDownTimer.cancel();
+                if(hintDialog.isShowing()){
+                    hintDialog.dismiss();
+                }
+                startTrip();
             }
         };
         countDownTimer.start();
