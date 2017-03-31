@@ -17,4 +17,9 @@ public class ScanResultToken {
             }
         }
     }
+
+    public ScanResultToken(String s, String serial_number) {
+        this.url = s;
+        this.bikeno = serial_number;
+    }
 }

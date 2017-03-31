@@ -24,6 +24,9 @@ public class AliMessageReceiver extends MessageReceiver {
         this.mapActivity = mapActivity;
     }
 
+    public AliMessageReceiver() {
+    }
+
     /**
      * 通知接收回调
      *

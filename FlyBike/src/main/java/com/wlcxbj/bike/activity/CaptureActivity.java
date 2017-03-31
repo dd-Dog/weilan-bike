@@ -14,6 +14,8 @@ import cn.bingoogolapple.qrcode.zbar.ZBarView;
 public class CaptureActivity extends BaseActivity implements QRCodeView.Delegate, View
         .OnClickListener {
     private static final String TAG = CaptureActivity.class.getSimpleName();
+    private static final int REQUEST_TNO = 12;
+    public static final int RESULT_SERIAL_NUMBER = 100;
     private QRCodeView mQRCodeView;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class CaptureActivity extends BaseActivity implements QRCodeView.Delegate
                 finish();
                 break;
             case R.id.btn_manual:
-                startActivity(new Intent(this, ManualInputSerialActivity.class));
+                startActivityForResult(new Intent(this, ManualInputSerialActivity.class), REQUEST_TNO);
                 break;
             case R.id.button_openorcloseClick:
                 if (flashLightOn) {
@@ -97,4 +99,18 @@ public class CaptureActivity extends BaseActivity implements QRCodeView.Delegate
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_TNO:
+                    Intent intent = new Intent();
+                    intent.putExtra("serial_number", data.getStringExtra("serial_number"));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    break;
+            }
+        }
+    }
 }

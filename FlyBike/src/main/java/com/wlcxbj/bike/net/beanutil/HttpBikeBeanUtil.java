@@ -76,7 +76,7 @@ public class HttpBikeBeanUtil {
                                     httpCallbackHandler.onSuccess(bikePswToken);
                                 } else {
                                     httpCallbackHandler.onFailure(null, result);
-                                    ToastUtil.showUIThread(mContext, "获取车辆密码失败");
+                                    ToastUtil.showUIThread(mContext, bikePswToken.getErrmsg());
                                 }
                             } else {
                                 LogUtil.e(TAG, "获取车辆密码:" + result);

@@ -314,7 +314,7 @@
     <string name="tip_1003">输入编号开锁</string>
     <string name="tip_1004">请确认您输入了正确的自行车编码</string>
     <string name="tip_1005">手动输入车辆编号</string>
-    <string name="bike_no_length">10</string>
+    <string name="bike_no_length">9</string>
     <string name="tip_195">对准车上的二维码</string>
 
     <!-- add by qiaodong-->

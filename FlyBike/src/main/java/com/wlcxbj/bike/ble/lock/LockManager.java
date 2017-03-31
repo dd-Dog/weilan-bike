@@ -65,7 +65,7 @@ public class LockManager {
     private Context mContext;
     private ScanLeDeviceThread mScanLeDeviceThread;
     private boolean enableScanner = true;
-    private static final long SCAN_FREQUENCY = 1000 * 20;
+    private static long SCAN_FREQUENCY = 1000 * 10;
 
     public LockManager(Context context) {
         mContext = context;
@@ -281,7 +281,7 @@ public class LockManager {
      */
     private void searchLe() {
         //扫描前清除一次
-        beacons.clear();
+//        beacons.clear();
         SearchRequest request = new SearchRequest.Builder()
                 .searchBluetoothLeDevice(3000, 1)   // 先扫BLE设备3次，每次3s
 //                .searchBluetoothClassicDevice(5000) // 再扫经典蓝牙5s
@@ -299,6 +299,11 @@ public class LockManager {
                 BluetoothLog.v(String.format("beacon for %s\n%s", device.getAddress(), beacon
                         .toString()));
                 if (TextUtils.equals(device.getName(), "iLock")) {
+                    for (int i=0; i<beacons.size(); i++) {
+                        if (TextUtils.equals(beacons.get(i).getAddress(), device.getAddress())) {
+                            continue;
+                        }
+                    }
                     beacons.add(device);
                 }
             }
@@ -340,10 +345,17 @@ public class LockManager {
         if (psw == null) return;
         UnlockCmd unlockCmd = CmdFactory.createUnlockCmd(psw);
         ArrayList<byte[]> unlockBytes = Util.splitToByteArr(unlockCmd.encrypt());
+        boolean find = false;
         for (SearchResult device : beacons) {
             if (TextUtils.equals(device.getAddress(), mac)) {
                 connectBleDevice(device, unlockBytes, Command.CMD_ID_UNLOCK);
+                find = true;
                 break;
+            }
+        }
+        if (!find) {
+            if (lockCallbackHandler != null) {
+                lockCallbackHandler.onFail(null, -1, "没有搜索到蓝牙设备", Command.CMD_ID_UNLOCK);
             }
         }
     }
