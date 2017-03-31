@@ -725,6 +725,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      */
     private void endTrip(String endMsg) {
         EndTripToken endTripToken = new Gson().fromJson(endMsg, EndTripToken.class);
+        LogUtil.d(TAG,"行程结束="+endMsg);
         hideAllWindows();
         handler.removeMessages(COUNT_BIKING_TIME);
         usingTimeSeconds = 0;
@@ -2260,39 +2261,40 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 //           WindowManager.LayoutParams p =  dialogWindow.getAttributes();
 //           p.width = 600;
 //           p.height = 700;
-            TextView unlockPsd_tv = (TextView) hintDialog.findViewById(R.id.tv_unlockPsd);
-            TextView orderActiveHint_tv = (TextView) hintDialog.findViewById(R.id
-                    .tv_orderActiveHint);
-            Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
-            Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
-            unlockPsd_tv.setText(StringUtil.getRiceText(this, getString(R.string.unlock_psd,
-                    unlockPsd), 5, 9, R.color.green_7b, DpPxUtil.sp2px(this, 20)));
-            startCountDown(orderActiveHint_tv);
-            cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (hintDialog.isShowing()) {
-                        hintDialog.dismiss();
-                    }
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
-                    //TODO  这里需要告诉锁修改开锁密码
-                }
-            });
-            continueUse_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startTrip();
-                    if(hintDialog.isShowing()){
-                        hintDialog.dismiss();
-                    }
-                    if(countDownTimer != null){
-                        countDownTimer.cancel();
-                    }
-                }
-            });
+
         }
+        TextView unlockPsd_tv = (TextView) hintDialog.findViewById(R.id.tv_unlockPsd);
+        TextView orderActiveHint_tv = (TextView) hintDialog.findViewById(R.id
+                .tv_orderActiveHint);
+        Button cancelOrder_btn = (Button) hintDialog.findViewById(R.id.btn_cancel_order);
+        Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
+        unlockPsd_tv.setText(StringUtil.getRiceText(this, getString(R.string.unlock_psd,
+                unlockPsd), 5, 9, R.color.green_7b, DpPxUtil.sp2px(this, 20)));
+        startCountDown(orderActiveHint_tv);
+        cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hintDialog.isShowing()) {
+                    hintDialog.dismiss();
+                }
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
+                //TODO  这里需要告诉锁修改开锁密码
+            }
+        });
+        continueUse_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTrip();
+                if(hintDialog.isShowing()){
+                    hintDialog.dismiss();
+                }
+                if(countDownTimer != null){
+                    countDownTimer.cancel();
+                }
+            }
+        });
         if(!hintDialog.isShowing()){
             hintDialog.show();
         }
