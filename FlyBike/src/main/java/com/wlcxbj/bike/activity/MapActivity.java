@@ -565,7 +565,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         okhttpHelper = OkhttpHelper.getInstance();
         httpBikeBeanUtil = new HttpBikeBeanUtil(this);
         httpAccountBeanUtil = new HttpAccountBeanUtil(this);
@@ -624,7 +624,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                         .LENGTH_SHORT).show();
                                 break;
                             case Command.CMD_ID_UNLOCK:
-                                Toast.makeText(getApplicationContext(), "开锁失败", Toast
+                                Toast.makeText(getApplicationContext(), "开锁失败," + msg, Toast
                                         .LENGTH_SHORT).show();
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -725,7 +725,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      */
     private void endTrip(String endMsg) {
         EndTripToken endTripToken = new Gson().fromJson(endMsg, EndTripToken.class);
-        LogUtil.d(TAG,"行程结束="+endMsg);
+        LogUtil.d(TAG, "行程结束=" + endMsg);
         hideAllWindows();
         handler.removeMessages(COUNT_BIKING_TIME);
         usingTimeSeconds = 0;
@@ -1158,8 +1158,14 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 if (resultCode == RESULT_OK) {
                     scanResult = data.getStringExtra("result");
                     Log.e(TAG, "scanResult=" + scanResult);
-                    scanResultToken = new ScanResultToken(scanResult);
-                    getBikePassword(scanResultToken.bikeno);
+                    if (TextUtils.isEmpty(scanResult)) {
+                        String serial_number = data.getStringExtra("serial_number");
+                        scanResultToken = new ScanResultToken("", serial_number);
+                        getBikePassword(serial_number);
+                    } else {
+                        scanResultToken = new ScanResultToken(scanResult);
+                        getBikePassword(scanResultToken.bikeno);
+                    }
                 }
                 break;
             case REQUEST_SEARCH_KEYWORD:
@@ -2280,22 +2286,23 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
-                //TODO  这里需要告诉锁修改开锁密码
             }
         });
         continueUse_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTrip();
-                if(hintDialog.isShowing()){
+                if (hintDialog.isShowing()) {
                     hintDialog.dismiss();
                 }
-                if(countDownTimer != null){
+                if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
             }
         });
-        if(!hintDialog.isShowing()){
+        if (!hintDialog.isShowing())
+
+        {
             hintDialog.show();
         }
 
@@ -2317,7 +2324,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onFinish() {
                 countDownTimer.cancel();
-                if(hintDialog.isShowing()){
+                if (hintDialog.isShowing()) {
                     hintDialog.dismiss();
                 }
                 startTrip();

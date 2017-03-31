@@ -145,7 +145,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.CaptureActivity"/>
         <activity android:name=".activity.ManualInputSerialActivity"/>
-        <activity android:name="com.dtr.zbar.scan.CaptureActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.TicketsGuideActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.UserGuidDetailActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.CreditPointsRuleActivity"/>
@@ -232,6 +231,39 @@
         </activity>
 
 
+        <!-- 消息接收监听器 （用户可自主扩展） -->
+        <!--<receiver
+            android:name=".receiver.AliMessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.taobao.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>-->
         <!-- Push SDK 相关组件，required-->
         <!-- 消息接收服务 -->
         <service
