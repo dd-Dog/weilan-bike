@@ -240,6 +240,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
                     mHandler.removeCallbacksAndMessages(COUNT_AFTER_GET_CHECKNUM);
                     getCheckNumberFromServer(mPhoneNum);
                     updateGetCheckNumberButton();
+                    etCheckNumber.requestFocus();
                 } else {
                     ToastUtil.show(getApplicationContext(), getResources().getString(R.string
                             .tip_167));
