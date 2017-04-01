@@ -436,12 +436,16 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
         @Override
         public int getItemViewType(int position) {
+            if (showAddress == null) {
+                return 0;
+            }
             return position < showAddress.size() ? TYPE_USUAL_ADDRESS : TYPE_HISTORY;
         }
 
         @Override
         public int getItemCount() {
-            return showData.size() + showAddress.size();
+            return (showData==null? 0:showData.size()) + (showAddress==null? 0:showAddress.size())
+                    ;
         }
 
         public void setOnItemClickListener(OnItemClickListener listener) {
