@@ -110,6 +110,7 @@ public class Constants {
                 .TELEPHONY_SERVICE);
         String deviceId = telephonyManager.getDeviceId();
         return deviceId;
+//        return "";
     }
 
     public static int getVerionCode(Context context) {

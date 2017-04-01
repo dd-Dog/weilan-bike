@@ -315,7 +315,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         return false;
     }
 
-
+    private boolean unlockSuccess = false;
     DecimalFormat df = new DecimalFormat("######0.00");
     private MyHandler handler = new MyHandler(this);
 
@@ -385,6 +385,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         mapActivity.cancelReservation();
                         removeMessages(COUNTING_RESERVE_LEFT_TIME);
                     }
+                    break;
+                case COUNT_BIKING_DISTANCE:
+                    sendEmptyMessageDelayed(COUNT_BIKING_DISTANCE, COUNT_BIKING_DISTANCE_DELAYED);
+                    mapActivity.countRideDistance();
                     break;
             }
             super.handleMessage(msg);
@@ -596,6 +600,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 Toast.makeText(getApplicationContext(), "开锁成功", Toast
                                         .LENGTH_SHORT).show();
                                 startTrip();
+                                unlockSuccess = true;
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -714,6 +719,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 public void onMessage(Context context, CPushMessage cPushMessage) {
                     super.onMessage(context, cPushMessage);
 //            requestEndTrip();
+                    LogUtil.d(TAG," 收到推送"+cPushMessage.getContent());
                     endTrip(cPushMessage.getContent());
 
                 }
@@ -728,17 +734,20 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         LogUtil.d(TAG, "行程结束=" + endMsg);
         hideAllWindows();
         handler.removeMessages(COUNT_BIKING_TIME);
+        handler.removeMessages(COUNT_BIKING_DISTANCE);
         usingTimeSeconds = 0;
         Intent endtripIntent = new Intent(this, ConsumeResultActivity.class);
-        if (scanResultToken != null) {
-            endtripIntent.putExtra("tid", scanResultToken.bikeno);
+//        if (scanResultToken != null) {
+            endtripIntent.putExtra("tid", endTripToken.getTid());
             endtripIntent.putExtra("coast", 0.5);
             Bundle bundle = new Bundle();
             bundle.putSerializable("endtriptoken", endTripToken);
             endtripIntent.putExtras(bundle);
+            endtripIntent.putExtra("rideDistance", rideDistance);
+            rideDistance = 0;
             startActivity(endtripIntent);
             setCurrentState(UNDER_FREE);
-        }
+//        }
     }
 
     private void registerAliMessageReceiver() {
@@ -2118,10 +2127,14 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 btProgress.dismiss();
-                                Toast.makeText(getApplicationContext(), getResources().getString
-                                        (R.string.tip_157), Toast
-                                        .LENGTH_SHORT)
-                                        .show();
+                                if(unlockSuccess){
+                                    showInUserWindow();
+                                }else{
+                                    Toast.makeText(getApplicationContext(), getResources().getString
+                                            (R.string.tip_157), Toast
+                                            .LENGTH_SHORT)
+                                            .show();
+                                }
                             }
                         });
                     }
@@ -2258,6 +2271,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private Dialog hintDialog;
 
     public void showManualUnlockHintDialog(String unlockPsd) {
+        if (unlockSuccess) {
+            return;
+        }
         if (hintDialog == null) {
             hintDialog = new Dialog(this, R.style.CustomDialogStyle);
             hintDialog.setContentView(R.layout.dialog_manual_unlock_hint);
@@ -2291,7 +2307,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         continueUse_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTrip();
+//                startTrip();
                 if (hintDialog.isShowing()) {
                     hintDialog.dismiss();
                 }
@@ -2327,7 +2343,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 if (hintDialog.isShowing()) {
                     hintDialog.dismiss();
                 }
-                startTrip();
+//                startTrip();
             }
         };
         countDownTimer.start();
