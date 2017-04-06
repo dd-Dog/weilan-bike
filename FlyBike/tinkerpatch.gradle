@@ -1,25 +1,30 @@
-
-
+/*
 tinkerpatchSupport {
-    tinkerpatchSupport {
-        /** 可以在debug的时候关闭 tinkerPatch **/
-        tinkerEnable = true
+    */
+/** 可以在debug的时候关闭 tinkerPatch **//*
 
-        /** 是否使用一键接入功能  **/
-        reflectApplication = true
+    tinkerEnable = true
 
-        autoBackupApkPath = "${bakPath}"
+    */
+/** 是否使用一键接入功能  **//*
 
-        /** 在tinkerpatch.com得到的appKey **/
-        appKey = "d2ba4c03571fa739"
-        /** 注意: 若发布新的全量包, appVersion一定要更新 **/
-        appVersion = "1.1.1"
+    reflectApplication = true
 
-        def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
-        def name = "${project.name}-${variantName}"
+    autoBackupApkPath = "${bakPath}"
 
-        baseApkFile = "${pathPrefix}/${name}.apk"
-        baseProguardMappingFile = "${pathPrefix}/${name}-mapping.txt"
-        baseResourceRFile = "${pathPrefix}/${name}-R.txt"
-    }
-}
+    */
+/** 在tinkerpatch.com得到的appKey **//*
+
+    appKey = "d2ba4c03571fa739"
+    */
+/** 注意: 若发布新的全量包, appVersion一定要更新 **//*
+
+    appVersion = "1.1.1"
+
+    def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
+    def name = "${project.name}-${variantName}"
+
+    baseApkFile = "${pathPrefix}/${name}.apk"
+    baseProguardMappingFile = "${pathPrefix}/${name}-mapping.txt"
+    baseResourceRFile = "${pathPrefix}/${name}-R.txt"
+}*/
