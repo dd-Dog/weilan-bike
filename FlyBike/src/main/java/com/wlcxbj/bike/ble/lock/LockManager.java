@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.inuker.bluetooth.library.BluetoothClient;
 import com.inuker.bluetooth.library.beacon.Beacon;
 import com.inuker.bluetooth.library.connect.listener.BleConnectStatusListener;
+import com.inuker.bluetooth.library.connect.listener.BluetoothStateListener;
 import com.inuker.bluetooth.library.connect.options.BleConnectOptions;
 import com.inuker.bluetooth.library.connect.response.BleConnectResponse;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
@@ -30,6 +31,7 @@ import com.wlcxbj.bike.ble.packet.part.CmdBody;
 import com.wlcxbj.bike.ble.packet.part.CmdData;
 import com.wlcxbj.bike.ble.packet.util.Util;
 import com.wlcxbj.bike.global.BLEError;
+import com.wlcxbj.bike.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -45,7 +47,7 @@ import static com.inuker.bluetooth.library.Constants.STATUS_DISCONNECTED;
 
 public class LockManager {
     private static final int MSG_READ_LOCK_STATE = 10;
-    private static final long DELAYED_READ = 600;
+    private static final long DELAYED_READ = 1000;
     private BluetoothClient mClient;
     public static final String characterUUID1 = "0000fff1-0000-1000-8000-00805f9b34fb";
     public static final String characterUUID2 = "0000fff2-0000-1000-8000-00805f9b34fb";
@@ -59,7 +61,7 @@ public class LockManager {
     private static final String SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb";
     private static final String TAG = "LockManager";
     private ArrayList<byte[]> receiveBytes = new ArrayList<>();
-    private ArrayList<SearchResult> beacons = new ArrayList<>();
+    private ArrayList<SearchResult>  beacons;
     private LockCallbackHandler lockCallbackHandler;
     private LockHandler lockHandler;
     private Context mContext;
@@ -74,11 +76,33 @@ public class LockManager {
     }
 
     private void initBle() {
-        searchLe();
+        beacons = new ArrayList<>();
         lockHandler = new LockHandler();
-        if (mClient.isBluetoothOpened()) {
+        registerBluetoothListener();
+        if (isBluetoothOpened()) {
             startScanLe();
+        } else {
+            openBluetooth();
         }
+    }
+
+    /**
+     * 蓝牙状态监听器
+     */
+    private void registerBluetoothListener() {
+        mClient.registerBluetoothStateListener(new BluetoothStateListener() {
+            @Override
+            public void onBluetoothStateChanged(boolean openOrClosed) {
+                if (openOrClosed) {
+                    //打开蓝牙
+                    LogUtil.e(TAG, "打开蓝牙");
+                    startScanLe();
+                } else {
+                    stopScanLe();
+                    LogUtil.e(TAG, "关闭蓝牙");
+                }
+            }
+        });
     }
 
     public void scanLe() {
@@ -280,8 +304,6 @@ public class LockManager {
      * 扫描设备
      */
     private void searchLe() {
-        //扫描前清除一次
-//        beacons.clear();
         SearchRequest request = new SearchRequest.Builder()
                 .searchBluetoothLeDevice(3000, 1)   // 先扫BLE设备3次，每次3s
 //                .searchBluetoothClassicDevice(5000) // 再扫经典蓝牙5s
@@ -299,12 +321,19 @@ public class LockManager {
                 BluetoothLog.v(String.format("beacon for %s\n%s", device.getAddress(), beacon
                         .toString()));
                 if (TextUtils.equals(device.getName(), "iLock")) {
-                    for (int i=0; i<beacons.size(); i++) {
+                    if (beacons == null)return;
+                    for (int i = 0; i < beacons.size(); i++) {
                         if (TextUtils.equals(beacons.get(i).getAddress(), device.getAddress())) {
-                            continue;
+                            //如果已经存在更新设备信息
+                            beacons.remove(i);
+                            beacons.add(i, device);
+//                            LogUtil.e(TAG, "更新设备：" + device);
+                            return;
                         }
                     }
+                    //不存在就直接添加
                     beacons.add(device);
+//                    LogUtil.e(TAG, "新添加设备：" + device);
                 }
             }
 
@@ -345,6 +374,7 @@ public class LockManager {
         if (psw == null) return;
         UnlockCmd unlockCmd = CmdFactory.createUnlockCmd(psw);
         ArrayList<byte[]> unlockBytes = Util.splitToByteArr(unlockCmd.encrypt());
+        LogUtil.e(TAG, "beacons=" + beacons);
         boolean find = false;
         for (SearchResult device : beacons) {
             if (TextUtils.equals(device.getAddress(), mac)) {
@@ -421,7 +451,10 @@ public class LockManager {
      * 停止扫描LE
      */
     public void stopScanLe() {
+        if (mScanLeDeviceThread == null) return;
         enableScanner = false;
+        mScanLeDeviceThread.interrupt();
+        mScanLeDeviceThread = null;
     }
 
     /**
@@ -436,11 +469,10 @@ public class LockManager {
     }
 
     private class ScanLeDeviceThread extends Thread {
-
         @Override
         public void run() {
             super.run();
-            while (enableScanner) {
+            while (enableScanner && !isInterrupted()) {
                 scanLe();
                 try {
                     Thread.sleep(SCAN_FREQUENCY);
@@ -459,5 +491,7 @@ public class LockManager {
     public void destroy() {
         stopScanLe();
         mClient.stopSearch();
+        beacons = null;
+        mClient = null;
     }
 }

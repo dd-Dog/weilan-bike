@@ -719,7 +719,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 public void onMessage(Context context, CPushMessage cPushMessage) {
                     super.onMessage(context, cPushMessage);
 //            requestEndTrip();
-                    LogUtil.d(TAG," 收到推送"+cPushMessage.getContent());
+                    LogUtil.d(TAG, " 收到推送" + cPushMessage.getContent());
                     endTrip(cPushMessage.getContent());
 
                 }
@@ -738,15 +738,15 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         usingTimeSeconds = 0;
         Intent endtripIntent = new Intent(this, ConsumeResultActivity.class);
 //        if (scanResultToken != null) {
-            endtripIntent.putExtra("tid", endTripToken.getTid());
-            endtripIntent.putExtra("coast", 0.5);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("endtriptoken", endTripToken);
-            endtripIntent.putExtras(bundle);
-            endtripIntent.putExtra("rideDistance", rideDistance);
-            rideDistance = 0;
-            startActivity(endtripIntent);
-            setCurrentState(UNDER_FREE);
+        endtripIntent.putExtra("tid", endTripToken.getTid());
+        endtripIntent.putExtra("coast", 0.5);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("endtriptoken", endTripToken);
+        endtripIntent.putExtras(bundle);
+        endtripIntent.putExtra("rideDistance", rideDistance);
+        rideDistance = 0;
+        startActivity(endtripIntent);
+        setCurrentState(UNDER_FREE);
 //        }
     }
 
@@ -1167,7 +1167,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 if (resultCode == RESULT_OK) {
                     scanResult = data.getStringExtra("result");
                     Log.e(TAG, "scanResult=" + scanResult);
-                    if (TextUtils.isEmpty(scanResult)) {
+                    if (TextUtils.isEmpty(scanResult)) {//手动输入编号
                         String serial_number = data.getStringExtra("serial_number");
                         scanResultToken = new ScanResultToken("", serial_number);
                         getBikePassword(serial_number);
@@ -1175,6 +1175,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         scanResultToken = new ScanResultToken(scanResult);
                         getBikePassword(scanResultToken.bikeno);
                     }
+
                 }
                 break;
             case REQUEST_SEARCH_KEYWORD:
@@ -1787,9 +1788,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         manulInputDialog.setCanceledOnTouchOutside(false);
         manulInputDialog.show();
 
-        //13240497405
-//      handler.sendEmptyMessageDelayed(MSG_UNLOCK_BLE, 200);
-
     }
 
     @Override
@@ -1809,6 +1807,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         }
         if (mLockManager != null) {
             mLockManager.destroy();
+            mLockManager = null;
         }
 
     }
@@ -2127,9 +2126,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 btProgress.dismiss();
-                                if(unlockSuccess){
+                                if (unlockSuccess) {
                                     showInUserWindow();
-                                }else{
+                                } else {
                                     Toast.makeText(getApplicationContext(), getResources().getString
                                             (R.string.tip_157), Toast
                                             .LENGTH_SHORT)
@@ -2316,9 +2315,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 }
             }
         });
-        if (!hintDialog.isShowing())
-
-        {
+        if (!hintDialog.isShowing()) {
             hintDialog.show();
         }
 
@@ -2348,6 +2345,4 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         };
         countDownTimer.start();
     }
-
-
 }

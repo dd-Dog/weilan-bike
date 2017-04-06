@@ -23,6 +23,7 @@ import com.wlcxbj.bike.net.OkhttpHelper;
 import com.wlcxbj.bike.util.cache.CacheUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.PreferenceUtil;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -46,7 +47,6 @@ public class SplashActivity extends Activity {
         //设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        saveUserInfo("liujt", "Fly123456", "56");
         PreferenceUtil.putBoolean(this, Constants.UNBLOCK_BLE_ENABLED, true);
         checkLogin();
     }
@@ -55,7 +55,8 @@ public class SplashActivity extends Activity {
      * 检测本地缓存,是否曾经登陆过,判断是否登陆过期
      */
     private void checkLogin() {
-        authNativeToken = CacheUtil.getSerialToken(SplashActivity.this, Constants.AUTH_CACHE_FILE_NAME);
+        authNativeToken = CacheUtil.getSerialToken(SplashActivity.this, Constants
+                .AUTH_CACHE_FILE_NAME);
         LogUtil.e(TAG, "反序列化,authNativeToken:" + authNativeToken);
         if (authNativeToken == null) {
             Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
@@ -73,6 +74,10 @@ public class SplashActivity extends Activity {
             } else {
                 checkPass();
                 getUserInfo();
+                authNativeToken.setLastRecentLoginTimeStamp(System.currentTimeMillis());
+                boolean b = CacheUtil.cacheSerialToken(this,
+                        Constants.AUTH_CACHE_FILE_NAME, authNativeToken);
+                LogUtil.e(TAG, b ? "更新缓存成功" : "更新缓存失败");
                 LogUtil.e(TAG, "登陆未过期,有效");
             }
         }
@@ -88,7 +93,8 @@ public class SplashActivity extends Activity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), "{}");
         String tokeType = "Bearer";
 
-        okhttpHelper.postReqWithToken(Constants.URL_ACCOUNT_INFO, requestBody,tokeType, authNativeToken.getAuthToken().getAccess_token(), new OkhttpCallBack() {
+        okhttpHelper.postReqWithToken(Constants.URL_ACCOUNT_INFO, requestBody, tokeType,
+                authNativeToken.getAuthToken().getAccess_token(), new OkhttpCallBack() {
             @Override
             public void success(Response response) {
                 try {

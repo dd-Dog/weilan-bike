@@ -72,8 +72,8 @@ public class ConsumeResultActivity extends BaseActivity {
         findViewById(R.id.tv_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ConsumeResultActivity.this,BikeBrokenActivity.class);
-                 startActivity(intent);
+                Intent intent = new Intent(ConsumeResultActivity.this, BikeBrokenActivity.class);
+                startActivity(intent);
             }
         });
         setData();
@@ -89,8 +89,14 @@ public class ConsumeResultActivity extends BaseActivity {
         Intent data = getIntent();
         endtriptoken = (EndTripToken) data.getSerializableExtra("endtriptoken");
         String simno = endtriptoken.getTid();
-        long usingtime = Long.parseLong(endtriptoken.getDurationTime());
-        long endtime = Long.parseLong(endtriptoken.getLockedTime());
+        long usingtime = 0;
+        if (endtriptoken.getDurationTime().matches("[0-9]*.[0-9]*")) {
+            usingtime = Long.parseLong(endtriptoken.getDurationTime());
+        }
+        long endtime = 0;
+        if (endtriptoken.getDurationTime().matches("[0-9]*")) {
+            endtime = Long.parseLong(endtriptoken.getLockedTime());
+        }
 //        tvEndtime.setText("结束时间：" + TimeUtil.getTimeStr(endtime));
 //        tvSimNum.setText("车辆编号: " + simno);
 //        tvPayed.setText(endtriptoken.getAmount());
@@ -113,7 +119,8 @@ public class ConsumeResultActivity extends BaseActivity {
 
     public SpannableString getRichText(String str) {
         SpannableString spanStr = new SpannableString(str);
-        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),4,str.indexOf(".")+3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),
+                4, str.indexOf(".") + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spanStr;
     }
 

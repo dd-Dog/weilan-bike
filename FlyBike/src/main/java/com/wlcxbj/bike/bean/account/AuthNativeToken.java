@@ -33,7 +33,7 @@ public class AuthNativeToken implements Serializable {
         LogUtil.e(TAG, "time_interval=" + time_interval);
         //如果再次登陆时间间隔大于有效期,那么就是过期,否则直接登陆
         if (time_interval < expires_in) {
-            return false;
+            return false;//没有过期
         }
         return true;
     }
