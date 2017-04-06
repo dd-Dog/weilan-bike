@@ -15,6 +15,7 @@ public class EndTripToken implements Serializable{
      * "enduserId":3,
      * "lockedTime":1488526450069,
      * "lat":"40.037403",
+     *  "pushMsgSpid"："1" // 1:开始骑行 2：结束骑行
      * "tid":"1600190006"}
      */
     private String durationTime;
@@ -26,6 +27,7 @@ public class EndTripToken implements Serializable{
     private String lockedTime;
     private String lat;
     private String tid;
+    private String pushMsgSpid;
 
     public String getDurationTime() {
         return durationTime;
@@ -62,6 +64,8 @@ public class EndTripToken implements Serializable{
     public String getTid() {
         return tid;
     }
+
+    public String getPushMsgSpid() { return  pushMsgSpid;};
 
     @Override
     public String toString() {

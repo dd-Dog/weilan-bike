@@ -45,7 +45,7 @@ import static com.inuker.bluetooth.library.Constants.STATUS_DISCONNECTED;
 
 public class LockManager {
     private static final int MSG_READ_LOCK_STATE = 10;
-    private static final long DELAYED_READ = 600;
+    private static final long DELAYED_READ = 1000;
     private BluetoothClient mClient;
     public static final String characterUUID1 = "0000fff1-0000-1000-8000-00805f9b34fb";
     public static final String characterUUID2 = "0000fff2-0000-1000-8000-00805f9b34fb";

@@ -88,9 +88,9 @@ public class ConsumeResultActivity extends BaseActivity {
     private void setData() {
         Intent data = getIntent();
         endtriptoken = (EndTripToken) data.getSerializableExtra("endtriptoken");
-        String simno = endtriptoken.getTid();
-        long usingtime = Long.parseLong(endtriptoken.getDurationTime());
-        long endtime = Long.parseLong(endtriptoken.getLockedTime());
+//        String simno = endtriptoken.getTid();
+//        long usingtime = Long.parseLong(endtriptoken.getDurationTime());
+//        long endtime = Long.parseLong(endtriptoken.getLockedTime());
 //        tvEndtime.setText("结束时间：" + TimeUtil.getTimeStr(endtime));
 //        tvSimNum.setText("车辆编号: " + simno);
 //        tvPayed.setText(endtriptoken.getAmount());

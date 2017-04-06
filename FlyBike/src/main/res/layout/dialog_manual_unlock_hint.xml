@@ -58,11 +58,13 @@
             android:background="@drawable/selector_left_button"
             android:textColor="@color/usual_address_red"
             android:textSize="@dimen/sp_16"
+            android:visibility="gone"
             />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="#d3d7d4"
+            android:visibility="gone"
             />
         <Button
             android:id="@+id/btn_continueUse"
