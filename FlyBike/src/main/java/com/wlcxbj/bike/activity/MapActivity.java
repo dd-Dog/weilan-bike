@@ -2292,7 +2292,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         Button continueUse_btn = (Button) hintDialog.findViewById(R.id.btn_continueUse);
         unlockPsd_tv.setText(StringUtil.getRiceText(this, getString(R.string.unlock_psd,
                 unlockPsd), 5, 9, R.color.green_7b, DpPxUtil.sp2px(this, 20)));
-        startCountDown(orderActiveHint_tv);
         cancelOrder_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2319,6 +2318,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         if (!hintDialog.isShowing())
 
         {
+            startCountDown(orderActiveHint_tv);
             hintDialog.show();
         }
 
