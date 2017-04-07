@@ -28,4 +28,11 @@ public class StringUtil {
         return spanStr;
     }
 
+    public static SpannableString getRichTextForAmount(Activity activity, String str){
+        SpannableString spanStr = new SpannableString(str);
+        spanStr.setSpan(new AbsoluteSizeSpan(DpPxUtil.sp2px(activity,14f)),0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spanStr;
+    }
+
+
 }
