@@ -32,7 +32,7 @@ public class TimeUtil {
 
     public static String getTimeStr(long millions) {
         Date date = new Date(millions);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:MM:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd  HH:mm:ss");
         return sdf.format(date);
     }
 

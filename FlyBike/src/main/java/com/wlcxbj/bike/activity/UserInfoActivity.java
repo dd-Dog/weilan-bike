@@ -110,12 +110,12 @@ public class UserInfoActivity extends BaseActivity {
             userIdentityPic.setImageResource(R.drawable.id_number_green);
         } else if (mAccountToken.getRealInfo().getVerifySpid() == 2) {
             tvIdentityState.setText(R.string.check_done);
-            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text));
-            userIdentityPic.setImageResource(R.drawable.id_number);
-        } else {
-            tvIdentityState.setText(R.string.not_identify);
             tvIdentityState.setTextColor(getResources().getColor(R.color.green));
             userIdentityPic.setImageResource(R.drawable.id_number_green);
+        } else {
+            tvIdentityState.setText(R.string.not_identify);
+            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text_gray));
+            userIdentityPic.setImageResource(R.drawable.id_number_grey);
         }
         String mobile = mAuthNativeToken.getAuthToken().getMobile();
         tvPhoneNumber.setText(mobile);

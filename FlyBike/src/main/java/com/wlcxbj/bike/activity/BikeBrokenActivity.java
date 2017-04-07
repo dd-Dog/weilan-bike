@@ -166,7 +166,7 @@ public class BikeBrokenActivity extends BaseActivity implements CompoundButton
             switch (requestCode) {
                 case REQUEST_BIKE_NUMBER:
                     String result = data.getStringExtra("result");
-                    tvBikeNum.setText(result);
+                    tvBikeNum.setText(result.substring(result.indexOf("=")+1));
                     hasBikeNum = true;
                     toggleButton();
                     break;

@@ -1242,8 +1242,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         if (!exists) {
             ToastUtil.showUIThread(this, getResources().getString(R.string.tip_147));
             tvIdentityState.setText(R.string.not_login);
-            tvIdentityState.setTextColor(getResources().getColor(R.color.green));
-            ivIdentityPic.setImageResource(R.drawable.id_number_green);
+            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text_gray));
+            ivIdentityPic.setImageResource(R.drawable.id_number_grey);
             userIcon.setImageResource(R.drawable.user_profile);
             tvUserName.setText(R.string.not_login_username);
             return;
@@ -1325,12 +1325,12 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             ivIdentityPic.setImageResource(R.drawable.id_number_green);
         } else if (mAccountToken.getRealInfo().getVerifySpid() == 2) {
             tvIdentityState.setText(R.string.check_done);
-            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text));
-            ivIdentityPic.setImageResource(R.drawable.id_number);
-        } else {
-            tvIdentityState.setText(R.string.not_identify);
             tvIdentityState.setTextColor(getResources().getColor(R.color.green));
             ivIdentityPic.setImageResource(R.drawable.id_number_green);
+        } else {
+            tvIdentityState.setText(R.string.not_identify);
+            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text_gray));
+            ivIdentityPic.setImageResource(R.drawable.id_number_grey);
         }
     }
 
@@ -1488,31 +1488,31 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     }
                 }
                 LogUtil.e(TAG, "deposit=" + deposit);
-//                if (!TextUtils.isEmpty(deposit)) {
-//                    double v1 = Double.parseDouble(deposit);
-//                    String guaranteeDeposit = mAccountToken.getAccount().getGuaranteeDeposit();
-//                    if (!TextUtils.isEmpty(guaranteeDeposit)) {
-//                        double v2 = Double.parseDouble(deposit);
-//                        if (v1 > v2) {
-//                            LogUtil.e(TAG, "mAccountToken.getAccount().getGuaranteeDeposit()=" +
-//                                    mAccountToken.getAccount().getGuaranteeDeposit());
-//                            Intent rechargeIntent = new Intent(this, PayRefundActivity.class);
-//                            rechargeIntent.putExtras(getAuthAccountBundle());
-//                            startActivity(rechargeIntent);
-//                            return;
-//                        }
-//                    }
-//                }
-//                if (Double.parseDouble(mAccountToken.getAccount().getBalance()) <= 0) {
-//                    Intent rechargeIntent = new Intent(this, RechargeActivity.class);
-//                    rechargeIntent.putExtras(getAuthAccountBundle());
-//                    startActivity(rechargeIntent);
-//                    return;
-//                }
-//                if (currentState == UNDER_BICYCLING) {
-//                    ToastUtil.showUIThread(this, getResources().getString(R.string.tip_150));
-//                    return;
-//                }
+                if (!TextUtils.isEmpty(deposit)) {
+                    double v1 = Double.parseDouble(deposit);
+                    String guaranteeDeposit = mAccountToken.getAccount().getGuaranteeDeposit();
+                    if (!TextUtils.isEmpty(guaranteeDeposit)) {
+                        double v2 = Double.parseDouble(deposit);
+                        if (v1 > v2) {
+                            LogUtil.e(TAG, "mAccountToken.getAccount().getGuaranteeDeposit()=" +
+                                    mAccountToken.getAccount().getGuaranteeDeposit());
+                            Intent rechargeIntent = new Intent(this, PayRefundActivity.class);
+                            rechargeIntent.putExtras(getAuthAccountBundle());
+                            startActivity(rechargeIntent);
+                            return;
+                        }
+                    }
+                }
+                if (Double.parseDouble(mAccountToken.getAccount().getBalance()) <= 0) {
+                    Intent rechargeIntent = new Intent(this, RechargeActivity.class);
+                    rechargeIntent.putExtras(getAuthAccountBundle());
+                    startActivity(rechargeIntent);
+                    return;
+                }
+                if (currentState == UNDER_BICYCLING) {
+                    ToastUtil.showUIThread(this, getResources().getString(R.string.tip_150));
+                    return;
+                }
                 //检测是否打开蓝牙
                 startActivityForResult(new Intent(MapActivity.this, CaptureActivity.class),
                         REQUEST_SCAN_RESULT);
@@ -2142,6 +2142,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
     private Dialog hintDialog;
 
+    /***
+     * 显示手动开锁提示框
+     * @param unlockPsd 解锁密码
+     */
     public void showManualUnlockHintDialog(String unlockPsd) {
         if (unlockSuccess) {
             return;
