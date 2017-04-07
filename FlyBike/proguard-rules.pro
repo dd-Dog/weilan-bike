@@ -19,7 +19,7 @@
 
 
 #ali pay
--libraryjars libs/alipaySDK-20161222.jar
+#-libraryjars libs/alipaySDK-20161222.jar
 
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
@@ -54,3 +54,6 @@
 -dontwarn anetwork.**
 -dontwarn com.ut.**
 -dontwarn com.ta.**
+-dontwarn butterknife.internal.**
+-dontwarn com.amap.api.**
+-dontwarn okio.**
