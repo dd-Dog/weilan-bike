@@ -24,11 +24,6 @@ import com.wlcxbj.bike.util.TimeUtil;
 public class ConsumeResultActivity extends BaseActivity {
 
     private static final String TAG = "ConsumeResultActivity";
-    //    private TextView tvSimNum;
-//    private TextView tvPayed;
-//    private TextView tvTime;
-//    private TextView tvStartTime;
-//    private TextView tvEndtime;
     private EndTripToken endtriptoken;
     DecimalFormat df = new DecimalFormat("######0.00");
     private TextView payedResult_tv;
@@ -42,13 +37,6 @@ public class ConsumeResultActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().hide();
-//        tvSimNum = (TextView) findViewById(R.id.simnum);
-//        tvPayed = (TextView) findViewById(R.id.payed);
-//        tvTime = (TextView) findViewById(R.id.consume_time);
-//        tvStartTime = (TextView) findViewById(R.id.start_time);
-//        tvEndtime = (TextView) findViewById(R.id.end_time);
-//        tvPayed = (TextView) findViewById(R.id.payed);
-
         initView();
         addListener();
         setData();
@@ -78,7 +66,6 @@ public class ConsumeResultActivity extends BaseActivity {
         });
         setData();
     }
-
 
     @Override
     public void setContentViewID() {

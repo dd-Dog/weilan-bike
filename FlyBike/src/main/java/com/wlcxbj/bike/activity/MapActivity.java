@@ -15,6 +15,7 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
@@ -80,6 +81,7 @@ import com.google.gson.Gson;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.meg7.widget.CircleImageView;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -238,7 +240,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-       initUtils();
+        initUtils();
         initView();
         initBle();
         initGestureDetector();
@@ -442,7 +444,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 public void onMessage(Context context, CPushMessage cPushMessage) {
                     super.onMessage(context, cPushMessage);
                     LogUtil.d(TAG, " 收到推送" + cPushMessage.getContent());
-                    EndTripToken tempToken = new Gson().fromJson(cPushMessage.getContent(), EndTripToken.class);
+                    EndTripToken tempToken = new Gson().fromJson(cPushMessage.getContent(),
+                            EndTripToken.class);
                     if (tempToken.getPushMsgSpid() != null) {
                         if (tempToken.getPushMsgSpid().equals("1")) {
                             startTrip();
@@ -531,8 +534,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
         }
     };
-
-
 
 
     /**
@@ -820,7 +821,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     }
 
 
-    public void initUtils(){
+    public void initUtils() {
         okhttpHelper = OkhttpHelper.getInstance();
         httpBikeBeanUtil = new HttpBikeBeanUtil(this);
         httpAccountBeanUtil = new HttpAccountBeanUtil(this);

@@ -1,6 +1,7 @@
 package com.wlcxbj.bike.util.cache;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,12 +17,18 @@ import com.wlcxbj.bike.util.LogUtil;
  */
 public class CacheUtil {
 
-    public static<O> boolean cacheSerialToken(Context context, String fileName, O object) {
+    public static <O> boolean cacheSerialToken(Context context, String fileName, O object) {
         //序列化到本地
-        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+//        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+        String dir = Environment.getExternalStorageDirectory() + File.separator + ".wlcx" +
+                File.separator + "cache" + File.separator;
+        File cacheDir = new File(dir);
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
         ObjectOutputStream oos = null;
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(dir));
+            oos = new ObjectOutputStream(new FileOutputStream(new File(cacheDir, fileName)));
             oos.writeObject(object);
             oos.close();
             return true;
@@ -39,8 +46,10 @@ public class CacheUtil {
         return false;
     }
 
-    public static<T> T getSerialToken(Context context, String fileName) {
-        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+    public static <T> T getSerialToken(Context context, String fileName) {
+//        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+        String dir = Environment.getExternalStorageDirectory() + File.separator + ".wlcx" +
+                File.separator + "cache" + File.separator + fileName;
         File file = new File(dir);
         if (!file.exists()) {
             LogUtil.e("CacheUtil", "没有缓存");
@@ -71,7 +80,9 @@ public class CacheUtil {
 
 
     public static boolean clearCache(Context context, String fileName) {
-        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+//        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+        String dir = Environment.getExternalStorageDirectory() + File.separator + ".wlcx" +
+                File.separator + "cache" + File.separator + fileName;
         File file = new File(dir);
         if (file.exists()) {
             LogUtil.e("CacheUtil", "清除文件缓存:" + fileName);
@@ -81,10 +92,11 @@ public class CacheUtil {
     }
 
     public static boolean isCacheExists(Context context, String fileName) {
-        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+//        String dir = context.getCacheDir().getPath() + File.separator + fileName;
+        String dir = Environment.getExternalStorageDirectory() + File.separator + ".wlcx" +
+                File.separator + "cache" + File.separator + fileName;
         File file = new File(dir);
         return file.exists();
     }
-
 
 }

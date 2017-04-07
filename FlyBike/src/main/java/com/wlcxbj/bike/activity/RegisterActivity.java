@@ -326,8 +326,6 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
      */
     private void cacheAuthToken(AuthToken authToken) {
         //序列化到本地
-        String authCacheDir = getCacheDir().getPath();
-        LogUtil.e(TAG, "注册成功后缓存认证信息,authCacheDir:" + authCacheDir);
         authNativeToken = new AuthNativeToken(authToken, System.currentTimeMillis());
         boolean b = CacheUtil.cacheSerialToken(this, Constants
                 .AUTH_CACHE_FILE_NAME, authNativeToken);
