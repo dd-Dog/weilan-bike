@@ -139,7 +139,11 @@
            />
     </RelativeLayout>
 
-    <include layout="@layout/layout_divider"/>
+    <include layout="@layout/layout_divider"
+        android:layout_height="0.5dp"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/btn_logout"

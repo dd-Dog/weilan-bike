@@ -44,7 +44,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:src="@drawable/id_number_green"
+                android:src="@drawable/id_number_grey"
                 android:id="@+id/user_identity_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/not_verify"
-                android:textColor="@color/green"
+                android:textColor="@color/user_text_gray"
                 android:textSize="@dimen/user_textsize"/>
         </LinearLayout>
     </LinearLayout>
