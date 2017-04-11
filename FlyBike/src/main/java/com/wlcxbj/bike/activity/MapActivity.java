@@ -1242,7 +1242,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         if (!exists) {
             ToastUtil.showUIThread(this, getResources().getString(R.string.tip_147));
             tvIdentityState.setText(R.string.not_login);
-            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text_gray));
+            tvIdentityState.setTextColor(getResources().getColor(R.color.green));
             ivIdentityPic.setImageResource(R.drawable.id_number_grey);
             userIcon.setImageResource(R.drawable.user_profile);
             tvUserName.setText(R.string.not_login_username);
@@ -1329,7 +1329,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             ivIdentityPic.setImageResource(R.drawable.id_number_green);
         } else {
             tvIdentityState.setText(R.string.not_identify);
-            tvIdentityState.setTextColor(getResources().getColor(R.color.user_text_gray));
+            tvIdentityState.setTextColor(getResources().getColor(R.color.green));
             ivIdentityPic.setImageResource(R.drawable.id_number_grey);
         }
     }
