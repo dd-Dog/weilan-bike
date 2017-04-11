@@ -48,8 +48,8 @@ public class AboutUsActivity extends BaseActivity {
         try {
             PackageManager manager = this.getPackageManager();
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-            int version = info.versionCode;
-            return this.getString(R.string.version_name) + version + ".0";
+            String version = info.versionName;
+            return this.getString(R.string.version_name) + version;
         } catch (Exception e) {
             e.printStackTrace();
             return this.getString(R.string.can_not_find_version_name);
