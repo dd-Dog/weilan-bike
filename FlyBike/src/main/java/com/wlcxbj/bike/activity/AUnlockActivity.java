@@ -39,12 +39,6 @@ public class AUnlockActivity extends BaseActivity implements View.OnClickListene
     private String localPath;
     private EditText etContent;
     private LinearLayout lLContent;
-
-    @Override
-    public void setContentViewID() {
-        setContentView(R.layout.activity_aunlock);
-    }
-
     private static final int REQUEST_BIKE_NUMBER = 23333;
     private static final int REQUEST_CODE_CAPTURE_CAMEIA = 23344;
     EditText etTag;
@@ -54,6 +48,10 @@ public class AUnlockActivity extends BaseActivity implements View.OnClickListene
     private TextView tvBikeNum;
     private boolean hasBikeNum;
 
+    @Override
+    public void setContentViewID() {
+        setContentView(R.layout.activity_aunlock);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

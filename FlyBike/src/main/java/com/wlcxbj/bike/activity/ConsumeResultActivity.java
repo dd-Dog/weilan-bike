@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.bike.EndTripToken;
 import com.wlcxbj.bike.util.DistanceUtil;
+import com.wlcxbj.bike.util.StringUtil;
 import com.wlcxbj.bike.util.TimeUtil;
 
 /**
@@ -35,7 +36,6 @@ public class ConsumeResultActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         addListener();
         setData();
@@ -63,7 +63,6 @@ public class ConsumeResultActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        setData();
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ConsumeResultActivity extends BaseActivity {
         // 成功支付钱数
         String payedAmount = getString(R.string.payed_result, df.format(Double.parseDouble
                 (endtriptoken.getAmount())));
-        payedResult_tv.setText(getRichText(payedAmount));
+        payedResult_tv.setText(StringUtil.getRiceText(this,payedAmount,4,payedAmount.indexOf(".") + 3,R.color.green_68,0));
         // 骑行时间
         rideTime_tv.setText(TimeUtil.getTimeShort(Long.parseLong(endtriptoken.getDurationTime())));
         //骑行距离
@@ -89,13 +88,5 @@ public class ConsumeResultActivity extends BaseActivity {
         //钱包余额
         walletBalance_tv.setText(endtriptoken.getBalance() + "元");
     }
-
-    public SpannableString getRichText(String str) {
-        SpannableString spanStr = new SpannableString(str);
-        spanStr.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.green_68)),
-                4, str.indexOf(".") + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spanStr;
-    }
-
 
 }

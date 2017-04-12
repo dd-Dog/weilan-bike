@@ -56,6 +56,7 @@ public class PropertiesUtil {
                     PackageManager.GET_META_DATA);
             //获取meta-data 下面DEV_MODEL 的值
             msg = appInfo.metaData.getString("DEV_MODEL");
+            msg = "release";
             LogUtil.e(TAG, "当前开发模式：" + msg);
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, "获取开发模式失败", e);

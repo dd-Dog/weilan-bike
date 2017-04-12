@@ -64,23 +64,25 @@ public class SplashActivity extends Activity {
             startActivity(intent);
             finish();
             LogUtil.e(TAG, "登陆已过期,重新登陆");
-        } else {
-            if (authNativeToken.isExpire()) {
-                Intent registerIntent = new Intent(SplashActivity.this, RegisterActivity.class);
-                registerIntent.putExtra(RegisterActivity.WHERE_FROM, RegisterActivity.SPLASH_START);
-                startActivity(registerIntent);
-                finish();
-                LogUtil.e(TAG, "登陆已过期,重新登陆");
-            } else {
-                checkPass();
-                getUserInfo();
-                authNativeToken.setLastRecentLoginTimeStamp(System.currentTimeMillis());
-                boolean b = CacheUtil.cacheSerialToken(this,
-                        Constants.AUTH_CACHE_FILE_NAME, authNativeToken);
-                LogUtil.e(TAG, b ? "更新缓存成功" : "更新缓存失败");
-                LogUtil.e(TAG, "登陆未过期,有效");
-            }
+            return;
         }
+
+        if (authNativeToken.isExpire()) {
+            Intent registerIntent = new Intent(SplashActivity.this, RegisterActivity.class);
+            registerIntent.putExtra(RegisterActivity.WHERE_FROM, RegisterActivity.SPLASH_START);
+            startActivity(registerIntent);
+            finish();
+            LogUtil.e(TAG, "登陆已过期,重新登陆");
+            return;
+        }
+
+        checkPass();
+        getUserInfo();
+        authNativeToken.setLastRecentLoginTimeStamp(System.currentTimeMillis());
+        boolean b = CacheUtil.cacheSerialToken(this,
+                Constants.AUTH_CACHE_FILE_NAME, authNativeToken);
+        LogUtil.e(TAG, b ? "更新缓存成功" : "更新缓存失败");
+        LogUtil.e(TAG, "登陆未过期,有效");
     }
 
 
@@ -162,15 +164,15 @@ public class SplashActivity extends Activity {
         finish();
     }
 
-    private void saveUserInfo(String name, String passwd, String uid) {
-        //检查是否保存用户名和密码
-        //保存checkbox状态和用户名密码
-        PreferenceUtil.putBoolean(this, Constants.SAVEPWD_ENABLED, true ? true :
-                false);
-        PreferenceUtil.putString(this, Constants.SAVED_USERNAME, true ? name : "");
-        PreferenceUtil.putString(this, Constants.SAVED_PASSWD, true ? passwd : "");
-        PreferenceUtil.putBoolean(this, Constants.AUTOLOGIN_ENABLED, true ? true
-                : false);
-        PreferenceUtil.putString(this, Constants.UID, uid);
-    }
+//    private void saveUserInfo(String name, String passwd, String uid) {
+//        //检查是否保存用户名和密码
+//        //保存checkbox状态和用户名密码
+//        PreferenceUtil.putBoolean(this, Constants.SAVEPWD_ENABLED, true ? true :
+//                false);
+//        PreferenceUtil.putString(this, Constants.SAVED_USERNAME, true ? name : "");
+//        PreferenceUtil.putString(this, Constants.SAVED_PASSWD, true ? passwd : "");
+//        PreferenceUtil.putBoolean(this, Constants.AUTOLOGIN_ENABLED, true ? true
+//                : false);
+//        PreferenceUtil.putString(this, Constants.UID, uid);
+//    }
 }

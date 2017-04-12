@@ -24,7 +24,9 @@ public class StringUtil {
     public static SpannableString getRiceText(Activity activity,String str,int start,int end,int colorRsd,int fontsize){
         SpannableString spanStr = new SpannableString(str);
         spanStr.setSpan(new ForegroundColorSpan(activity.getResources().getColor(colorRsd)),start,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanStr.setSpan(new AbsoluteSizeSpan(fontsize),start,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+       if(fontsize > 0){
+           spanStr.setSpan(new AbsoluteSizeSpan(fontsize),start,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+       }
         return spanStr;
     }
 
