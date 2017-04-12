@@ -45,7 +45,6 @@ public class ModifyNickNameActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         if (mAuthNativeToken == null) {
             LogUtil.e(TAG, "mAuthNativeToken == null");
             return;

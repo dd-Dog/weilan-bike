@@ -22,7 +22,6 @@ public class FundBackActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_fund_back);
-        getSupportActionBar().hide();
     }
 
     @Override

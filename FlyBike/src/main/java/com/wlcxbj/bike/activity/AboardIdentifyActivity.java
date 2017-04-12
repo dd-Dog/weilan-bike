@@ -43,7 +43,6 @@ public class AboardIdentifyActivity extends BaseActivity implements View.OnClick
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_aboard_identify);
-        getSupportActionBar().hide();
         LinearLayout picLeft = (LinearLayout) findViewById(R.id.pic_left);
         LinearLayout picRight = (LinearLayout) findViewById(R.id.pic_right);
         ivLeft = (ImageView) findViewById(R.id.iv_left);

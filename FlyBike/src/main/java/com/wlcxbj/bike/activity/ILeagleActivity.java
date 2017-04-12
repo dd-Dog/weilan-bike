@@ -56,7 +56,6 @@ public class ILeagleActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         btnSubmmit = (Button) findViewById(R.id.btn_submmit);
         ivReport = (ImageView) findViewById(R.id.iv_report);
         tvBikeNum = (TextView) findViewById(R.id.tv_bikeNum);

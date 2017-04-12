@@ -30,7 +30,6 @@ public class CaptureActivity extends BaseActivity implements QRCodeView.Delegate
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_test_scan);
-        getSupportActionBar().hide();
     }
 
     @Override

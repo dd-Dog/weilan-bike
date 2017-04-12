@@ -13,7 +13,6 @@ public class ContactUsActivity extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
     }
 
     @Override

@@ -68,7 +68,6 @@ public class RouteActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         initView();
         getRentHistory(currentPageNo, PAGESIZE, TYPE_INIT);
     }

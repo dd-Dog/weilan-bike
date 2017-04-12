@@ -9,6 +9,5 @@ public class ChargeRuleActivity extends BaseActivity{
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_charge_rule);
-        getSupportActionBar().hide();
     }
 }

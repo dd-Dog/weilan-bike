@@ -30,7 +30,6 @@ public class ModifyPhoneNumberActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
     }
 
     @Override

@@ -60,7 +60,6 @@ public class PersonCenterActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         mScrollY = 0;
         setTitleBar();
     }

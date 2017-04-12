@@ -14,7 +14,6 @@ public class GetTranCodeMethodActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
     }
 

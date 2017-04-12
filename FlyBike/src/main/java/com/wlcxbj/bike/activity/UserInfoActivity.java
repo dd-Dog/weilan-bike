@@ -89,7 +89,6 @@ public class UserInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         //图片工具类
         imageHelper = new ImageHelper(this);
         initView();

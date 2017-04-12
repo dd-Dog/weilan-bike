@@ -9,6 +9,5 @@ public class CreditHistoryActivity extends BaseActivity {
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_credit_history);
-        getSupportActionBar().hide();
     }
 }

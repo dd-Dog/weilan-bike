@@ -120,7 +120,6 @@ public class ManualInputSerialActivity extends BaseActivity implements View.OnCl
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_manual_input);
-        getSupportActionBar().hide();
     }
 
     @Override

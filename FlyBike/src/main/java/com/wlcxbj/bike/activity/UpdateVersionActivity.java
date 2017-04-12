@@ -19,7 +19,6 @@ public class UpdateVersionActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
         tvVersion = (TextView) findViewById(R.id.tv_version);
         getVersion();

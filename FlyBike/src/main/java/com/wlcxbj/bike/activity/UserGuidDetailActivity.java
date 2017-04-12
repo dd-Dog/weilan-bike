@@ -42,6 +42,5 @@ public class UserGuidDetailActivity extends BaseActivity {
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_userguide_detail);
-        getSupportActionBar().hide();
     }
 }

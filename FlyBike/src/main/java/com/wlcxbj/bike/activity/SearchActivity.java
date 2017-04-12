@@ -84,7 +84,6 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         initData();
         initView();
     }

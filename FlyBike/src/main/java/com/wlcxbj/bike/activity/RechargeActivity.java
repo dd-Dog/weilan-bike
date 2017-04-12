@@ -60,7 +60,6 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         httpPayBeanUtil = new HttpPayBeanUtil(this);
         //初始化微信支付API
         api = WXAPIFactory.createWXAPI(this, Constants.WECHAT_PAY_APP_ID);

@@ -32,7 +32,6 @@ public class WalletDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         getRechargeHistory();
         ListView lvTrans = (ListView) findViewById(R.id.lv_transaction);
         findViewById(R.id.tv_right).setOnClickListener(this);

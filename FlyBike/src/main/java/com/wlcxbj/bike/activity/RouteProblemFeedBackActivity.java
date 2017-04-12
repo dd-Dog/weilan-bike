@@ -37,7 +37,6 @@ public class RouteProblemFeedBackActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         Bundle bundle = getIntent().getExtras();
         RouteBean bean = (RouteBean) bundle.get("item_feedback");
         tvBikeNum.setText(bean.bikeID);

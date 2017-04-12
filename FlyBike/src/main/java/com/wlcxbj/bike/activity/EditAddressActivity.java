@@ -48,7 +48,6 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_edit_address);
-        getSupportActionBar().hide();
         initView();
         initData();
     }

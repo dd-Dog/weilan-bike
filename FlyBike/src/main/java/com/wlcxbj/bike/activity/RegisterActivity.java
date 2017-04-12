@@ -75,7 +75,6 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         ButterKnife.bind(this);
         getCheckNumber.setClickable(false);
         btnConfirm.setClickable(false);

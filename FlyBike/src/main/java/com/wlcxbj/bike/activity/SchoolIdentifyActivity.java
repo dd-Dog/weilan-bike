@@ -105,7 +105,6 @@ public class SchoolIdentifyActivity extends BaseActivity implements View.OnClick
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_school);
-        getSupportActionBar().hide();
     }
 
     private void toggleButton() {

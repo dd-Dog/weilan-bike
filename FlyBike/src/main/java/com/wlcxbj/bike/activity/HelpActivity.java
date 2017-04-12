@@ -27,7 +27,6 @@ public class HelpActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
         lvRoutes = (ListView) findViewById(R.id.lv_routes);
         routeBeens = new ArrayList<>();

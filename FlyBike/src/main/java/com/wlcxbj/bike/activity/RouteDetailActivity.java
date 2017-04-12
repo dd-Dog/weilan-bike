@@ -55,7 +55,6 @@ public class RouteDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         routebean = (RentBikeBean) getIntent().getSerializableExtra("routebean");
 //        getRentHistoryDetail(routebean.getId());
         initView(savedInstanceState);

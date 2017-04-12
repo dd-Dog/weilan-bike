@@ -17,7 +17,6 @@ public class WalkRouteDetailActivity extends BaseActivity implements View.OnClic
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getSupportActionBar().hide();
 		findViewById(R.id.ib_back).setOnClickListener(this);
 //		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getIntentData();

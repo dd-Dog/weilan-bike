@@ -14,7 +14,6 @@ public class ConsumerRuleActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
     }
 

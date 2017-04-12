@@ -46,6 +46,5 @@ public class TicketsGuideActivity extends BaseActivity {
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_tickets_guide);
-        getSupportActionBar().hide();
     }
 }

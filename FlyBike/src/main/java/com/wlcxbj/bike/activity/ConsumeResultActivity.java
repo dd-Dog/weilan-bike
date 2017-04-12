@@ -36,7 +36,6 @@ public class ConsumeResultActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().hide();
         initView();
         addListener();
         setData();

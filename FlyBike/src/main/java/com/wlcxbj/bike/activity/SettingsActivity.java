@@ -60,7 +60,6 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         getCacheSize();
         Boolean bleEnabled = PreferenceUtil.getBoolean(this, Constants.UNBLOCK_BLE_ENABLED, false);
         cbBle.setChecked(bleEnabled);

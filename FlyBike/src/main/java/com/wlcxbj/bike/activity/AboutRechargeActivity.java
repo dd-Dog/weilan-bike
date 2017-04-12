@@ -39,7 +39,6 @@ public class AboutRechargeActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_about_recharge);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
         tvDes = (TextView) findViewById(R.id.charge_des);
         tips = (LinearLayout) findViewById(R.id.tips);

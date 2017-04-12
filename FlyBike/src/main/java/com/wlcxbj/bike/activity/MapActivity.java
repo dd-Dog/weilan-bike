@@ -238,7 +238,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         initUtils();
         initView();

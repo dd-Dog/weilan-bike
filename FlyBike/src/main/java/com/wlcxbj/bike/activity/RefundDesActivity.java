@@ -15,7 +15,6 @@ public class RefundDesActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         findViewById(R.id.btn_missing).setOnClickListener(this);
         findViewById(R.id.ib_back).setOnClickListener(this);
     }

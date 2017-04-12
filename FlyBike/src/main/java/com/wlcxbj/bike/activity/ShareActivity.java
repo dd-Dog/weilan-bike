@@ -79,7 +79,6 @@ public class ShareActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
         Log.e("Share", getResources().getDisplayMetrics().density + "");
         setInviceCode();

@@ -20,7 +20,6 @@ public class MsgDetailactivity extends BaseActivity implements View.OnClickListe
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_msg_detail);
-        getSupportActionBar().hide();
     }
 
     @Override

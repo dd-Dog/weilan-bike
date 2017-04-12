@@ -77,7 +77,6 @@ public class PayRefundActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_pay_refund);
-        getSupportActionBar().hide();
     }
 
     private void toggleMethod(int method) {

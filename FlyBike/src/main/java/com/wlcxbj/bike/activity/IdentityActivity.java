@@ -54,7 +54,6 @@ public class IdentityActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_identify);
-        getSupportActionBar().hide();
 
         initData();
         if (!TextUtils.isEmpty(mAccountToken.getRealInfo().getIdno()) && !TextUtils.isEmpty

@@ -74,7 +74,6 @@ public class WalletActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getSupportActionBar().hide();
         httpAccountBeanUtil = new HttpAccountBeanUtil(this);
         httpPayBeanUtil = new HttpPayBeanUtil(this);
         //获取帐户余额和押金等信息

@@ -53,7 +53,6 @@ public class MyDiscountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void setContentViewID() {
         setContentView(R.layout.actvity_mydiscount);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
         findViewById(R.id.btn_traval).setOnClickListener(this);
         findViewById(R.id.tv_right).setOnClickListener(this);

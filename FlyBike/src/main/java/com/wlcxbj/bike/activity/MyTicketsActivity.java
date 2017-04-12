@@ -105,7 +105,6 @@ public class MyTicketsActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void setContentViewID() {
         setContentView(R.layout.activity_tickets);
-        getSupportActionBar().hide();
         findViewById(R.id.ib_back).setOnClickListener(this);
     }
 
