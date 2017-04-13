@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_dialog">
+
+    <LinearLayout
+        android:id="@+id/ll_animContainer"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="204dp"
+        android:background="@drawable/shape_dialog"
+        >
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
+        android:text="发现新版本"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="@dimen/dp_29"
+        android:layout_marginRight="@dimen/dp_29"
+        android:lineSpacingExtra="2dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_updateInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/user_text"
+        android:text="您安装的微蓝单车1.0版本已经更新请下载最新版本"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="43dp"
+        android:layout_marginRight="43dp"
+        android:lineSpacingExtra="2dp"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d3d7d4"
+        android:layout_marginTop="@dimen/dp_29"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_cancelDownload"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:background="@drawable/selector_left_button"
+            android:textColor="@color/green_7b"
+            android:textSize="@dimen/sp_16"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#d3d7d4"
+            />
+        <Button
+            android:id="@+id/btn_downloadNow"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="@string/downlod_now"
+            android:background="@drawable/selector_right_button"
+            android:textColor="@color/green_7b"
+            android:textSize="@dimen/sp_16"
+            />
+
+    </LinearLayout>
+</LinearLayout>

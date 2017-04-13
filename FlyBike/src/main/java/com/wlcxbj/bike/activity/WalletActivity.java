@@ -31,6 +31,7 @@ import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpAccountOtherBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.net.beanutil.HttpPayBeanUtil;
+import com.wlcxbj.bike.util.DialogUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.ToastUtil;
 import com.wlcxbj.bike.util.cache.CacheUtil;
@@ -199,44 +200,82 @@ public class WalletActivity extends BaseActivity {
     }
 
     private void showRefundDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_refund);
-        dialog.setTitle(getResources().getString(R.string.tip_182));
-        dialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+//        final Dialog dialog = new Dialog(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.dialog_refund);
+//        dialog.setTitle(getResources().getString(R.string.tip_182));
+//        dialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog.findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e(TAG, "退还押金");
+//                if (mAuthNativeToken != null) {
+//                    AuthToken authToken = mAuthNativeToken.getAuthToken();
+//                    if (authToken != null) {
+//                        String access_token = authToken.getAccess_token();
+//                        httpPayBeanUtil.requestRefundBack(access_token, new HttpCallbackHandler() {
+//                            @Override
+//                            public void onSuccess(Object o) {
+//                                startActivityForResult(new Intent(WalletActivity.this, FundBackActivity.class),
+//                                        REQUEST_FUND_BACK);
+//                                dialog.dismiss();
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Exception error, String msg) {
+//                                ToastUtil.showUIThread(WalletActivity.this, "退押金失败");
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                    }
+//                }
+//
+//            }
+//        });
+//        dialog.show();
+
+        DialogUtil.showDoubleButtonDialog(this, "押金退还时间为2-7个工作日，在此期间您的账号将无法用车。是否仍然退押金？", new DialogUtil.DoubleButtonListener() {
             @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+            public void onLeftBtnClick() {
+
+            }
+
+            @Override
+            public void onRightBtnClick() {
+                returnDeposit();
             }
         });
-        dialog.findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "退还押金");
-                if (mAuthNativeToken != null) {
-                    AuthToken authToken = mAuthNativeToken.getAuthToken();
-                    if (authToken != null) {
-                        String access_token = authToken.getAccess_token();
-                        httpPayBeanUtil.requestRefundBack(access_token, new HttpCallbackHandler() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                startActivityForResult(new Intent(WalletActivity.this, FundBackActivity.class),
-                                        REQUEST_FUND_BACK);
-                                dialog.dismiss();
-                            }
+    }
 
-                            @Override
-                            public void onFailure(Exception error, String msg) {
-                                ToastUtil.showUIThread(WalletActivity.this, "退押金失败");
-                                dialog.dismiss();
-                            }
-                        });
+    /**
+     *  退押金
+     */
+    public void returnDeposit(){
+        if(mAuthNativeToken == null){
+            ToastUtil.show(this,"退押金失败");
+            return;
+        }
+            AuthToken authToken = mAuthNativeToken.getAuthToken();
+            if (authToken != null) {
+                String access_token = authToken.getAccess_token();
+                httpPayBeanUtil.requestRefundBack(access_token, new HttpCallbackHandler() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        startActivityForResult(new Intent(WalletActivity.this, FundBackActivity.class),
+                                REQUEST_FUND_BACK);
                     }
-                }
 
+                    @Override
+                    public void onFailure(Exception error, String msg) {
+                        ToastUtil.showUIThread(WalletActivity.this, "退押金失败");
+                    }
+                });
             }
-        });
-        dialog.show();
     }
 
     @Override

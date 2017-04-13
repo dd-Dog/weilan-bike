@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.global.Constants;
+import com.wlcxbj.bike.util.DialogUtil;
 import com.wlcxbj.bike.util.PreferenceUtil;
 import com.wlcxbj.bike.util.cache.CacheUtil;
 
@@ -107,23 +108,17 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void showClearCacheDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_clear_cache);
-        dialog.findViewById(R.id.btn_yes).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cleanCache();
-                dialog.dismiss();
-            }
-        });
-        dialog.findViewById(R.id.btn_no).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+    DialogUtil.showDoubleButtonDialog(this,"确定清理本地缓存记录",new DialogUtil.DoubleButtonListener(){
+           @Override
+           public void onLeftBtnClick() {
+
+           }
+
+           @Override
+           public void onRightBtnClick() {
+               cleanCache();
+           }
+       });
     }
 
     /**

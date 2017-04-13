@@ -83,7 +83,9 @@ import com.meg7.widget.CircleImageView;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +120,7 @@ import com.wlcxbj.bike.global.ShareBikeApplication;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
 import com.wlcxbj.bike.net.beanutil.HttpTripBeanUtil;
 import com.wlcxbj.bike.receiver.AliMessageCallbackHandlerAdapter;
+import com.wlcxbj.bike.util.DialogUtil;
 import com.wlcxbj.bike.util.StringUtil;
 import com.wlcxbj.bike.receiver.AliMessageReceiver;
 import com.wlcxbj.bike.util.map.AmapUtil;
@@ -436,23 +439,26 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         }
     };
 
+   SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd  HH:mm:ss");
 
     AliMessageCallbackHandlerAdapter aliMessageCallbackHandlerAdapter = new
             AliMessageCallbackHandlerAdapter() {
                 @Override
                 public void onMessage(Context context, CPushMessage cPushMessage) {
                     super.onMessage(context, cPushMessage);
-                    LogUtil.d(TAG, " 收到推送" + cPushMessage.getContent());
                     EndTripToken tempToken = new Gson().fromJson(cPushMessage.getContent(),
                             EndTripToken.class);
                     if (tempToken.getPushMsgSpid() != null) {
                         if (tempToken.getPushMsgSpid().equals("1")) {
                             startTrip();
+                            LogUtil.d(TAG, " 收到开锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                         } else if (tempToken.getPushMsgSpid().equals("2")) {
                             endTrip(cPushMessage.getContent());
+                            LogUtil.d(TAG, " 收到关锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                         }
                     } else {
                         endTrip(cPushMessage.getContent());
+                        LogUtil.d(TAG, " 收到关锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                     }
                 }
             };
@@ -2222,4 +2228,36 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             countDownTimer = null;
         }
     }
+
+    /**
+     * 显示正常版本升级提示框
+     */
+    public void showVersionUpdateDialog(){
+        DialogUtil.showVersionUpdateDialog(this, "", new DialogUtil.DoubleButtonListener() {
+            @Override
+            public void onLeftBtnClick() {
+
+            }
+
+            @Override
+            public void onRightBtnClick() {
+                  //TODO 下载逻辑
+            }
+        });
+    }
+
+    /**
+     * 显示强制版本升级提示框
+     */
+    public void showVersionUpdateFordeDialog(){
+        DialogUtil.showVersionUpdateForceDialog(this, "", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 17/4/13   下载逻辑
+                startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
+            }
+        });
+
+    }
+
 }

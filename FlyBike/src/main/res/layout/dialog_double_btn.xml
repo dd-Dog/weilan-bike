@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_dialog">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
+        android:text="@string/manual_unlock"
+        android:layout_marginTop="@dimen/dp_26"
+        android:layout_marginLeft="@dimen/dp_29"
+        android:layout_marginRight="@dimen/dp_29"
+        android:lineSpacingExtra="2dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_info1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
+        android:text="@string/unlock_psd"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+
+    <TextView
+        android:id="@+id/tv_info2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:gravity="center"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/text_gray2"
+        android:text="@string/order_hint"
+        android:layout_marginTop="@dimen/dp_14"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d3d7d4"
+        android:layout_marginTop="@dimen/dp_29"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:background="@drawable/selector_left_button"
+            android:textColor="@color/green_7b"
+            android:textSize="@dimen/sp_16"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#d3d7d4"
+            />
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="@string/continue_use"
+            android:background="@drawable/selector_right_button"
+            android:textColor="@color/green_7b"
+            android:textSize="@dimen/sp_16"
+            />
+
+    </LinearLayout>
+</LinearLayout>

@@ -328,6 +328,7 @@
     <string name="order_hint">订单将在%1$s秒后自动取消</string>
     <string name="cancel_order">取消订单</string>
     <string name="continue_use">确定</string>
+    <string name="downlod_now">立即下载</string>
 
     <array name="user_guide_parent">
         <item>注册与账户</item>

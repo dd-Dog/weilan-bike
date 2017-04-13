@@ -207,6 +207,7 @@
         <activity android:name="com.wlcxbj.bike.activity.OtherProblemsActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.ChargeRuleActivity"/>
         <activity android:name="com.wlcxbj.bike.activity.FundBackActivity"/>
+        <activity android:name=".activity.ScanUnlockingActivity" />
 
 
         <!--微信分享回调 -->
