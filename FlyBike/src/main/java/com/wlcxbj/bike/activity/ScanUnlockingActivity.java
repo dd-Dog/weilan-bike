@@ -34,7 +34,7 @@ public class ScanUnlockingActivity extends BaseActivity{
 
     public void initView(){
         WebView webView = new WebView(this);
-        webView.loadUrl("file:///android_asset/unlock.gif");
+        webView.loadUrl("file:///android_asset/version.gif");
         webviewContainer_ll.addView(webView);
 
     }

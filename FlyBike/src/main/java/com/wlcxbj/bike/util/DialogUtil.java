@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -121,7 +122,7 @@ public class DialogUtil {
         final WebView webView = new WebView(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         webView.setLayoutParams(params);
-        webView.loadUrl("file:///android_asset/version_update.gif");
+        webView.loadUrl("file:///android_asset/version.gif");
         webViewContainer_ll.addView(webView);
         TextView updateInfo_tv = (TextView) dialog.findViewById(R.id.tv_updateInfo);
         Button cancleDownload_btn = (Button) dialog.findViewById(R.id.btn_cancelDownload);
@@ -197,10 +198,57 @@ public class DialogUtil {
 
     }
 
+    /**
+     *  显示修改邀请码输入框
+     * @param context
+     * @param listener
+     */
+    public static void showModifyInvitecodeDialog(final Context context, final ModifyInviteCodeButtonListener listener){
+        final Dialog  dialog = new Dialog(context, R.style.CustomDialogStyle);
+        dialog.setContentView(R.layout.dialog_modify_invitecode);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        Window dialogWindow = dialog.getWindow();
+        WindowManager.LayoutParams p =  dialogWindow.getAttributes();
+        p.width = CommonUtil.getScreenWidth(context) - 2 * DpPxUtil.dip2px(context,30);
+
+        final EditText newCode_et = (EditText) dialog.findViewById(R.id.et_newInviteCode);
+        Button left_btn = (Button) dialog.findViewById(R.id.btn_left_modifyInviteCode);
+        Button right_btn = (Button) dialog.findViewById(R.id.btn_right_modifyInviteCode);
+
+
+
+        if(listener != null){
+            left_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            right_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String newCode = newCode_et.getText().toString().trim();
+                    if(TextUtils.isEmpty(newCode)){
+                        ToastUtil.show(context,"邀请码不能为空");
+                        return;
+                    }
+                    listener.onRightBtnClick(newCode);
+                    dialog.dismiss();
+                }
+            });
+        }
+        dialog.show();
+    }
 
 
    public interface DoubleButtonListener{
         void onLeftBtnClick();
         void onRightBtnClick();
     }
+
+    public interface ModifyInviteCodeButtonListener{
+        void onRightBtnClick(String newCode);
+    }
+
 }

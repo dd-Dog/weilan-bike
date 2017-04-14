@@ -99,7 +99,7 @@
         android:supportsRtl="true">
 
         <!-- 开发模式，debug:调试（开发）模式，test:测试模式，release:生产模式-->
-        <meta-data android:value="release" android:name="DEV_MODEL"/>
+        <meta-data android:value="test" android:name="DEV_MODEL"/>
 
         <meta-data android:name="com.alibaba.app.appkey" android:value="23699117"/> <!-- 阿里推送，请填写你自己的- appKey -->
         <meta-data android:name="com.alibaba.app.appsecret" android:value="07dd447a5d06e4f0408fc360c4019082"/> <!-- 阿里推送，请填写你自己的appSecret -->

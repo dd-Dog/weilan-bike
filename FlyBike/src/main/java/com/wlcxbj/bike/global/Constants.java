@@ -67,6 +67,7 @@ public class Constants {
     public static final String DELETE_COMMON_ADDRESS = API_SERVER + "/user/delete/freq/addr";
     public static final String REFUND_YJ_BACK = API_SERVER + "/pay/refund/yj";
     public static final String BIKE_PSW2 = API_SERVER + "/biz/unlock/query";
+    public static final String POST_DEVICEID_TO_SERVEER = API_SERVER + "/user/combine/deviceid";
 
     /**
      * 问题报告类型

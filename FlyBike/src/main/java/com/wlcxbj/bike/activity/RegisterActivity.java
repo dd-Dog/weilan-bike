@@ -36,6 +36,7 @@ import com.wlcxbj.bike.global.ShareBikeApplication;
 import com.wlcxbj.bike.net.OkhttpHelper;
 import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
+import com.wlcxbj.bike.net.beanutil.HttpPhoneBeanUtil;
 import com.wlcxbj.bike.util.cache.CacheUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.util.ToastUtil;
@@ -71,6 +72,9 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     private AuthNativeToken authNativeToken;
     private HttpAccountBeanUtil httpUserBeanUtil;
     private boolean getSmsCodeSuccess = false;
+    //提交设备Id到server
+    private HttpPhoneBeanUtil httpPhoneBeanUtil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,6 +284,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
                 cacheAuthToken(authToken);
                 getUserInfo();
                 initCloudPush();
+                submitDeviceId2Server();
 
             }
 
@@ -462,5 +467,25 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    /**
+     *  提交设备Id到服务器
+     */
+    public void submitDeviceId2Server(){
+        httpPhoneBeanUtil = new HttpPhoneBeanUtil(this);
+        if(mAuthNativeToken != null && mAuthNativeToken.getAuthToken() != null){
+            httpPhoneBeanUtil.submitDeviceId2Server(mAuthNativeToken.getAuthToken().getAccess_token(), new HttpCallbackHandler() {
+                @Override
+                public void onSuccess(Object o) {
+                    LogUtil.d(TAG,"上传pushDeviceId成功");
+                }
+
+                @Override
+                public void onFailure(Exception error, String msg) {
+                    LogUtil.d(TAG,"上传pushDeviceId失败");
+                }
+            });
+        }
     }
 }

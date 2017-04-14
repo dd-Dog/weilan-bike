@@ -118,6 +118,7 @@ import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpBikeBeanUtil;
 import com.wlcxbj.bike.global.ShareBikeApplication;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
+import com.wlcxbj.bike.net.beanutil.HttpPhoneBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpTripBeanUtil;
 import com.wlcxbj.bike.receiver.AliMessageCallbackHandlerAdapter;
 import com.wlcxbj.bike.util.DialogUtil;
@@ -637,9 +638,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
 
     public String getPswStr() {
-        if (!Constants.ON_LINE_MODE) {
+        if (!Constants.ON_LINE_MODE && decoceArr == null) {
             return "0x44";
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < decoceArr.length; i++) {
             sb.append(decoceArr[i]);
@@ -902,7 +904,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                             case Command.CMD_ID_UNLOCK:
                                 Toast.makeText(getApplicationContext(), "开锁成功", Toast
                                         .LENGTH_SHORT).show();
-                                startTrip();
+//                                startTrip();
                                 unlockSuccess = true;
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -2257,7 +2259,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
             }
         });
-
     }
 
 }

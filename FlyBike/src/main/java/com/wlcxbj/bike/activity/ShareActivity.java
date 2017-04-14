@@ -38,6 +38,7 @@ import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.other.InviteCodeToken;
 import com.wlcxbj.bike.net.beanutil.HttpAccountOtherBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpCallbackHandler;
+import com.wlcxbj.bike.util.DialogUtil;
 import com.wlcxbj.bike.util.LogUtil;
 import com.wlcxbj.bike.view.CustomDialog;
 
@@ -210,31 +211,12 @@ public class ShareActivity extends BaseActivity {
     }
 
     private void showModifyDialog() {
-        dialog = new Dialog(this);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_modify_invitecode);
-        final EditText newInviteCode_et = (EditText) dialog.findViewById(R.id.et_newInviteCode);
-        dialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+        DialogUtil.showModifyInvitecodeDialog(this, new DialogUtil.ModifyInviteCodeButtonListener() {
             @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+            public void onRightBtnClick(String newCode) {
+                modifyInviteCode(newCode);
             }
         });
-        dialog.findViewById(R.id.btn_confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "点击了确定，修改邀请码");
-                dialog.dismiss();
-                if(TextUtils.isEmpty(newInviteCode_et.getText().toString())){
-                    ToastUtil.show(ShareActivity.this,"新的邀请码不能为空");
-                }else{
-                    modifyInviteCode(newInviteCode_et.getText().toString());
-                    dialog.dismiss();
-                }
-            }
-        });
-        dialog.show();
     }
 
     @Override
