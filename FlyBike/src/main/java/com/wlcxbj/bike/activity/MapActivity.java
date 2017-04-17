@@ -238,6 +238,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private LockManager mLockManager;
     private RelativeLayout mBottomLayout, mHeadLayout;
     private TextView mRotueTimeDes, mRouteDetailDes;
+    private boolean isRiding = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -451,14 +452,20 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                             EndTripToken.class);
                     if (tempToken.getPushMsgSpid() != null) {
                         if (tempToken.getPushMsgSpid().equals("1")) {
-                            startTrip();
+                            if(!isRiding){
+                                startTrip();
+                            }
                             LogUtil.d(TAG, " 收到开锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                         } else if (tempToken.getPushMsgSpid().equals("2")) {
                             endTrip(cPushMessage.getContent());
+                            unlockSuccess = false;
+                            isRiding = false;
                             LogUtil.d(TAG, " 收到关锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                         }
                     } else {
                         endTrip(cPushMessage.getContent());
+                        unlockSuccess = false;
+                        isRiding = false;
                         LogUtil.d(TAG, " 收到关锁推送" + cPushMessage.getContent()+"当前时间："+sdf.format(new Date(System.currentTimeMillis())));
                     }
                 }
@@ -904,7 +911,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                             case Command.CMD_ID_UNLOCK:
                                 Toast.makeText(getApplicationContext(), "开锁成功", Toast
                                         .LENGTH_SHORT).show();
-//                                startTrip();
+                                startTrip();
                                 unlockSuccess = true;
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -2086,6 +2093,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         });
         startCountingTime();
         startCountingRideDistance();
+        isRiding = true;
     }
 
     /**
