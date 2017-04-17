@@ -115,6 +115,7 @@ import com.wlcxbj.bike.ble.encrypt.AES;
 import com.wlcxbj.bike.ble.lock.LockCallbackHandler;
 import com.wlcxbj.bike.ble.lock.LockManager;
 import com.wlcxbj.bike.ble.packet.cmd.Command;
+import com.wlcxbj.bike.event.FinishUnlockingActivityEvent;
 import com.wlcxbj.bike.global.Error;
 import com.wlcxbj.bike.net.beanutil.HttpAccountBeanUtil;
 import com.wlcxbj.bike.net.beanutil.HttpBikeBeanUtil;
@@ -143,6 +144,8 @@ import com.wlcxbj.bike.util.map.MarkerUtil;
 import com.wlcxbj.bike.util.map.SensorEventHelper;
 import com.wlcxbj.bike.util.properties.PropertiesUtil;
 import com.wlcxbj.bike.util.version.VersionUpdateManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class MapActivity extends BaseActivity implements View.OnClickListener, LocationSource {
@@ -598,16 +601,16 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     mapActivity.end = 0;
                     break;
                 case MSG_UNLOCK_BLUETOOTH:
-                    mapActivity.pbUnlock.setProgress(mapActivity.pbUnlock.getProgress() +
-                            LENGTH_BT_PB);
-                    sendEmptyMessageDelayed(MSG_UNLOCK_BLUETOOTH, DELAY_BT_PB);
-                    if (mapActivity.pbUnlock.getProgress() == MAX_BLUETOOTH_PB) {
-                        mapActivity.dismissBTUnlockDialog();
-                        if (!mapActivity.connectToBle) {
-                            mapActivity.showManualUnlockHintDialog(mapActivity.getPswStr());
-                        }
-                    }
-                    break;
+//                    mapActivity.pbUnlock.setProgress(mapActivity.pbUnlock.getProgress() +
+//                            LENGTH_BT_PB);
+//                    sendEmptyMessageDelayed(MSG_UNLOCK_BLUETOOTH, DELAY_BT_PB);
+//                    if (mapActivity.pbUnlock.getProgress() == MAX_BLUETOOTH_PB) {
+//                        mapActivity.dismissBTUnlockDialog();
+//                        if (!mapActivity.connectToBle) {
+//                            mapActivity.showManualUnlockHintDialog(mapActivity.getPswStr());
+//                        }
+//                    }
+//                    break;
                 case MSG_UNLOCK_BLE:
 //                    sendCount = 0;
 //                    mapActivity.sendCmd(sendCount);
@@ -920,7 +923,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        dismissBTUnlockDialog();
+//                                        dismissBTUnlockDialog();
+                                        EventBus.getDefault().post(new FinishUnlockingActivityEvent());
                                     }
                                 });
                                 break;
@@ -950,7 +954,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        dismissBTUnlockDialog();
+//                                        dismissBTUnlockDialog();
+                                        EventBus.getDefault().post(new FinishUnlockingActivityEvent());
                                         showManualUnlockHintDialog(getPswStr());
                                     }
                                 });
@@ -1163,7 +1168,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                         scanResultToken = new ScanResultToken(scanResult);
                         getBikePassword(scanResultToken.bikeno);
                     }
-                    showBTUnlockDialog();
+//                    showBTUnlockDialog();
+//                    startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
+
                 }
                 break;
             case REQUEST_SEARCH_KEYWORD:
@@ -1214,7 +1221,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
 
                         @Override
                         public void onFailure(Exception error, String msg) {
-                            dismissBTUnlockDialog();
+//                            dismissBTUnlockDialog();
                             ToastUtil.showUIThread(MapActivity.this, msg);
                         }
                     });
@@ -1237,6 +1244,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 @Override
                 public void run() {
 //                    showBTUnlockDialog();
+//                    startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
+                    jump2ScanUnlockingActivity();
 //                    Log.e(TAG, "获取密码成功，使用BLE开锁");
                 }
             });
@@ -1249,6 +1258,16 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             });
         }
     }
+
+    /**
+     *  跳转到蓝牙解锁进度页面
+     */
+    public void  jump2ScanUnlockingActivity(){
+        Intent intent = new Intent(MapActivity.this,ScanUnlockingActivity.class);
+//        intent.putExtra("bikeId",scanResultToken.bikeno);
+        startActivity(intent);
+    }
+
 
     /**
      * update views through account data
