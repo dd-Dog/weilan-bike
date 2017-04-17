@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -92,6 +93,7 @@ import java.util.Map;
 
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.ScanResultToken;
+import com.wlcxbj.bike.bean.VersionBean;
 import com.wlcxbj.bike.bean.account.AccountToken;
 import com.wlcxbj.bike.bean.account.AuthNativeToken;
 import com.wlcxbj.bike.bean.account.BasicInfo;
@@ -140,6 +142,7 @@ import com.wlcxbj.bike.util.image.ImageHelper;
 import com.wlcxbj.bike.util.map.MarkerUtil;
 import com.wlcxbj.bike.util.map.SensorEventHelper;
 import com.wlcxbj.bike.util.properties.PropertiesUtil;
+import com.wlcxbj.bike.util.version.VersionUpdateManager;
 
 
 public class MapActivity extends BaseActivity implements View.OnClickListener, LocationSource {
@@ -252,6 +255,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         //请求网络数据
         initMap(savedInstanceState);
         registerAliMessageReceiver();
+//        checkVersion();
     }
 
     /**
@@ -2240,10 +2244,47 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     }
 
     /**
+     * 版本检测
+     */
+    public void checkVersion(){
+        if(mAuthNativeToken == null || mAuthNativeToken.getAuthToken() == null){
+            return;
+        }
+        VersionUpdateManager manager = new VersionUpdateManager(this);
+        manager.checkVersion(mAuthNativeToken.getAuthToken().getAccess_token(), new HttpCallbackHandler<VersionBean>() {
+            @Override
+            public void onSuccess(final VersionBean versionBean) {
+                if(versionBean == null){
+                    return;
+                }
+                if(versionBean.getLatest().equals("yes")){ //当前是最新版，必须要更新
+                    return;
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(versionBean.getForce().equals("yes")){ //强制更新,更新url暂时写死
+                            showVersionUpdateFordeDialog(versionBean.getAppDesc(),"http://www.wlcxbj.com/app.html");
+                        }else{ // 非强制更新
+                            showVersionUpdateDialog(versionBean.getAppDesc(),"http://www.wlcxbj.com/app.html");
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception error, String msg) {
+                  LogUtil.d(TAG,"版本检测失败");
+            }
+        });
+    }
+
+
+    /**
      * 显示正常版本升级提示框
      */
-    public void showVersionUpdateDialog(){
-        DialogUtil.showVersionUpdateDialog(this, "", new DialogUtil.DoubleButtonListener() {
+    public void showVersionUpdateDialog(String updateDesc,final String newApkUrl){
+        DialogUtil.showVersionUpdateDialog(this, updateDesc, new DialogUtil.DoubleButtonListener() {
             @Override
             public void onLeftBtnClick() {
 
@@ -2252,6 +2293,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             @Override
             public void onRightBtnClick() {
                   //TODO 下载逻辑
+                startActivity(new Intent("android.intent.action.VIEW", Uri.parse(newApkUrl)));
             }
         });
     }
@@ -2259,12 +2301,13 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     /**
      * 显示强制版本升级提示框
      */
-    public void showVersionUpdateFordeDialog(){
-        DialogUtil.showVersionUpdateForceDialog(this, "", new View.OnClickListener() {
+    public void showVersionUpdateFordeDialog(String updateDesc,final String newApkUrl){
+        DialogUtil.showVersionUpdateForceDialog(this, updateDesc, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 17/4/13   下载逻辑
-                startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
+//                startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
+                startActivity(new Intent("android.intent.action.VIEW", Uri.parse(newApkUrl)));
             }
         });
     }
