@@ -258,7 +258,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         //请求网络数据
         initMap(savedInstanceState);
         registerAliMessageReceiver();
-//        checkVersion();
+        checkVersion();
     }
 
     /**
@@ -2276,6 +2276,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                 if(versionBean == null){
                     return;
                 }
+                LogUtil.d(TAG,"版本更新"+versionBean.toString());
                 if(versionBean.getLatest().equals("yes")){ //当前是最新版，必须要更新
                     return;
                 }
@@ -2330,5 +2331,4 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             }
         });
     }
-
 }

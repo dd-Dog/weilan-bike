@@ -31,10 +31,11 @@ public class HttpPhoneBeanUtil {
         okhttpHelper = OkhttpHelper.getInstance();
     }
 
-    public void submitDeviceId2Server(String accessToken,final HttpCallbackHandler httpCallbackHandler){
+    public void submitDeviceId2Server(String accessToken,String pushId,final HttpCallbackHandler httpCallbackHandler){
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("pushId", ShareBikeApplication.pushDevicedId);
+            jsonBody.put("pushId",pushId);
+            LogUtil.d(TAG,"推送id"+pushId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -33,7 +33,6 @@ public class ShareBikeApplication extends Application {
     private CloudPushService pushService;
     public static String ip;
     public static String port;
-    public static String pushDevicedId;
 
     public ShareBikeApplication() {
     }
@@ -178,11 +177,6 @@ public class ShareBikeApplication extends Application {
                 LogUtil.e(TAG, "绑定帐户失败：" + s + ", " + s1);
             }
         });
-
-        String deviceId = pushService.getDeviceId();
-        pushDevicedId = pushService.getDeviceId();
-        LogUtil.e(TAG, "deviceId=" + deviceId);
-        LogUtil.e(TAG, "deviceId  2 =" + Constants.getDeviceId(this));
     }
 
     public CloudPushService getPushService() {

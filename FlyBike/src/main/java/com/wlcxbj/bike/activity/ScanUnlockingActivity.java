@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.event.FinishUnlockingActivityEvent;
 
@@ -28,12 +29,12 @@ import butterknife.ButterKnife;
 
 public class ScanUnlockingActivity extends BaseActivity{
 
-    @Bind(R.id.ll_webviewContainer)
-    LinearLayout webviewContainer_ll;
     @Bind(R.id.tv_bikeNum_unlocking)
     TextView bikeNum_tv;
     @Bind(R.id.pb_unlocking)
     ProgressBar unlocking_pb;
+    @Bind(R.id.gif1)
+    GifView gifView;
 
     private static final int MAX_BLUETOOTH_PB = 500;
     private static final long DELAY_BT_PB = 20;
@@ -80,9 +81,7 @@ public class ScanUnlockingActivity extends BaseActivity{
         if(!TextUtils.isEmpty(bikeId)){
             bikeNum_tv.setText("车辆ID: "+ bikeId);
         }
-        WebView webView = new WebView(this);
-        webView.loadUrl("file:///android_asset/version.gif");
-        webviewContainer_ll.addView(webView);
+        gifView.play();
     }
 
     public void initUnlockProgressBar(){
