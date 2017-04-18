@@ -36,7 +36,6 @@ public class ShareBikeApplication extends TinkerApplication {
     private CloudPushService pushService;
     public static String ip;
     public static String port;
-    public static String pushDevicedId;
 
     public ShareBikeApplication() {
         super(ShareConstants.TINKER_ENABLE_ALL, "com.wlcxbj.bike.global.BuglyApplicationLike",
@@ -183,11 +182,6 @@ public class ShareBikeApplication extends TinkerApplication {
                 LogUtil.e(TAG, "绑定帐户失败：" + s + ", " + s1);
             }
         });
-
-        String deviceId = pushService.getDeviceId();
-        pushDevicedId = pushService.getDeviceId();
-        LogUtil.e(TAG, "deviceId=" + deviceId);
-        LogUtil.e(TAG, "deviceId  2 =" + Constants.getDeviceId(this));
     }
 
     public CloudPushService getPushService() {

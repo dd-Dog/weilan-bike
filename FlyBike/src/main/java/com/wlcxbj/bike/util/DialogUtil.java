@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cunoraz.gifview.library.GifView;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.view.SwipeLayout;
 
@@ -118,15 +119,11 @@ public class DialogUtil {
         WindowManager.LayoutParams p =  dialogWindow.getAttributes();
         p.width = CommonUtil.getScreenWidth(context) - 2 * DpPxUtil.dip2px(context,30);
 
-        LinearLayout webViewContainer_ll = (LinearLayout) dialog.findViewById(R.id.ll_animContainer);
-        final WebView webView = new WebView(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        webView.setLayoutParams(params);
-        webView.loadUrl("file:///android_asset/version.gif");
-        webViewContainer_ll.addView(webView);
         TextView updateInfo_tv = (TextView) dialog.findViewById(R.id.tv_updateInfo);
         Button cancleDownload_btn = (Button) dialog.findViewById(R.id.btn_cancelDownload);
         Button downloadNow_btn = (Button) dialog.findViewById(R.id.btn_downloadNow);
+        GifView gifView = (GifView) dialog.findViewById(R.id.gif1);
+        gifView.play();
         if(!TextUtils.isEmpty(updateInfo)){
             updateInfo_tv.setText(updateInfo);
         }
@@ -136,10 +133,6 @@ public class DialogUtil {
                 public void onClick(View view) {
                     listener.onLeftBtnClick();
                     dialog.dismiss();
-                    if(webView != null){
-                        webView.removeAllViews();
-                        webView.destroy();
-                    }
                 }
             });
             downloadNow_btn.setOnClickListener(new View.OnClickListener() {
@@ -147,10 +140,6 @@ public class DialogUtil {
                 public void onClick(View view) {
                     listener.onRightBtnClick();
                     dialog.dismiss();
-                    if(webView != null){
-                        webView.removeAllViews();
-                        webView.destroy();
-                    }
                 }
             });
         }
@@ -169,14 +158,10 @@ public class DialogUtil {
         WindowManager.LayoutParams p =  dialogWindow.getAttributes();
         p.width = CommonUtil.getScreenWidth(context) - 2 * DpPxUtil.dip2px(context,30);
 
-        LinearLayout webViewContainer_ll = (LinearLayout) dialog.findViewById(R.id.ll_animContainer);
-        final WebView webView = new WebView(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        webView.setLayoutParams(params);
-        webView.loadUrl("file:///android_asset/version_update.gif");
-        webViewContainer_ll.addView(webView);
         TextView updateInfo_tv = (TextView) dialog.findViewById(R.id.tv_updateInfo);
         TextView downloadNow_tv = (TextView) dialog.findViewById(R.id.tv_downloadNow);
+        GifView gifView = (GifView) dialog.findViewById(R.id.gif1);
+        gifView.play();
         if(!TextUtils.isEmpty(updateInfo)){
             updateInfo_tv.setText(updateInfo);
         }
@@ -186,10 +171,6 @@ public class DialogUtil {
                 if(listener != null){
                     listener.onClick(view);
                     dialog.dismiss();
-                    if(webView != null){
-                        webView.removeAllViews();
-                        webView.destroy();
-                    }
                 }
             }
         });

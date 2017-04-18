@@ -3,6 +3,7 @@ package com.wlcxbj.bike.net.beanutil;
 import android.app.Activity;
 
 import com.google.gson.Gson;
+import com.wlcxbj.bike.bean.LoginInfo;
 import com.wlcxbj.bike.bean.VersionBean;
 import com.wlcxbj.bike.bean.trip.TripToken;
 import com.wlcxbj.bike.global.Constants;
@@ -38,8 +39,14 @@ public class HttpVersonUpdateUtil {
     public void checkVersion(String accessToken, final HttpCallbackHandler<VersionBean> httpCallbackHandler){
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("version", Constants.getVersionName(activity));
+            String versonName = Constants.getVersionName(activity);
+            if(versonName.contains("V")){
+                versonName = versonName.substring(1);
+            }
+            jsonBody.put("version", versonName);
+            LogUtil.d(TAG,"versionName"+versonName);
             jsonBody.put("appType","2");
+            LogUtil.d(TAG,"版本更新上行数据"+jsonBody.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

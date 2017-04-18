@@ -74,6 +74,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     private boolean getSmsCodeSuccess = false;
     //提交设备Id到server
     private HttpPhoneBeanUtil httpPhoneBeanUtil;
+    private ShareBikeApplication application;
 
 
     @Override
@@ -83,6 +84,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
         getCheckNumber.setClickable(false);
         btnConfirm.setClickable(false);
         startfrom = getIntent().getStringExtra(RegisterActivity.WHERE_FROM);
+        application = (ShareBikeApplication) getApplication();
         initSpan();
         initListener();
         OkhttpHelper okhttpHelper = OkhttpHelper.getInstance();
@@ -119,6 +121,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
             }
         }
     }
+
     ;
 
     /**
@@ -251,7 +254,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
                 break;
             case R.id.btn_confirm:
                 Log.e(TAG, "提交验证码");
-                String mobile = mPhoneNum;
+                String mobile = etPhoneNumber.getText().toString();;
                 String psw = etCheckNumber.getText().toString();
                 if (isGetSmsCodeSuccess()) {
                     loginCheck(mobile, psw);
@@ -279,7 +282,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
         httpUserBeanUtil.getAuthToken(mobile, psw, new HttpCallbackHandler<AuthToken>() {
             @Override
             public void onSuccess(AuthToken authToken) {
-                LogUtil.e(TAG, "获取authToken＝" + authToken );
+                LogUtil.e(TAG, "获取authToken＝" + authToken);
                 //本地缓存
                 cacheAuthToken(authToken);
                 getUserInfo();
@@ -308,7 +311,6 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
      * 初始化阿里云推送
      */
     private void initCloudPush() {
-        ShareBikeApplication application = (ShareBikeApplication) getApplication();
         if (authNativeToken == null) return;
         application.getPushService().bindAccount(authNativeToken.getAuthToken().getUserId(), new
                 CommonCallback() {
@@ -372,7 +374,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
 
     private void getUserInfo() {
         LogUtil.e(TAG, "getUserInfo");
-
+        LogUtil.e(TAG, "getUserInfo"+authNativeToken.getAuthToken().getAccess_token());
         httpUserBeanUtil.getUserInfos(authNativeToken.getAuthToken().getAccess_token(), new
                 HttpCallbackHandler<AccountToken>() {
                     @Override
@@ -413,7 +415,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
             intent.putExtras(bundle);
             setResult(RESULT_OK, intent);
             finish();
-        }else {
+        } else {
             Intent intent = new Intent(RegisterActivity.this, MapActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(MapActivity.ACCOUNT_TOKEN, accountToken);
@@ -470,22 +472,22 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     }
 
     /**
-     *  提交设备Id到服务器
+     * 提交设备Id到服务器
      */
-    public void submitDeviceId2Server(){
+    public void submitDeviceId2Server() {
         httpPhoneBeanUtil = new HttpPhoneBeanUtil(this);
-        if(mAuthNativeToken != null && mAuthNativeToken.getAuthToken() != null){
-            httpPhoneBeanUtil.submitDeviceId2Server(mAuthNativeToken.getAuthToken().getAccess_token(), new HttpCallbackHandler() {
-                @Override
-                public void onSuccess(Object o) {
-                    LogUtil.d(TAG,"上传pushDeviceId成功");
-                }
+        LogUtil.d(TAG, "开始上传pushID");
+      if(authNativeToken == null) return;
+        httpPhoneBeanUtil.submitDeviceId2Server(authNativeToken.getAuthToken().getAccess_token(),application.getPushService().getDeviceId() ,new HttpCallbackHandler() {
+            @Override
+            public void onSuccess(Object o) {
+                LogUtil.d(TAG, "上传pushDeviceId成功");
+            }
 
-                @Override
-                public void onFailure(Exception error, String msg) {
-                    LogUtil.d(TAG,"上传pushDeviceId失败");
-                }
-            });
-        }
+            @Override
+            public void onFailure(Exception error, String msg) {
+                LogUtil.d(TAG, "上传pushDeviceId失败");
+            }
+        });
     }
 }

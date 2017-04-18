@@ -101,9 +101,7 @@
         android:theme="@style/AppTheme">
 
         <!-- 开发模式，debug:调试（开发）模式，test:测试模式，release:生产模式-->
-        <meta-data
-            android:name="DEV_MODEL"
-            android:value="test"/>
+        <meta-data android:value="release" android:name="DEV_MODEL"/>
 
         <meta-data
             android:name="com.alibaba.app.appkey"

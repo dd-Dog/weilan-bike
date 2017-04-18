@@ -131,6 +131,7 @@ public class RouteActivity extends BaseActivity {
         RequestRentHistoryListBean requestRentHistoryListBean = new RequestRentHistoryListBean();
         requestRentHistoryListBean.setPageNo(pageNo);
         requestRentHistoryListBean.setPageSize(pageSize);
+        LogUtil.d(TAG,"我的行程"+requestRentHistoryListBean.toString());
         httpHistoryBeanUtil.getRentHistory(mAuthNativeToken.getAuthToken().getAccess_token(),
                 requestRentHistoryListBean, new HttpCallbackHandler<RentHistoryListToken>() {
 
