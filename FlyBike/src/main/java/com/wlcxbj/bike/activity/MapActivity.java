@@ -91,6 +91,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.ScanResultToken;
 import com.wlcxbj.bike.bean.VersionBean;
@@ -250,6 +251,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        ToastUtil.showUIThread(this, "加载了补丁");
         initUtils();
         initView();
         initBle();

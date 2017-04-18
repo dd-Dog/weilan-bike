@@ -57,3 +57,7 @@
 -dontwarn butterknife.internal.**
 -dontwarn com.amap.api.**
 -dontwarn okio.**
+
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+ -keep class android.support.**{*;}

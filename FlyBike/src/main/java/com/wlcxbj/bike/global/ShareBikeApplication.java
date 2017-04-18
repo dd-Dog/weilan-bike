@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import cn.sharesdk.framework.ShareSDK;
+
+import com.tencent.tinker.loader.app.TinkerApplication;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.wlcxbj.bike.R;
 import com.wlcxbj.bike.bean.account.AuthNativeToken;
 import com.wlcxbj.bike.util.LogUtil;
@@ -27,7 +30,7 @@ import com.wlcxbj.bike.util.cache.CacheUtil;
 /**
  * Created by bain on 16-11-29.
  */
-public class ShareBikeApplication extends Application {
+public class ShareBikeApplication extends TinkerApplication {
     private static final String TAG = "ShareBikeApplication";
     private static ShareBikeApplication instance;
     private CloudPushService pushService;
@@ -36,6 +39,8 @@ public class ShareBikeApplication extends Application {
     public static String pushDevicedId;
 
     public ShareBikeApplication() {
+        super(ShareConstants.TINKER_ENABLE_ALL, "com.wlcxbj.bike.global.BuglyApplicationLike",
+                "com.tencent.tinker.loader.TinkerLoader", false);
     }
 
     public synchronized static ShareBikeApplication getInstance() {
