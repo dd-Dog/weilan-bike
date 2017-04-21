@@ -93,7 +93,8 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
     private void initData() {
         httpAccountOtherBeanUtil = new HttpAccountOtherBeanUtil(this);
-        if (mAuthNativeToken != null && mAuthNativeToken.getAuthToken() != null)
+        if (mAuthNativeToken != null && mAuthNativeToken.getAuthToken() != null) {
+
             httpAccountOtherBeanUtil.getCommonAddressList(mAuthNativeToken.getAuthToken()
                     .getAccess_token(), new HttpCallbackHandler<CommonAddressListToken>() {
                 @Override
@@ -106,7 +107,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
                         for (int i = 0; i < 2; i++) {
                             commonAddressBeanArrayList.add(new CommonAddressBean(-1, "", "",
                                     "常用地址" +
-                                    (i + 1)));
+                                            (i + 1)));
                         }
                         hasCommonAddress = false;
                     } else if (commonAddressBeanArrayList.size() == 1) {
@@ -128,6 +129,12 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
                 }
             });
+        }else {
+            commonAddressBeanArrayList = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                commonAddressBeanArrayList.add(new CommonAddressBean(-1, "", "", "常用地址" + i));
+            }
+        }
         localHistory = new ArrayList<>();
         searchData = new ArrayList<>();
         addresses = new ArrayList<>();
@@ -242,7 +249,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
             }
         });
 
-        addHeader();
+        addFooter();
         footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,11 +262,12 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
             }
         });
         if (localHistory == null || localHistory.size() == 0) {
-            footer.setVisibility(View.GONE);
+//            footer.setVisibility(View.INVISIBLE);
+            headerAndFootWrapper.removeFooter(0);
         }
     }
 
-    private void addHeader() {
+    private void addFooter() {
         footer = new TextView(this);
         footer.setGravity(Gravity.CENTER);
         footer.setText(getResources().getString(R.string.tip_172));
@@ -310,14 +318,18 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            ViewHolder viewHolder = null;
             if (viewType == TYPE_HISTORY) {
                 parent = getHistoryHolder();
-                return new HistoryViewHolder(parent);
+                viewHolder = new HistoryViewHolder(parent);
             } else if (viewType == TYPE_USUAL_ADDRESS) {
                 parent = getUsualAddressHolder();
-                return new UsualAddressHolder(parent);
+                viewHolder = new UsualAddressHolder(parent);
+            } else {
+                parent = getUsualAddressHolder();
+                viewHolder = new UsualAddressHolder(parent);
             }
-            return null;
+            return viewHolder;
         }
 
         @NonNull
@@ -352,6 +364,7 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 //                    historyHolder.tvBuilding.setGravity(Gravity.BOTTOM);
                 }
             } else if (holder instanceof UsualAddressHolder) {
+                if (showAddress == null) return;
                 UsualAddressHolder usualAddressHolder = (UsualAddressHolder) holder;
                 CommonAddressBean bean = showAddress.get(position);
                 final long addressID = bean.getId();
@@ -390,7 +403,6 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
                                 }
                             }
                         }
-
                     }
                 });
                 //点击编辑监听
@@ -443,8 +455,8 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
 
         @Override
         public int getItemCount() {
-            return (showData==null? 0:showData.size()) + (showAddress==null? 0:showAddress.size())
-                    ;
+            return (showData == null ? 0 : showData.size()) + (showAddress == null ? 0 :
+                    showAddress.size());
         }
 
         public void setOnItemClickListener(OnItemClickListener listener) {
@@ -742,9 +754,12 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
             showData = historyData;
 //            showAddress = hasCommonAddress ? commonAddressBeanArrayList : addresses;
             showAddress = commonAddressBeanArrayList;
+            LogUtil.e(TAG, "commonAddressBeanArrayList=" + commonAddressBeanArrayList);
             headerAndFootWrapper.notifyDataSetChanged();
             rvHistory.scrollToPosition(0);
-            footer.setVisibility(View.VISIBLE);
+//            footer.setVisibility(View.VISIBLE);
+            headerAndFootWrapper.removeFooter(0);
+
             Log.e(TAG, "etSearch为空");
         } else {
             etSearch.setCompoundDrawables(null, null, drawableRight, null);
@@ -753,7 +768,8 @@ public class SearchActivity extends BaseActivity implements View.OnTouchListener
             rvHistory.scrollToPosition(0);
             Log.e(TAG, "etSearch不为空");
             if (footer != null) {
-                footer.setVisibility(View.INVISIBLE);
+//                footer.setVisibility(View.INVISIBLE);
+                headerAndFootWrapper.removeFooter(0);
             }
             //添加提示
             String city = "北京";

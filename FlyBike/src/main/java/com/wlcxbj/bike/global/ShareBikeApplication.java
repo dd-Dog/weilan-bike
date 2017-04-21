@@ -66,7 +66,6 @@ public class ShareBikeApplication extends TinkerApplication {
         }
 
         ShareSDK.initSDK(this);
-
         initCloudChannel(this);
 
     }
