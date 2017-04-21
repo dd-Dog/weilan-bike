@@ -151,15 +151,15 @@ import org.greenrobot.eventbus.EventBus;
 
 public class MapActivity extends BaseActivity implements View.OnClickListener, LocationSource {
     private static final int REQUEST_SEARCH_KEYWORD = 19980;
-    public static final int LENGTH_BT_PB = 1;
+//    public static final int LENGTH_BT_PB = 1;
     private static final long RETURN_MYLOC_TIME = 800;
     private static final float VELOCITY_X = 5;
     private static final float VELOCITY_Y = 5;
     public static final int REQUEST_LOGIN = 2222;
-    private static final int MSG_UNLOCK_BLUETOOTH = 3333;
-    private static final int MAX_BLUETOOTH_PB = 500;
-    private static final long DELAY_BT_PB = 20;
-    private static final int MSG_UNLOCK_BLE = 12311;
+//    private static final int MSG_UNLOCK_BLUETOOTH = 3333;
+//    private static final int MAX_BLUETOOTH_PB = 500;
+//    private static final long DELAY_BT_PB = 20;
+//    private static final int MSG_UNLOCK_BLE = 12311;
     public static final String ACCOUNT_TOKEN = "account_token";
     public static final String AUTH_NATIVE_TOKEN = "auth_token";
     public static final String USER_ICON_BEAN = "user_icon_bean";
@@ -201,9 +201,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private TextView tvIdentityState;
     private ImageView ivIdentityPic;
     private TextView creditPoints;
-    private Dialog btProgress;
-    private ProgressBar pbUnlock;
-    private static int msg_unlock_ble = 3;
+//    private static int msg_unlock_ble = 3;
     private AccountToken mAccountToken;
     private AuthNativeToken mAuthNativeToken;
     private ScanResultToken scanResultToken;
@@ -238,12 +236,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     private CloudSearch mCloudSearch;
     private CloudSearch.Query mQuery;
     private String mTableID;
-    private boolean connectToBle;
-    private TextView tvBikeId;
     private AliMessageReceiver aliMessageReceiver;
     private SensorEventHelper mSensorHelper;
     private LockManager mLockManager;
-    private RelativeLayout mBottomLayout, mHeadLayout;
+    private RelativeLayout mBottomLayout;
     private TextView mRotueTimeDes, mRouteDetailDes;
     private boolean isRiding = false;
 
@@ -251,7 +247,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        ToastUtil.showUIThread(this, "加载了补丁");
         initUtils();
         initView();
         initBle();
@@ -602,24 +597,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     mapActivity.start = 0;
                     mapActivity.end = 0;
                     break;
-                case MSG_UNLOCK_BLUETOOTH:
-//                    mapActivity.pbUnlock.setProgress(mapActivity.pbUnlock.getProgress() +
-//                            LENGTH_BT_PB);
-//                    sendEmptyMessageDelayed(MSG_UNLOCK_BLUETOOTH, DELAY_BT_PB);
-//                    if (mapActivity.pbUnlock.getProgress() == MAX_BLUETOOTH_PB) {
-//                        mapActivity.dismissBTUnlockDialog();
-//                        if (!mapActivity.connectToBle) {
-//                            mapActivity.showManualUnlockHintDialog(mapActivity.getPswStr());
-//                        }
-//                    }
-//                    break;
-                case MSG_UNLOCK_BLE:
-//                    sendCount = 0;
-//                    mapActivity.sendCmd(sendCount);
-//                    msg_unlock_ble--;
-//                    if (msg_unlock_ble > 0)
-//                        sendEmptyMessageDelayed(MSG_UNLOCK_BLE, 1000);
-                    break;
                 case REFRESH_BIKES:
                     //刷新自行车
                     if (mapActivity.mLocationClient != null) {
@@ -701,7 +678,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
                     public void onFailure(Exception error, String msg) {
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                btProgress.dismiss();
                                 if (unlockSuccess) {
                                     showInUserWindow();
                                 } else {
@@ -1245,8 +1221,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-//                    showBTUnlockDialog();
-//                    startActivity(new Intent(MapActivity.this,ScanUnlockingActivity.class));
                     jump2ScanUnlockingActivity();
 //                    Log.e(TAG, "获取密码成功，使用BLE开锁");
                 }
@@ -1266,7 +1240,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
      */
     public void  jump2ScanUnlockingActivity(){
         Intent intent = new Intent(MapActivity.this,ScanUnlockingActivity.class);
-//        intent.putExtra("bikeId",scanResultToken.bikeno);
+        intent.putExtra("bikeId",scanResultToken.bikeno);
         startActivity(intent);
     }
 
@@ -1496,11 +1470,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
         switch (v.getId()) {
             case R.id.service:
                 showServiceDialog();
-//                connectScannedDeviceDirectly("E8:EB:11:09:61:38");
-//                showBTUnlockDialog();
-//                startActivity(new Intent(this, CreditPointsActivity.class));
                 break;
-
             case R.id.scanBar:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager
@@ -1760,39 +1730,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener, L
             LogUtil.e(TAG, "mLocationClient==null");
         }
     }
-
-
-    /**
-     * 使用蓝牙开锁的进度框
-     */
-    private void showBTUnlockDialog() {
-        if (btProgress != null && btProgress.isShowing()) {
-            return;
-        }
-        btProgress = new Dialog(this);
-        btProgress.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        btProgress.setContentView(R.layout.dialog_bluetooth_unlock);
-        TextView tvBikeId = (TextView) btProgress.findViewById(R.id.tv_bikeID);
-        tvBikeId.setText(scanResultToken.bikeno);
-        pbUnlock = (ProgressBar) btProgress.findViewById(R.id.pb_bluetooth_unlock);
-        pbUnlock.setMax(MAX_BLUETOOTH_PB);
-        pbUnlock.setProgress(0);
-        btProgress.setCancelable(false);
-        //设置参数，宽度充满屏幕
-        Window window = btProgress.getWindow();
-        WindowManager.LayoutParams attributes = window.getAttributes();
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(attributes);
-        btProgress.show();
-        handler.sendEmptyMessageDelayed(MSG_UNLOCK_BLUETOOTH, DELAY_BT_PB);
-    }
-
-    private void dismissBTUnlockDialog() {
-        if (btProgress == null) return;
-        btProgress.dismiss();
-        handler.removeMessages(MSG_UNLOCK_BLUETOOTH);
-    }
-
 
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {

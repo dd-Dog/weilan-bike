@@ -11,9 +11,9 @@
         android:id="@+id/gif1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         custom:gif="@drawable/version_update"
         />
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
